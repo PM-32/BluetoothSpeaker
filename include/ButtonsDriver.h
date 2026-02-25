@@ -27,6 +27,13 @@ typedef enum
     BUTTONS_QUANTITY                //!< Общее количество кнопок
 } Buttons;
 
+//! \brief Статус работы таймера для отсчета таймаута следующего нажатия на кнопку
+typedef enum
+{
+    TIMER_WAIT_NEXT_BUTTON_PRESS_OFF = 0,
+    TIMER_WAIT_NEXT_BUTTON_PRESS_ON
+} TimerWaitNextButtonPressStatus;
+
 //! \brief Фильтр антидребезга кнопок
 void ButtonsDriver_AntibounceFilter(void);
 
