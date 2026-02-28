@@ -4,8 +4,10 @@
 #include "ButtonsDriver.h"
 #include "UserTimer.h"
 
-#define DEBUG_INFO_BUTTONS_STATE    // Вывод информации о состоянии кнопок
-                                    // на терминал при необходимости
+#define DEBUG_INFO_BUTTON_SOUND_CONTROL_STATE       // Вывод информации о состоянии кнопки 
+                                                    // управления звука на терминал при необходимости
+// #define DEBUG_INFO_BUTTON_INIT_BLUETOOTH_STATE      // Вывод информации о состоянии кнопки
+//                                                     // инициализации Bluetooth на терминал при необходимости
 
 I2SStream i2s;
 BluetoothA2DPSink a2dp_sink;
@@ -109,16 +111,24 @@ void setup()
 //! \brief Основной цикл программы
 void loop()
 {
-    // Вывод информации о состоянии кнопок
-    // на терминал при необходимости
-    #ifdef DEBUG_INFO_BUTTONS_STATE
+    // Получение адреса массива с количеством устойчивых нажатий на кнопки
+    uint8_t *pButtonsPressCount = ButtonsDriver_GetButtonsPressCountPointer();
 
-        // Получение адреса массива с количеством устойчивых нажатий на кнопки
-        uint8_t *pButtonsPressCount = ButtonsDriver_GetButtonsPressCountPointer();
+    // Вывод информации о состоянии кнопки 
+    // управления звука на терминал при необходимости
+    #ifdef DEBUG_INFO_BUTTON_SOUND_CONTROL_STATE
 
         Serial.printf("Количество нажатий на кнопку управления звуком: %d\n", pButtonsPressCount[BUTTON_SOUND_CONTROL]);
 
-    #endif // DEBUG_INFO_BUTTONS_STATE
+    #endif // DEBUG_INFO_BUTTON_SOUND_CONTROL_STATE
+
+    // Вывод информации о состоянии кнопки
+    // инициализации Bluetooth на терминал при необходимости
+    #ifdef DEBUG_INFO_BUTTON_INIT_BLUETOOTH_STATE
+
+        Serial.printf("Количество нажатий на кнопку инициализации Bluetooth: %d\n", pButtonsPressCount[BUTTON_INIT_BLUETOOTH]);
+
+    #endif // DEBUG_INFO_BUTTON_INIT_BLUETOOTH_STATE
 
     delay(100);
 }

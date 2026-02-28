@@ -28,14 +28,7 @@ typedef enum
     NEW_PRESS_NOT_DETECTED = 0,         //!< Новое нажатие не зафиксировано
     NEW_PRESS_DETECTED                  //!< Новое нажатие зафиксировано
 } NewPressDetectedStatus;
-
-static SeveralPressFilterStage severalPressFilterStage = START_SEVERAL_PRESS_FILTER;            //!< Текущая стадия работы фильтра антидребезга
-                                                                                                //!< кнопки для определения многократных нажатий
-static NewPressDetectedStatus newPressDetectedStatus = NEW_PRESS_NOT_DETECTED;                  //!< Статус определения нового нажатия на кнопку
-
-static uint32_t buttonsMasksArray[BUTTONS_QUANTITY] = { BUTTON_SOUND_CONTROL_BIT_MASK, \
-                                                        BUTTON_INIT_BLUETOOTH_PIN_BIT_MASK };   //!< Массив битовых масок кнопок                 
-
+          
 static uint8_t buttonsPressCount[BUTTONS_QUANTITY];    //!< Массив с количеством устойчивых нажатий на кнопки
 
 // Пояснение. Устройство пинов в ESP32.
@@ -47,119 +40,133 @@ static uint8_t buttonsPressCount[BUTTONS_QUANTITY];    //!< Массив с ко
 //! \brief Фильтр антидребезга кнопок
 void ButtonsDriver_AntibounceFilter(void)
 {
+    // Текущая стадия работы фильтра антидребезга
+    // кнопки для определения многократных нажатий
+    static SeveralPressFilterStage severalPressFilterStage[BUTTONS_QUANTITY];
+
+    // Статус определения нового нажатия на кнопку
+    static NewPressDetectedStatus newPressDetectedStatus[BUTTONS_QUANTITY];
+
+    // Массив битовых масок кнопок
+    static uint32_t buttonsMasksArray[BUTTONS_QUANTITY] = { BUTTON_SOUND_CONTROL_BIT_MASK, \
+                                                            BUTTON_INIT_BLUETOOTH_PIN_BIT_MASK };
+
     // Время, когда был запущен таймер для отсчета
     // таймаута следующего нажатия на кнопку
-    static uint32_t waitingForNextPressStartTime = 0;
+    static uint32_t waitingForNextPressStartTime[BUTTONS_QUANTITY];
+
+    // Счетчик времени, когда кнопка была нажата
+    static uint16_t counterButtonPressed[BUTTONS_QUANTITY];
+
+    // Счетчик времени, когда кнопка была не нажата
+    static uint16_t counterButtonNotPressed[BUTTONS_QUANTITY];
 
     // Количество зафиксированных устойчивых нажатий на кнопку в момент
     // запуска таймера для отсчета таймаута следующего нажатия на кнопку
-    static uint8_t waitingStartPress = 0;
+    static uint8_t waitingStartPress[BUTTONS_QUANTITY];
 
-    // Счетчик времени, когда кнопка была нажата
-    static uint16_t counterButtonPressed = 0;
-
-    // Счетчик времени, когда кнопка была не нажата
-    static uint16_t counterButtonNotPressed = 0;    
-
-    // Чтение текущего состояния кнопки
-    uint8_t currentButtonState = (uint8_t) (REG_READ(GPIO_IN1_REG) & buttonsMasksArray[BUTTON_SOUND_CONTROL]);
-
-    // Если запущен таймер ожидания следующего нажатия на кнопку
-    if (WAITING_FOR_NEXT_PRESS == severalPressFilterStage)
+    for (uint8_t buttonIndex = 0; buttonIndex < BUTTONS_QUANTITY; buttonIndex++)
     {
-        // Если достигнут таймаут ожидания следующего нажатия на кнопку
-        if (NEXT_BUTTON_PRESS_TIMEOUT <= UserTimer_GetCounterTime() - waitingForNextPressStartTime)
+        // Чтение текущего состояния кнопки
+        uint8_t currentButtonState = (uint8_t) (REG_READ(GPIO_IN1_REG) & buttonsMasksArray[buttonIndex]);
+
+        // Если запущен таймер ожидания следующего нажатия на кнопку
+        if (WAITING_FOR_NEXT_PRESS == severalPressFilterStage[buttonIndex])
         {
-            // Сброс времени, когда был запущен таймер
-            // для отсчета таймаута следующего нажатия на кнопку
-            waitingForNextPressStartTime = 0;
-
-            // Сброс стадии работы фильтра антидребезга
-            // кнопки для определения многократных нажатий
-            severalPressFilterStage = START_SEVERAL_PRESS_FILTER;
-        }
-    }
-
-    // Если кнопка нажата
-    if (LOW == currentButtonState)
-    {
-        // Увеличение счетчика времени,
-        // когда кнопка была нажата
-        counterButtonPressed++;
-
-        // Сброс счетчика времени,
-        // когда кнопка была не нажата
-        counterButtonNotPressed = 0;
-
-        // Если кнопка была нажата в течение
-        // времени работы фильтра антидребезга
-        if (ANTIBOUNCE_FILTER_IN_TICKS <= counterButtonPressed)
-        {
-            // Если запущен таймер ожидания следующего нажатия на кнопку
-            if (WAITING_FOR_NEXT_PRESS == severalPressFilterStage)
+            // Если достигнут таймаут ожидания следующего нажатия на кнопку
+            if (NEXT_BUTTON_PRESS_TIMEOUT <= UserTimer_GetCounterTime() - waitingForNextPressStartTime[buttonIndex])
             {
-                // Увеличение счетчика нажатий
-                buttonsPressCount[BUTTON_SOUND_CONTROL] = waitingStartPress + 1;
-
-                // Установка статуса - новое нажатие на кнопку зафиксировано
-                newPressDetectedStatus = NEW_PRESS_DETECTED;
-            }
-            else // Если не запущен таймер ожидания следующего нажатия на кнопку
-            {
-                // Если не было зафиксировано новое нажатие на кнопку
-                if (NEW_PRESS_DETECTED != newPressDetectedStatus)
-                {
-                    // Зафиксировано первое устойчивое нажатие на кнопку
-                    buttonsPressCount[BUTTON_SOUND_CONTROL] = 1;
-                }
-
-                // Если фильтр антидребезга кнопки для определения
-                // многократного нажатия находится в стадии сброса
-                if (START_SEVERAL_PRESS_FILTER == severalPressFilterStage)
-                {
-                    // Установка стадии - зафиксировано первое устойчивое нажатие на кнопку
-                    severalPressFilterStage = FIRST_PRESS_DETECTED;
-                }
-            }
-        }
-    }
-    else // Если кнопка не нажата
-    {
-        // Увеличение счетчика времени,
-        // когда кнопка была не нажата
-        counterButtonNotPressed++;
-
-        // Сброс счетчика времени,
-        // когда кнопка была нажата
-        counterButtonPressed = 0;
-
-        // Если кнопка была не нажата в течение
-        // времени работы фильтра антидребезга
-        if (ANTIBOUNCE_FILTER_IN_TICKS <= counterButtonNotPressed)
-        {
-            // Если зафиксировано первое устойчивое нажатие на
-            // кнопку или зафиксировано новое нажатие на кнопку
-            if ((FIRST_PRESS_DETECTED == severalPressFilterStage) || 
-                (NEW_PRESS_DETECTED == newPressDetectedStatus))
-            {
-                // Установка стадии - ожидание следующего нажатия на кнопку
-                // (запуск таймера для отсчета таймаута следующего нажатия на кнопку)
-                severalPressFilterStage = WAITING_FOR_NEXT_PRESS;
-
-                // Сохранение времени, когда был запущен таймер
+                // Сброс времени, когда был запущен таймер
                 // для отсчета таймаута следующего нажатия на кнопку
-                waitingForNextPressStartTime = UserTimer_GetCounterTime();
+                waitingForNextPressStartTime[buttonIndex] = 0;
 
-                // Сохранение количества нажатий на кнопку в момент запуска
-                // таймера для отсчета таймаута следующего нажатия на кнопку
-                waitingStartPress = buttonsPressCount[BUTTON_SOUND_CONTROL];
-
-                // Сброс статуса определения нового нажатия на кнопку
-                newPressDetectedStatus = NEW_PRESS_NOT_DETECTED;
+                // Сброс стадии работы фильтра антидребезга
+                // кнопки для определения многократных нажатий
+                severalPressFilterStage[buttonIndex] = START_SEVERAL_PRESS_FILTER;
             }
+        }
 
-            // Текущее количество нажатий на кнопку равно 0
-            buttonsPressCount[BUTTON_SOUND_CONTROL] = 0;
+        // Если кнопка нажата
+        if (LOW == currentButtonState)
+        {
+            // Увеличение счетчика времени,
+            // когда кнопка была нажата
+            counterButtonPressed[buttonIndex]++;
+
+            // Сброс счетчика времени,
+            // когда кнопка была не нажата
+            counterButtonNotPressed[buttonIndex] = 0;
+
+            // Если кнопка была нажата в течение
+            // времени работы фильтра антидребезга
+            if (ANTIBOUNCE_FILTER_IN_TICKS <= counterButtonPressed[buttonIndex])
+            {
+                // Если запущен таймер ожидания следующего нажатия на кнопку
+                if (WAITING_FOR_NEXT_PRESS == severalPressFilterStage[buttonIndex])
+                {
+                    // Увеличение счетчика нажатий
+                    buttonsPressCount[buttonIndex] = waitingStartPress[buttonIndex] + 1;
+
+                    // Установка статуса - новое нажатие на кнопку зафиксировано
+                    newPressDetectedStatus[buttonIndex] = NEW_PRESS_DETECTED;
+                }
+                else // Если не запущен таймер ожидания следующего нажатия на кнопку
+                {
+                    // Если не было зафиксировано новое нажатие на кнопку
+                    if (NEW_PRESS_DETECTED != newPressDetectedStatus[buttonIndex])
+                    {
+                        // Зафиксировано первое устойчивое нажатие на кнопку
+                        buttonsPressCount[buttonIndex] = 1;
+                    }
+
+                    // Если фильтр антидребезга кнопки для определения
+                    // многократного нажатия находится в стадии сброса
+                    if (START_SEVERAL_PRESS_FILTER == severalPressFilterStage[buttonIndex])
+                    {
+                        // Установка стадии - зафиксировано первое устойчивое нажатие на кнопку
+                        severalPressFilterStage[buttonIndex] = FIRST_PRESS_DETECTED;
+                    }
+                }
+            }
+        }
+        else // Если кнопка не нажата
+        {
+            // Увеличение счетчика времени,
+            // когда кнопка была не нажата
+            counterButtonNotPressed[buttonIndex]++;
+
+            // Сброс счетчика времени,
+            // когда кнопка была нажата
+            counterButtonPressed[buttonIndex] = 0;
+
+            // Если кнопка была не нажата в течение
+            // времени работы фильтра антидребезга
+            if (ANTIBOUNCE_FILTER_IN_TICKS <= counterButtonNotPressed[buttonIndex])
+            {
+                // Если зафиксировано первое устойчивое нажатие на
+                // кнопку или зафиксировано новое нажатие на кнопку
+                if ((FIRST_PRESS_DETECTED == severalPressFilterStage[buttonIndex]) || 
+                    (NEW_PRESS_DETECTED == newPressDetectedStatus[buttonIndex]))
+                {
+                    // Установка стадии - ожидание следующего нажатия на кнопку
+                    // (запуск таймера для отсчета таймаута следующего нажатия на кнопку)
+                    severalPressFilterStage[buttonIndex] = WAITING_FOR_NEXT_PRESS;
+
+                    // Сохранение времени, когда был запущен таймер
+                    // для отсчета таймаута следующего нажатия на кнопку
+                    waitingForNextPressStartTime[buttonIndex] = UserTimer_GetCounterTime();
+
+                    // Сохранение количества нажатий на кнопку в момент запуска
+                    // таймера для отсчета таймаута следующего нажатия на кнопку
+                    waitingStartPress[buttonIndex] = buttonsPressCount[buttonIndex];
+
+                    // Сброс статуса определения нового нажатия на кнопку
+                    newPressDetectedStatus[buttonIndex] = NEW_PRESS_NOT_DETECTED;
+                }
+
+                // Текущее количество нажатий на кнопку равно 0
+                buttonsPressCount[buttonIndex] = 0;
+            }
         }
     }
 }

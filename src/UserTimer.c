@@ -41,6 +41,7 @@ void UserTimer_IncrementCounter(void)
 
 //! \brief Получение текущего значения
 //!        счетчика времени работы программы
+//! \return Значение счетчика времени работы программы
 uint32_t UserTimer_GetCounterTime(void)
 {
     return counterTime;
