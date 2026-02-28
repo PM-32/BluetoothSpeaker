@@ -4,8 +4,8 @@
 #include "ButtonsDriver.h"
 #include "UserTimer.h"
 
-#define DEBUG_INFO_BUTTON_SOUND_CONTROL_STATE   // Вывод информации о состоянии кнопки
-                                                // управления звуком на терминал при необходимости
+#define DEBUG_INFO_BUTTONS_STATE    // Вывод информации о состоянии кнопок
+                                    // на терминал при необходимости
 
 I2SStream i2s;
 BluetoothA2DPSink a2dp_sink;
@@ -78,6 +78,7 @@ LimiterStream limiter(i2s);
 //! \brief Функция для инициализации всего
 void setup()
 {
+    // Запуск UART для вывода отладочной информации
     Serial.begin(9600);
     
     // Настройка пина кнопки управления звуком
@@ -105,34 +106,19 @@ void setup()
     a2dp_sink.start("MyMusic");
 }
 
-//! \brief Основной бесконечный цикл программы
+//! \brief Основной цикл программы
 void loop()
 {
-    // Вывод информации о состоянии кнопки
-    // управления звуком на терминал при необходимости
-    #ifdef DEBUG_INFO_BUTTON_SOUND_CONTROL_STATE
+    // Вывод информации о состоянии кнопок
+    // на терминал при необходимости
+    #ifdef DEBUG_INFO_BUTTONS_STATE
 
-        // Получение адреса массива с состояниями кнопок
-        ButtonState *pButtonsState = GetCurrentButtonsState();
+        // Получение адреса массива с количеством устойчивых нажатий на кнопки
+        uint8_t *pButtonsPressCount = ButtonsDriver_GetButtonsPressCountPointer();
 
-        if (BUTTON_NOT_PRESSED == pButtonsState[BUTTON_SOUND_CONTROL])           // Если кнопка не нажата
-        {
-            Serial.println("Button not pressed");
-        }
-        else if (BUTTON_PRESSED_ONE_TIME == pButtonsState[BUTTON_SOUND_CONTROL]) // Если зафиксировано одно устойчивое нажатие кнопки
-        {
-            Serial.println("Button pressed one time");
-        }
-        else if (BUTTON_PRESSED_TWO_TIMES == pButtonsState[BUTTON_SOUND_CONTROL]) // Если зафиксировано два подряд устойчивых нажатия кнопки
-        {
-            Serial.println("Button pressed two times");
-        }
-        else if (BUTTON_PRESSED_THREE_TIMES == pButtonsState[BUTTON_SOUND_CONTROL]) // Если зафиксировано три подряд устойчивых нажатия кнопки
-        {
-            Serial.println("Button pressed three times");
-        }
+        Serial.printf("Количество нажатий на кнопку управления звуком: %d\n", pButtonsPressCount[BUTTON_SOUND_CONTROL]);
 
-    #endif // DEBUG_INFO_BUTTON_SOUND_CONTROL_STATE
+    #endif // DEBUG_INFO_BUTTONS_STATE
 
     delay(100);
 }
