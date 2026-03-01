@@ -45,6 +45,9 @@ void ButtonsDriver_AntibounceFilter(void)
     static uint32_t buttonsMasksArray[BUTTONS_QUANTITY] = { BUTTON_SOUND_CONTROL_BIT_MASK, \
                                                             BUTTON_INIT_BLUETOOTH_PIN_BIT_MASK };
 
+    // Массив с предельными количествами фиксируемых нажатий на кнопки
+    static uint8_t maxButtonsPress[BUTTONS_QUANTITY] = { THREE_PRESS, TWO_PRESS };
+
     // Текущая стадия работы фильтра антидребезга
     // кнопки для определения многократных нажатий
     static volatile SeveralPressFilterStage severalPressFilterStage[BUTTONS_QUANTITY];
@@ -75,7 +78,7 @@ void ButtonsDriver_AntibounceFilter(void)
         if (WAITING_FOR_NEXT_PRESS == severalPressFilterStage[buttonIndex])
         {
             // Если достигнут таймаут ожидания следующего нажатия на кнопку
-            if (NEXT_BUTTON_PRESS_TIMEOUT <= UserTimer_GetCounterTime() - waitingForNextPressStartTime[buttonIndex])
+            if (NEXT_BUTTON_PRESS_TIMEOUT <= (UserTimer_GetCounterTime() - waitingForNextPressStartTime[buttonIndex]))
             {
                 // Если было хотя бы одно нажатие
                 if (buttonsPressCount[buttonIndex] > 0)
@@ -112,8 +115,12 @@ void ButtonsDriver_AntibounceFilter(void)
                 // Если запущен таймер ожидания следующего нажатия на кнопку
                 if (WAITING_FOR_NEXT_PRESS == severalPressFilterStage[buttonIndex])
                 {
-                    // Увеличение счетчика нажатий
-                    buttonsPressCount[buttonIndex] = waitingStartPress[buttonIndex] + 1;
+                    // Ограничение максимального количества фиксируемых нажатий на кнопку
+                    if (buttonsPressCount[buttonIndex] < maxButtonsPress[buttonIndex])
+                    {
+                        // Увеличение счетчика нажатий
+                        buttonsPressCount[buttonIndex] = waitingStartPress[buttonIndex] + 1;
+                    }
 
                     // Установка статуса - новое нажатие на кнопку зафиксировано
                     newPressDetectedStatus[buttonIndex] = NEW_PRESS_DETECTED;

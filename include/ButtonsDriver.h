@@ -18,6 +18,14 @@ typedef enum
     BUTTONS_QUANTITY                            //!< Общее количество кнопок
 } Buttons;
 
+//! \brief Количество нажатий на кнопку
+typedef enum
+{
+    ONE_PRESS = 1,                              //!< Одно нажатие
+    TWO_PRESS,                                  //!< Два нажатия
+    THREE_PRESS                                 //!< Три нажатия
+} ButtonPresses;
+
 //! \brief Статус завершения серии нажатий на кнопку
 typedef enum
 {
