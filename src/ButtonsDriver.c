@@ -6,7 +6,7 @@
 #include "ButtonsDriver.h"
 #include "UserTimer.h"
 
-#define GPIO_IN_REG_SIZE_IN_BITS        32          //!< Размер регистра GPIO_IN_REG в битах
+#define GPIO_IN_REG_SIZE_IN_BITS        32          //!< Размер регистра GPIO_IN_REG (регистр с состояниями пинов) в битах
 #define ANTIBOUNCE_FILTER_IN_TICKS      200         //!< Время работы фильтра антидребезга кнопки в количестве периодов таймера 0 (20 мс)
 #define NEXT_BUTTON_PRESS_TIMEOUT       5000        //!< Таймаут ожидания следующего нажатия на кнопку в количестве периодов таймера 0 (500 мс)
 
@@ -196,8 +196,8 @@ uint8_t * ButtonsDriver_GetButtonsPressCountPointer(void)
     return (uint8_t *) buttonsPressCount;
 }
 
-//! \brief Получение адреса массива со статусами завершения серий нажатий
-//! \return Адрес массива со статусами завершения серий нажатий
+//! \brief Получение адреса массива со статусами завершения серий нажатий на кнопки
+//! \return Адрес массива со статусами завершения серий нажатий на кнопки
 ButtonPressSeriesStatus * ButtonsDriver_GetButtonsPressSeriesStatusPointer(void)
 {
     return (ButtonPressSeriesStatus *) buttonsPressSeriesStatus;

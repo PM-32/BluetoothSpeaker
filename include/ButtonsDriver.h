@@ -21,16 +21,16 @@ typedef enum
 //! \brief Количество нажатий на кнопку
 typedef enum
 {
-    ONE_PRESS = 1,                              //!< Одно нажатие
-    TWO_PRESS,                                  //!< Два нажатия
-    THREE_PRESS                                 //!< Три нажатия
+    ONE_PRESS = 1,                              //!< Одно нажатие на кнопку
+    TWO_PRESS,                                  //!< Два нажатия на кнопку
+    THREE_PRESS                                 //!< Три нажатия на кнопку
 } ButtonPresses;
 
 //! \brief Статус завершения серии нажатий на кнопку
 typedef enum
 {
-    BUTTON_PRESS_SERIES_NONE = 0,               //!< Серия нажатий не завершена
-    BUTTON_PRESS_SERIES_FINISHED                //!< Серия нажатий завершена по таймауту
+    BUTTON_PRESS_SERIES_NONE = 0,               //!< Серия нажатий на кнопку не завершена
+    BUTTON_PRESS_SERIES_FINISHED                //!< Серия нажатий на кнопку завершена по таймауту
 } ButtonPressSeriesStatus;
 
 //! \brief Фильтр антидребезга кнопок
@@ -40,8 +40,8 @@ void ButtonsDriver_AntibounceFilter(void);
 //! \return Адрес массива с количеством устойчивых нажатий на кнопки
 uint8_t * ButtonsDriver_GetButtonsPressCountPointer(void);
 
-//! \brief Получение адреса массива со статусами завершения серий нажатий
-//! \return Адрес массива со статусами завершения серий нажатий
+//! \brief Получение адреса массива со статусами завершения серий нажатий на кнопки
+//! \return Адрес массива со статусами завершения серий нажатий на кнопки
 ButtonPressSeriesStatus * ButtonsDriver_GetButtonsPressSeriesStatusPointer(void);
 
 #ifdef __cplusplus
