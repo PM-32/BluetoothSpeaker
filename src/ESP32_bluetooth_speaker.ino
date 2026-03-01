@@ -114,21 +114,64 @@ void loop()
     // Получение адреса массива с количеством устойчивых нажатий на кнопки
     uint8_t *pButtonsPressCount = ButtonsDriver_GetButtonsPressCountPointer();
 
+    // Получение адреса массива со статусами завершения серий нажатий 
+    ButtonPressSeriesStatus *pButtonSeriesStatus = ButtonsDriver_GetButtonsPressSeriesStatusPointer();
+
     // Вывод информации о состоянии кнопки 
     // управления звука на терминал при необходимости
     #ifdef DEBUG_INFO_BUTTON_SOUND_CONTROL_STATE
 
-        Serial.printf("Количество нажатий на кнопку управления звуком: %d\n", pButtonsPressCount[BUTTON_SOUND_CONTROL]);
+        // Если завершена серия нажатий на кнопку управления звука
+        if (BUTTON_PRESS_SERIES_FINISHED == pButtonSeriesStatus[BUTTON_SOUND_CONTROL])
+        {
+            if (1 == pButtonsPressCount[BUTTON_SOUND_CONTROL])      // Одно нажатие на кнопку
+            {
+                Serial.println("Действие на первое нажатие");
+            }
+            else if (2 == pButtonsPressCount[BUTTON_SOUND_CONTROL]) // Два нажатия на кнопку
+            {
+                Serial.println("Действие на второе нажатие");
+            }
+            else if (3 == pButtonsPressCount[BUTTON_SOUND_CONTROL]) // Три нажатия на кнопку
+            {
+                Serial.println("Действие на третье нажатие");
+            }
 
-    #endif // DEBUG_INFO_BUTTON_SOUND_CONTROL_STATE
+            // Сброс статуса завершения серии нажатий на кнопку управления звука
+            pButtonSeriesStatus[BUTTON_SOUND_CONTROL] = BUTTON_PRESS_SERIES_NONE;
 
-    // Вывод информации о состоянии кнопки
-    // инициализации Bluetooth на терминал при необходимости
+            // Сброс количества нажатий на кнопку управления звука
+            pButtonsPressCount[BUTTON_SOUND_CONTROL] = 0;
+        }
+
+    #endif  // DEBUG_INFO_BUTTON_SOUND_CONTROL_STATE
+
     #ifdef DEBUG_INFO_BUTTON_INIT_BLUETOOTH_STATE
+    
+        // Если завершена серия нажатий на кнопку управления звука
+        if (BUTTON_PRESS_SERIES_FINISHED == pButtonSeriesStatus[BUTTON_INIT_BLUETOOTH])
+        {
+            if (1 == pButtonsPressCount[BUTTON_INIT_BLUETOOTH])      // Одно нажатие на кнопку
+            {
+                Serial.println("Действие на первое нажатие");
+            }
+            else if (2 == pButtonsPressCount[BUTTON_INIT_BLUETOOTH]) // Два нажатия на кнопку
+            {
+                Serial.println("Действие на второе нажатие");
+            }
+            else if (3 == pButtonsPressCount[BUTTON_INIT_BLUETOOTH]) // Три нажатия на кнопку
+            {
+                Serial.println("Действие на третье нажатие");
+            }
 
-        Serial.printf("Количество нажатий на кнопку инициализации Bluetooth: %d\n", pButtonsPressCount[BUTTON_INIT_BLUETOOTH]);
+            // Сброс статуса завершения серии нажатий на кнопку управления звука
+            pButtonSeriesStatus[BUTTON_INIT_BLUETOOTH] = BUTTON_PRESS_SERIES_NONE;
+
+            // Сброс количества нажатий на кнопку управления звука
+            pButtonsPressCount[BUTTON_INIT_BLUETOOTH] = 0;
+        }
 
     #endif // DEBUG_INFO_BUTTON_INIT_BLUETOOTH_STATE
-
+    
     delay(100);
 }

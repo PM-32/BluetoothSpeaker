@@ -29,7 +29,8 @@ typedef enum
     NEW_PRESS_DETECTED                  //!< Новое нажатие зафиксировано
 } NewPressDetectedStatus;
           
-static uint8_t buttonsPressCount[BUTTONS_QUANTITY];    //!< Массив с количеством устойчивых нажатий на кнопки
+static volatile uint8_t buttonsPressCount[BUTTONS_QUANTITY];                        //!< Массив с количеством устойчивых нажатий на кнопки
+static volatile ButtonPressSeriesStatus buttonsPressSeriesStatus[BUTTONS_QUANTITY]; //!< Массив со статусами завершения серий нажатий
 
 // Пояснение. Устройство пинов в ESP32.
 // Состояния пинов ESP32 содержатся в двух регистрах: GPIO_IN_REG и
@@ -40,30 +41,30 @@ static uint8_t buttonsPressCount[BUTTONS_QUANTITY];    //!< Массив с ко
 //! \brief Фильтр антидребезга кнопок
 void ButtonsDriver_AntibounceFilter(void)
 {
-    // Текущая стадия работы фильтра антидребезга
-    // кнопки для определения многократных нажатий
-    static SeveralPressFilterStage severalPressFilterStage[BUTTONS_QUANTITY];
-
-    // Статус определения нового нажатия на кнопку
-    static NewPressDetectedStatus newPressDetectedStatus[BUTTONS_QUANTITY];
-
     // Массив битовых масок кнопок
     static uint32_t buttonsMasksArray[BUTTONS_QUANTITY] = { BUTTON_SOUND_CONTROL_BIT_MASK, \
                                                             BUTTON_INIT_BLUETOOTH_PIN_BIT_MASK };
 
+    // Текущая стадия работы фильтра антидребезга
+    // кнопки для определения многократных нажатий
+    static volatile SeveralPressFilterStage severalPressFilterStage[BUTTONS_QUANTITY];
+
+    // Статус определения нового нажатия на кнопку
+    static volatile NewPressDetectedStatus newPressDetectedStatus[BUTTONS_QUANTITY];
+
     // Время, когда был запущен таймер для отсчета
     // таймаута следующего нажатия на кнопку
-    static uint32_t waitingForNextPressStartTime[BUTTONS_QUANTITY];
+    static volatile uint32_t waitingForNextPressStartTime[BUTTONS_QUANTITY];
 
     // Счетчик времени, когда кнопка была нажата
-    static uint16_t counterButtonPressed[BUTTONS_QUANTITY];
+    static volatile uint16_t counterButtonPressed[BUTTONS_QUANTITY];
 
     // Счетчик времени, когда кнопка была не нажата
-    static uint16_t counterButtonNotPressed[BUTTONS_QUANTITY];
+    static volatile uint16_t counterButtonNotPressed[BUTTONS_QUANTITY];
 
     // Количество зафиксированных устойчивых нажатий на кнопку в момент
     // запуска таймера для отсчета таймаута следующего нажатия на кнопку
-    static uint8_t waitingStartPress[BUTTONS_QUANTITY];
+    static volatile uint8_t waitingStartPress[BUTTONS_QUANTITY];
 
     for (uint8_t buttonIndex = 0; buttonIndex < BUTTONS_QUANTITY; buttonIndex++)
     {
@@ -76,6 +77,13 @@ void ButtonsDriver_AntibounceFilter(void)
             // Если достигнут таймаут ожидания следующего нажатия на кнопку
             if (NEXT_BUTTON_PRESS_TIMEOUT <= UserTimer_GetCounterTime() - waitingForNextPressStartTime[buttonIndex])
             {
+                // Если было хотя бы одно нажатие
+                if (buttonsPressCount[buttonIndex] > 0)
+                {
+                    // Установка статуса - серия нажатий на кнопку завершена
+                    buttonsPressSeriesStatus[buttonIndex] = BUTTON_PRESS_SERIES_FINISHED;
+                }
+                
                 // Сброс времени, когда был запущен таймер
                 // для отсчета таймаута следующего нажатия на кнопку
                 waitingForNextPressStartTime[buttonIndex] = 0;
@@ -109,6 +117,9 @@ void ButtonsDriver_AntibounceFilter(void)
 
                     // Установка статуса - новое нажатие на кнопку зафиксировано
                     newPressDetectedStatus[buttonIndex] = NEW_PRESS_DETECTED;
+                    
+                    // Сброс статуса завершения серии нажатий на кнопку
+                    buttonsPressSeriesStatus[buttonIndex] = BUTTON_PRESS_SERIES_NONE;
                 }
                 else // Если не запущен таймер ожидания следующего нажатия на кнопку
                 {
@@ -117,6 +128,9 @@ void ButtonsDriver_AntibounceFilter(void)
                     {
                         // Зафиксировано первое устойчивое нажатие на кнопку
                         buttonsPressCount[buttonIndex] = 1;
+                        
+                        // Сброс статуса завершения серии нажатий на кнопку
+                        buttonsPressSeriesStatus[buttonIndex] = BUTTON_PRESS_SERIES_NONE;
                     }
 
                     // Если фильтр антидребезга кнопки для определения
@@ -145,7 +159,7 @@ void ButtonsDriver_AntibounceFilter(void)
             {
                 // Если зафиксировано первое устойчивое нажатие на
                 // кнопку или зафиксировано новое нажатие на кнопку
-                if ((FIRST_PRESS_DETECTED == severalPressFilterStage[buttonIndex]) || 
+                if ((FIRST_PRESS_DETECTED == severalPressFilterStage[buttonIndex]) ||
                     (NEW_PRESS_DETECTED == newPressDetectedStatus[buttonIndex]))
                 {
                     // Установка стадии - ожидание следующего нажатия на кнопку
@@ -163,9 +177,6 @@ void ButtonsDriver_AntibounceFilter(void)
                     // Сброс статуса определения нового нажатия на кнопку
                     newPressDetectedStatus[buttonIndex] = NEW_PRESS_NOT_DETECTED;
                 }
-
-                // Текущее количество нажатий на кнопку равно 0
-                buttonsPressCount[buttonIndex] = 0;
             }
         }
     }
@@ -175,5 +186,12 @@ void ButtonsDriver_AntibounceFilter(void)
 //! \return Адрес массива с количеством устойчивых нажатий на кнопки
 uint8_t * ButtonsDriver_GetButtonsPressCountPointer(void)
 {
-    return buttonsPressCount;
+    return (uint8_t *) buttonsPressCount;
+}
+
+//! \brief Получение адреса массива со статусами завершения серий нажатий
+//! \return Адрес массива со статусами завершения серий нажатий
+ButtonPressSeriesStatus * ButtonsDriver_GetButtonsPressSeriesStatusPointer(void)
+{
+    return (ButtonPressSeriesStatus *) buttonsPressSeriesStatus;
 }

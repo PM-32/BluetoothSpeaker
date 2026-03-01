@@ -18,12 +18,23 @@ typedef enum
     BUTTONS_QUANTITY                            //!< Общее количество кнопок
 } Buttons;
 
+//! \brief Статус завершения серии нажатий на кнопку
+typedef enum
+{
+    BUTTON_PRESS_SERIES_NONE = 0,               //!< Серия нажатий не завершена
+    BUTTON_PRESS_SERIES_FINISHED                //!< Серия нажатий завершена по таймауту
+} ButtonPressSeriesStatus;
+
 //! \brief Фильтр антидребезга кнопок
 void ButtonsDriver_AntibounceFilter(void);
 
 //! \brief Получение адреса массива с количеством устойчивых нажатий на кнопки
 //! \return Адрес массива с количеством устойчивых нажатий на кнопки
 uint8_t * ButtonsDriver_GetButtonsPressCountPointer(void);
+
+//! \brief Получение адреса массива со статусами завершения серий нажатий
+//! \return Адрес массива со статусами завершения серий нажатий
+ButtonPressSeriesStatus * ButtonsDriver_GetButtonsPressSeriesStatusPointer(void);
 
 #ifdef __cplusplus
 }
