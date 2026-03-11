@@ -1,5 +1,6 @@
 #include <stdbool.h>
 
+#include "esp32-hal.h"
 #include "esp32-hal-timer.h"
 
 #include "Callbacks.h"
@@ -37,6 +38,20 @@ void UserTimer_StartTim0(void)
 void UserTimer_IncrementCounter(void)
 {
     counterTime++;
+}
+
+//! \brief Задержка
+//! \param[in] delayInTimerPeriods - продолжительность задержки в количестве периодов таймера 0
+void UserTimer_Delay(uint32_t delayInTimerPeriods)
+{
+    // Сохранение времени начала выполнения задержки
+    uint32_t delayStartTime = counterTime;
+
+    // Ожидание, пока выполняется задержка
+    while ((counterTime - delayStartTime) < delayInTimerPeriods)
+    {
+        NOP();
+    }
 }
 
 //! \brief Получение текущего значения

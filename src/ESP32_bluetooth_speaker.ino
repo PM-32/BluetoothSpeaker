@@ -1,13 +1,18 @@
 #include <AudioTools.h>
 #include <BluetoothA2DPSink.h>
 
+#include "AdcMeasurements.h"
 #include "ButtonsDriver.h"
 #include "UserTimer.h"
 
-#define DEBUG_INFO_BUTTON_SOUND_CONTROL_STATE       // Вывод информации о состоянии кнопки 
-                                                    // управления звука на терминал при необходимости
-// #define DEBUG_INFO_BUTTON_INIT_BLUETOOTH_STATE      // Вывод информации о состоянии кнопки
-//                                                     // инициализации Bluetooth на терминал при необходимости
+// #define DEBUG_INFO_BUTTON_SOUND_CONTROL_STATE                // Вывод информации о состоянии кнопки 
+//                                                              // управления звука на терминал
+// #define DEBUG_INFO_BUTTON_INIT_BLUETOOTH_STATE               // Вывод информации о состоянии кнопки
+//                                                              // инициализации Bluetooth на терминал
+#define DEBUG_INFO_POTENTIOMETER_VOLUME_CONTROL_PERCENTS     // Вывод информации о положении ручки потенциометра
+                                                             // управления громкостью звука в процентах
+// #define DEBUG_INFO_POTENTIOMETER_BRIGHT_CONTROL_PERCENTS     // Вывод информации о положении ручки потенциометра
+//                                                              // управления яркостью светодиодной матрицы в процентах
 
 I2SStream i2s;
 BluetoothA2DPSink a2dp_sink;
@@ -89,6 +94,9 @@ void setup()
     // Настройка пина кнопки для инициализации Bluetooth
     pinMode(BUTTON_INIT_BLUETOOTH_PIN, INPUT_PULLUP);
 
+    // Инициализация АЦП
+    AdcMeasurements_Init();
+
     // Инициализация таймера для отсчета интервалов
     UserTimer_InitTimer();
 
@@ -96,9 +104,10 @@ void setup()
     UserTimer_StartTim0();
 
     auto cfg = i2s.defaultConfig();
-    cfg.pin_bck = 26;
-    cfg.pin_ws = 27;
-    cfg.pin_data = 25;
+    cfg.port_no = 1;
+    cfg.pin_bck = 19;
+    cfg.pin_ws = 18;
+    cfg.pin_data = 21;
     cfg.sample_rate = 44100;
     cfg.bits_per_sample = 16;
     cfg.channels = 2;
@@ -111,6 +120,38 @@ void setup()
 //! \brief Основной цикл программы
 void loop()
 {
+    // Время последнего опроса АЦП
+    static uint32_t lastAdcPollingTime = 0;
+    
+    // Чтение текущего положения ручек потенциометров каждые ADC_POLLINGS_PERIOD периодов таймера 0
+    if ((UserTimer_GetCounterTime() - lastAdcPollingTime) > ADC_POLLINGS_PERIOD)
+    {
+        // Фильтр скользящего среднего для каналов АЦП
+        AdcMeasurements_MovingAverageFilter();
+
+        // Получение адреса массива с отсчетами АЦП в процентах
+        uint8_t *pAdcCountsInPercents = AdcMeasurements_GetAdcCountsInPercentsPointer();
+        
+        // Вывод информации о положении ручки потенциометра
+        // управления громкостью звука в процентах
+        #ifdef DEBUG_INFO_POTENTIOMETER_VOLUME_CONTROL_PERCENTS
+
+            Serial.printf("Громкость: %u%%\r\n", pAdcCountsInPercents[POTENTIOMETER_VOLUME_CONTROL]);
+
+        #endif // DEBUG_INFO_POTENTIOMETER_VOLUME_CONTROL_PERCENTS
+
+        // Вывод информации о положении ручки потенциометра
+        // управления яркостью светодиодной матрицы в процентах
+        #ifdef DEBUG_INFO_POTENTIOMETER_BRIGHT_CONTROL_PERCENTS
+
+            Serial.printf("Яркость: %u%%\r\n", pAdcCountsInPercents[POTENTIOMETER_BRIGHT_CONTROL]);
+
+        #endif // DEBUG_INFO_POTENTIOMETER_BRIGHT_CONTROL_PERCENTS
+
+        // Обновление времени последнего опроса АЦП
+        lastAdcPollingTime = UserTimer_GetCounterTime();
+    }
+
     // Получение адреса массива с количеством устойчивых нажатий на кнопки
     uint8_t *pButtonsPressCount = ButtonsDriver_GetButtonsPressCountPointer();
 
@@ -170,6 +211,7 @@ void loop()
         }
 
     #endif // DEBUG_INFO_BUTTON_INIT_BLUETOOTH_STATE
-    
-    delay(100);
+
+    // Задержка для вывода отладочной информации в терминал
+    UserTimer_Delay(100);
 }

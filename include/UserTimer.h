@@ -16,6 +16,10 @@ void UserTimer_IncrementCounter(void);
 //! \brief Запуск таймера 0
 void UserTimer_StartTim0(void);
 
+//! \brief Задержка
+//! \param[in] delayInTimerPeriods - продолжительность задержки в количестве периодов таймера 0
+void UserTimer_Delay(uint32_t delayInTimerPeriods);
+
 //! \brief Получение текущего значения
 //!        счетчика времени работы программы
 //! \return Значение счетчика времени работы программы
