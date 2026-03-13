@@ -5,14 +5,20 @@
 #include "ButtonsDriver.h"
 #include "UserTimer.h"
 
-// #define DEBUG_INFO_BUTTON_SOUND_CONTROL_STATE                // Вывод информации о состоянии кнопки 
-//                                                              // управления звука на терминал
+#define DEBUG_INFO_BUTTON_SOUND_CONTROL_STATE                // Вывод информации о состоянии кнопки 
+                                                             // управления звука на терминал
 // #define DEBUG_INFO_BUTTON_INIT_BLUETOOTH_STATE               // Вывод информации о состоянии кнопки
 //                                                              // инициализации Bluetooth на терминал
-#define DEBUG_INFO_POTENTIOMETER_VOLUME_CONTROL_PERCENTS     // Вывод информации о положении ручки потенциометра
-                                                             // управления громкостью звука в процентах
+// #define DEBUG_INFO_POTENTIOMETER_VOLUME_CONTROL_PERCENTS     // Вывод информации о положении ручки потенциометра
+//                                                              // управления громкостью звука в процентах
 // #define DEBUG_INFO_POTENTIOMETER_BRIGHT_CONTROL_PERCENTS     // Вывод информации о положении ручки потенциометра
 //                                                              // управления яркостью светодиодной матрицы в процентах
+
+typedef enum
+{
+    PLAYPACK_PLAYING = 0,
+    PLAYBACK_PAUSED
+} PlaybackState;
 
 I2SStream i2s;
 BluetoothA2DPSink a2dp_sink;
@@ -81,6 +87,49 @@ class LimiterStream: public AudioStream
 };
 
 LimiterStream limiter(i2s);
+
+void SwitchPlaybackState(void)
+{
+    // По умолчанию звук воспроизводится
+    static PlaybackState playbackState = PLAYPACK_PLAYING;
+
+    if (PLAYPACK_PLAYING == playbackState)
+    {
+        // Остановка воспроизведения звука
+        a2dp_sink.pause();
+
+        // Установка состояния - воспроизведение приостановлено
+        playbackState = PLAYBACK_PAUSED;
+
+        Serial.println("Воспроизведение приостановлено");
+    }
+    else
+    {
+        // Продолжение воспроизведения звука
+        a2dp_sink.play();
+
+        // Установка состояния - воспроизведение продолжается
+        playbackState = PLAYPACK_PLAYING;
+
+        Serial.println("Воспроизведение продолжено");
+    }
+}
+
+void NextTrack(void)
+{
+    // Переключение на следующий трек
+    a2dp_sink.next();
+
+    Serial.println("Переключение на следующий трек");
+}
+
+void PreviousTrack(void)
+{
+    // Переключение на предыдущий трек
+    a2dp_sink.previous();
+
+    Serial.println("Переключение на предыдущий трек");
+}
 
 //! \brief Функция для инициализации всего
 void setup()
@@ -167,15 +216,21 @@ void loop()
         {
             if (ONE_PRESS == pButtonsPressCount[BUTTON_SOUND_CONTROL])          // Зафиксировано одно нажатие на кнопку
             {
-                Serial.println("Кнопка управления звуком - действие на первое нажатие");
+                // Serial.println("Кнопка управления звуком - действие на первое нажатие");
+
+                SwitchPlaybackState();
             }
             else if (TWO_PRESS == pButtonsPressCount[BUTTON_SOUND_CONTROL])     // Зафиксировано два нажатия на кнопку
             {
-                Serial.println("Кнопка управления звуком - действие на второе нажатие");
+                // Serial.println("Кнопка управления звуком - действие на второе нажатие");
+
+                NextTrack();
             }
             else if (THREE_PRESS == pButtonsPressCount[BUTTON_SOUND_CONTROL])   // Зафиксировано три нажатия на кнопку
             {
-                Serial.println("Кнопка управления звуком - действие на третье нажатие");
+                // Serial.println("Кнопка управления звуком - действие на третье нажатие");
+
+                PreviousTrack();
             }
 
             // Сброс статуса завершения серии нажатий на кнопку управления звука
