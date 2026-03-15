@@ -1,8 +1,8 @@
 #include "esp32-hal-adc.h"
 #include "AdcMeasurements.h"
 
-#define POTENTIOMETER_VOLUME_CONTROL_PIN        34          //!< Номер пина первого потенциометра
-#define POTENTIOMETER_BRIGHT_CONTROL_PIN        35          //!< Номер пина второго потенциометра
+#define POTENTIOMETER_VOLUME_CONTROL_PIN        34          //!< Номер пина потенциометра управления громкостью звука
+#define POTENTIOMETER_BRIGHT_CONTROL_PIN        35          //!< Номер пина управления яркостью светодиодной матрицы
 #define ADC_CHANNELS_QUANTITY                   2           //!< Количество каналов АЦП
 #define ADC_MEASUREMENTS_QUANTITY               5           //!< Количество измерений АЦП для заполнения буфера измерений
 #define ADC_RESOLUTION                          12          //!< Разрядность АЦП

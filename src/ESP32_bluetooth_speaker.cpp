@@ -75,6 +75,9 @@ void loop()
     // Управление воспроизведением звука
     SoundControl_Playback();
 
+    // Управление громкостью звука
+    SoundControl_Volume();
+
     // Вывод информации о состоянии кнопки
     // инициализации Bluetooth на терминал при необходимости
     #ifdef DEBUG_INFO_BUTTON_INIT_BLUETOOTH_STATE

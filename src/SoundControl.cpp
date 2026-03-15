@@ -3,91 +3,96 @@
 
 #include "ButtonsDriver.h"
 #include "SoundControl.h"
+#include "AdcMeasurements.h"
+#include "UserTimer.h"
 
-// #define DEBUG_INFO_BUTTON_SOUND_CONTROL_STATE       // Вывод информации о состоянии кнопки 
-//                                                     // управления звука на терминал
-#define DEBUG_INFO_PLAYBACK_CONTROL                 // Вывод информации о выполнении команд
-                                                    // управления воспроизведением звука
+// #define DEBUG_INFO_BUTTON_SOUND_CONTROL_STATE
+// #define DEBUG_INFO_PLAYBACK_CONTROL
+#define DEBUG_INFO_VOLUME_CONTROL
+
+// Константы
+#define VOLUME_TIMEOUT_PERIOD       30000                   //!< Таймаут возврата управления смартфону (3 секунды = 30000 * 100 мкс)
+#define VOLUME_HYSTERESIS_PERCENT   7                       //!< Гистерезис для потенциометра (для защиты от шума)
+#define AVRCP_VOLUME_MAX            127                     //!< Максимальное значение громкости в протоколе AVRCP
+#define VOLUME_PERCENT_MAX          100                     //!< Максимальное значение громкости в процентах
 
 //! \brief Текущее состояние воспроизведения звука
 typedef enum
 {
-    PLAYPACK_PLAYING = 0,       //!< Звук воспроизводится
-    PLAYBACK_PAUSED             //!< Воспроизведение звука остановлено
+    PLAYBACK_PLAYING = 0,                                   //!< Звук воспроизводится
+    PLAYBACK_PAUSED                                         //!< Воспроизведение звука остановлено
 } PlaybackState;
 
-static PlaybackState playbackState = PLAYPACK_PLAYING;  //!< Текущее состояние воспроизведения звука
+//! \brief Источник управления громкостью
+typedef enum
+{
+    VOLUME_SOURCE_PHONE = 0,                                //!< Громкость задана смартфоном
+    VOLUME_SOURCE_POT                                       //!< Громкость задана потенциометром
+} VolumeSource;
 
-I2SStream i2s;                  //!< Класс для I2S1
-BluetoothA2DPSink a2dp_sink;    //!< Класс для реализации протокола A2DP (Bluetooth)
+static PlaybackState playbackState = PLAYBACK_PLAYING;      //!< Текущее состояние воспроизведения звука
+static uint8_t currentVolumePercent = 50;                   //!< Текущая громкость (0-100%)
+static uint8_t lastPotPosition = 255;                       //!< Последнее положение потенциометра
+static VolumeSource volumeSource = VOLUME_SOURCE_PHONE;     //!< Текущий источник громкости
+static uint32_t lastPotChangeTime = 0;                      //!< Время последнего изменения потенциометра (в периодах таймера)
+static uint8_t lastPhoneVolume = 255;                       //!< Последняя громкость со смартфона
 
-// Класс для ограничения максимальной громкости звука
-class LimiterStream: public AudioStream
+I2SStream i2s;                                              //!< Класс для I2S1
+BluetoothA2DPSink a2dp_sink;                                //!< Класс для реализации протокола A2DP (Bluetooth)
+
+//! \brief Класс для регулировки громкости звука
+class VolumeControlStream: public AudioStream
 {
   public:
-    LimiterStream(AudioStream &out): _out(out) {}
+    VolumeControlStream(AudioStream &out): _out(out) {}
 
     size_t write(const uint8_t *data, size_t len) override
     {
         int16_t *samples = (int16_t*) data;
         size_t sample_count = len / 2;
+        
+        // Вычисление коэффициента громкости (0.0 - 1.0)
+        float volumeFactor = (float)_volumePercent / 100.0f;
 
         for (size_t i = 0; i < sample_count; i++)
         {
-            samples[i] = applyLimiter(samples[i], _limit);
+            // Масштабирование сэмпла в соответствии с громкостью
+            float scaled = samples[i] * volumeFactor;
+            
+            // Ограничение для 16-bit аудио
+            if (scaled > 32767) scaled = 32767;
+            if (scaled < -32768) scaled = -32768;
+            
+            samples[i] = (int16_t)scaled;
         }
 
         return _out.write(data, len);
-    }   
+    }
 
-    void setLimit(int16_t newLimit)
+    //! \brief Установка громкости
+    //! \param percent Уровень громкости в процентах (0-100)
+    void setVolume(uint8_t percent)
     {
-        _limit = newLimit;
+        if (percent > 100) percent = 100;
+        _volumePercent = percent;
     }
 
   private:
-    AudioStream &_out;
-    int16_t _limit = 3000;
-
-    int16_t applyLimiter(int16_t sample, int16_t limit)
-    {
-        // Зона мягкого срабатывания начинается раньше
-        const int16_t soft_limit = limit * 0.8;
-
-        if (sample > soft_limit)
-        {
-            if (sample > limit)
-            {
-                return limit + (sample - limit) / 4;
-            } 
-            else
-            {
-                // В зоне между soft_limit и limit - применяем плавное сжатие
-                // Это создает небольшое "колено", сглаживающий вход в лимитер.
-                float factor = 0.8 + 0.2 * ((float) (sample - soft_limit) / (limit - soft_limit));
-                return soft_limit + (sample - soft_limit) * factor;
-            }
-        } 
-        else if (sample < -soft_limit)
-        {
-            if (sample < -limit)
-            {
-                return -limit + (sample + limit) / 4;
-            }
-            else
-            {
-                float factor = 0.8 + 0.2 * ((float) (-sample - soft_limit) / (limit - soft_limit));
-                return -soft_limit - (-sample - soft_limit) * factor;
-            }
-        }
-        return sample;
-    }
+    AudioStream &_out;              //!< Ссылка на выходной поток
+    uint8_t _volumePercent = 100;   //!< Текущая громкость в процентах
 };
 
-// Ограничитель максимальной громкости звука
-LimiterStream limiter(i2s);
+VolumeControlStream volumeStream(i2s);
 
-//! \brief Инициализация I2S1
+//! \brief Легковесный callback для изменения громкости на смартфоне
+//! \param volume Новое значение громкости в формате AVRCP (0-127)
+static void onVolumeChange(int volume)
+{
+    // Только сохраняем значение, ничего больше не делаем
+    lastPhoneVolume = (uint8_t)((volume * 100UL) / AVRCP_VOLUME_MAX);
+}
+
+//! \brief Инициализация I2S1 и A2DP
 void SoundControl_Init(void)
 {
     auto cfg = i2s.defaultConfig();     // Установка конфигурации по умолчанию
@@ -100,19 +105,31 @@ void SoundControl_Init(void)
     cfg.channels = 2;                   // Количество каналов (моно = 1/стерео = 2)
 
     // Запуск I2S1
-    i2s.begin(cfg);                     
-
-    // Включение ограничителя максимальной громкости звука
-    a2dp_sink.set_output(limiter);
-
+    i2s.begin(cfg);
+    
+    // Подключение регулятора громкости
+    a2dp_sink.set_output(volumeStream);
+    
+    // Регистрация легковесного callback для получения изменений громкости со смартфона
+    a2dp_sink.set_avrc_rn_volumechange(onVolumeChange);
+    
     // Запуск A2DP-протокола
     a2dp_sink.start("MyMusic");
+    
+    // Получение текущей громкости со смартфона при старте
+    int currentVolume = a2dp_sink.get_volume();
+    if (currentVolume >= 0)
+    {
+        currentVolumePercent = (uint8_t)((currentVolume * 100UL) / AVRCP_VOLUME_MAX);
+        lastPhoneVolume = currentVolumePercent;
+        volumeStream.setVolume(currentVolumePercent);
+    }
 }
 
 //! \brief Смена текущего состояния воспроизведения звука
 static void SoundControl_SwitchPlaybackState(void)
 {
-    if (PLAYPACK_PLAYING == playbackState)
+    if (PLAYBACK_PLAYING == playbackState)
     {
         // Остановка воспроизведения звука
         a2dp_sink.pause();
@@ -132,7 +149,7 @@ static void SoundControl_SwitchPlaybackState(void)
         a2dp_sink.play();
 
         // Установка состояния - воспроизведение продолжается
-        playbackState = PLAYPACK_PLAYING;
+        playbackState = PLAYBACK_PLAYING;
 
         #ifdef DEBUG_INFO_PLAYBACK_CONTROL
 
@@ -149,7 +166,7 @@ static void SoundControl_NextTrack(void)
     a2dp_sink.next();
 
     // Установка состояния - воспроизведение продолжается
-    playbackState = PLAYPACK_PLAYING;
+    playbackState = PLAYBACK_PLAYING;
 
     #ifdef DEBUG_INFO_PLAYBACK_CONTROL
 
@@ -165,7 +182,7 @@ static void SoundControl_PreviousTrack(void)
     a2dp_sink.previous();
 
     // Установка состояния - воспроизведение продолжается
-    playbackState = PLAYPACK_PLAYING;
+    playbackState = PLAYBACK_PLAYING;
 
     #ifdef DEBUG_INFO_PLAYBACK_CONTROL
 
@@ -174,9 +191,85 @@ static void SoundControl_PreviousTrack(void)
     #endif // DEBUG_INFO_PLAYBACK_CONTROL
 }
 
+//! \brief Регулировка громкости звука
+void SoundControl_Volume(void)
+{
+    // Обработка громкости со смартфона
+    if (volumeSource == VOLUME_SOURCE_PHONE)
+    {
+        // Если получено новое значение со смартфона и оно отличается от текущего
+        if (lastPhoneVolume <= 100 && lastPhoneVolume != currentVolumePercent)
+        {
+            currentVolumePercent = lastPhoneVolume;
+            volumeStream.setVolume(currentVolumePercent);
+            
+            #ifdef DEBUG_INFO_VOLUME_CONTROL
+
+                Serial.printf("Громкость со смартфона: %u%%\r\n", currentVolumePercent);
+
+            #endif // DEBUG_INFO_VOLUME_CONTROL
+        }
+    }
+
+    // Получение текущего значения громкости с потенциометра
+    uint8_t *pAdcCountsInPercents = AdcMeasurements_GetAdcCountsInPercentsPointer();
+    uint8_t currentPotPosition = pAdcCountsInPercents[POTENTIOMETER_VOLUME_CONTROL];
+    
+    // Проверка таймаута потенциометра (3 секунды бездействия)
+    if (volumeSource == VOLUME_SOURCE_POT)
+    {
+        // Если потенциометр не вращался более VOLUME_TIMEOUT_PERIOD
+        if ((UserTimer_GetCounterTime() - lastPotChangeTime) > VOLUME_TIMEOUT_PERIOD)
+        {
+            // Возврат управления смартфону
+            volumeSource = VOLUME_SOURCE_PHONE;
+            
+            // Отправляем текущую громкость на смартфон, чтобы синхронизировать
+            uint8_t avrcpVolume = (currentVolumePercent * AVRCP_VOLUME_MAX) / 100;
+            a2dp_sink.set_volume(avrcpVolume);
+            
+            // Обновляем последнее значение со смартфона
+            lastPhoneVolume = currentVolumePercent;
+            
+            #ifdef DEBUG_INFO_VOLUME_CONTROL
+
+                Serial.printf("Таймаут потенциометра - возврат к управлению со смартфона, громкость сохранена: %u%%\r\n", currentVolumePercent);
+
+            #endif // DEBUG_INFO_VOLUME_CONTROL
+        }
+    }
+    
+    // Проверка изменения положения потенциометра с гистерезисом
+    int16_t potDifference = abs((int16_t)currentPotPosition - (int16_t)lastPotPosition);
+    
+    // Если изменение превышает порог гистерезиса
+    if (potDifference > VOLUME_HYSTERESIS_PERCENT)
+    {
+        // Обновление последнего положения потенциометра
+        lastPotPosition = currentPotPosition;
+        
+        // Потенциометр становится активным источником
+        volumeSource = VOLUME_SOURCE_POT;
+        lastPotChangeTime = UserTimer_GetCounterTime();
+        currentVolumePercent = currentPotPosition;
+        
+        // Применение новой громкости
+        volumeStream.setVolume(currentVolumePercent);
+        
+        // Отправка новой громкости на смартфон
+        uint8_t avrcpVolume = (currentVolumePercent * AVRCP_VOLUME_MAX) / 100;
+        a2dp_sink.set_volume(avrcpVolume);
+        
+        #ifdef DEBUG_INFO_VOLUME_CONTROL
+
+            Serial.printf("Громкость с потенциометра: %u%% (изменение: %d)\r\n", 
+                         currentVolumePercent, potDifference);
+
+        #endif // DEBUG_INFO_VOLUME_CONTROL
+    }
+}
+
 //! \brief Управление воспроизведением звука
-//! \note Управление паузой/воспроизведением звука,
-//!       переключением треков с помощью кнопки
 void SoundControl_Playback(void)
 {
     // Получение адреса массива с количеством устойчивых нажатий на кнопки
