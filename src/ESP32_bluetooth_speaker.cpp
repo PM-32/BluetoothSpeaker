@@ -7,8 +7,6 @@
 
 // #define DEBUG_INFO_BUTTON_INIT_BLUETOOTH_STATE               // Вывод информации о состоянии кнопки
 //                                                              // инициализации Bluetooth на терминал
-// #define DEBUG_INFO_POTENTIOMETER_VOLUME_CONTROL_PERCENTS     // Вывод информации о положении ручки потенциометра
-//                                                              // управления громкостью звука в процентах
 // #define DEBUG_INFO_POTENTIOMETER_BRIGHT_CONTROL_PERCENTS     // Вывод информации о положении ручки потенциометра
 //                                                              // управления яркостью светодиодной матрицы в процентах
 
@@ -49,20 +47,12 @@ void loop()
         // Фильтр скользящего среднего для каналов АЦП
         AdcMeasurements_MovingAverageFilter();
 
-        // Получение адреса массива с отсчетами АЦП в процентах
-        uint8_t *pAdcCountsInPercents = AdcMeasurements_GetAdcCountsInPercentsPointer();
-        
-        // Вывод информации о положении ручки потенциометра
-        // управления громкостью звука в процентах
-        #ifdef DEBUG_INFO_POTENTIOMETER_VOLUME_CONTROL_PERCENTS
-
-            Serial.printf("Громкость: %u%%\r\n", pAdcCountsInPercents[POTENTIOMETER_VOLUME_CONTROL]);
-
-        #endif // DEBUG_INFO_POTENTIOMETER_VOLUME_CONTROL_PERCENTS
-
         // Вывод информации о положении ручки потенциометра
         // управления яркостью светодиодной матрицы в процентах
         #ifdef DEBUG_INFO_POTENTIOMETER_BRIGHT_CONTROL_PERCENTS
+
+            // Получение адреса массива с отсчетами АЦП в процентах
+            uint8_t *pAdcCountsInPercents = AdcMeasurements_GetAdcCountsInPercentsPointer();
 
             Serial.printf("Яркость: %u%%\r\n", pAdcCountsInPercents[POTENTIOMETER_BRIGHT_CONTROL]);
 
