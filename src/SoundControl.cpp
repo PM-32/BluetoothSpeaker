@@ -6,18 +6,20 @@
 #include "AdcMeasurements.h"
 #include "UserTimer.h"
 
-// #define DEBUG_INFO_BUTTON_SOUND_CONTROL_STATE            // Вывод информации о нажатии на кнопку управления звуком
-// #define DEBUG_INFO_PLAYBACK_CONTROL                      // Вывод информации об управлении воспроизведением
-#define DEBUG_INFO_VOLUME_CONTROL                       // Вывод информации о регулировке громкости на терминал 
+// #define DEBUG_INFO_BUTTON_SOUND_CONTROL_STATE           // Вывод информации о нажатии на кнопку управления звуком
+// #define DEBUG_INFO_PLAYBACK_CONTROL                     // Вывод информации об управлении воспроизведением
+// #define DEBUG_INFO_VOLUME_CONTROL                       // Вывод информации о регулировке громкости на терминал 
 
 #define SPEAKER_NAME                    "MyMusic"       //!< Название колонки при подключении Bluetooth
 #define VOLUME_TIMEOUT_PERIOD           30000           //!< Таймаут возврата управления смартфону (3 секунды = 30000 * 100 мкс)
 #define DELTA_VOLUME_THRESHOLD_VALUE    7               //!< Пороговое значение для определения изменения положения потенциометра в процентах
 #define MAX_VOLUME_AVRCP                127             //!< Максимальное значение громкости в протоколе AVRCP
 #define MAX_VOLUME_PERCENT              100             //!< Максимальное значение громкости в процентах
-#define MAX_VOLUME_SAMPLE               32767           //!< Максимальная громкость сэмпла (верхняя граница допустимого диапазона для 16-ти битного сэмпла)
-#define MIN_VOLUME_SAMPLE               -32768          //!< Минимальная громкость сэмпла (нижняя граница допустимого диапазона для 16-ти битного сэмпла)
-#define AUDIO_CHANNELS_QUANTITY         2               //!< Количество каналов (2 канала: правый и левый)                   
+#define TARGET_MAX_VOLUME_SAMPLE        30000           //!< Целевое максимальное значение сэмпла при 100% громкости
+#define MAX_VOLUME_SAMPLE               32767           //!< Абсолютный максимум для 16-ти битного сэмпла (положительная полуволна)
+#define MIN_VOLUME_SAMPLE               -32768          //!< Абсолютный минимум для 16-ти битного сэмпла (отрицательная полуволна)
+#define AUDIO_CHANNELS_QUANTITY         2               //!< Количество каналов (2 канала: правый и левый)
+#define LIMITER_COEFF                   ((float) TARGET_MAX_VOLUME_SAMPLE / MAX_VOLUME_SAMPLE)  //!< Коэффициент для ограничения максимальной громкости           
 
 //! \brief Текущее состояние воспроизведения звука
 typedef enum
@@ -64,8 +66,8 @@ class VolumeControlStream: public AudioStream
         // Количество сэмплов
         size_t samplesCount = lengthData / AUDIO_CHANNELS_QUANTITY;
         
-        // Вычисление коэффициента громкости (0.0 - 1.0)
-        float volumeScaleCoeff = (float) volumeInPercents / (float) MAX_VOLUME_PERCENT;
+        // Вычисление коэффициента громкости
+        float volumeScaleCoeff = ((float) volumeInPercents / (float) MAX_VOLUME_PERCENT) * LIMITER_COEFF;
 
         for (size_t sampleIndex = 0; sampleIndex < samplesCount; sampleIndex++)
         {
