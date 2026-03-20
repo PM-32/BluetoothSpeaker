@@ -48,9 +48,6 @@ void loop()
     // Управление громкостью звука
     SoundControl_Volume();
 
-    // Включение светодиода
-    LedsDriver_SetLedState(BLUETOOTH_STATUS_LED_PIN, LED_ON);
-
     // Вывод информации о положении ручки потенциометра
     // управления яркостью светодиодной матрицы в процентах
     #ifdef DEBUG_INFO_POTENTIOMETER_BRIGHT_CONTROL_PERCENTS

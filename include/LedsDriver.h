@@ -24,6 +24,10 @@ void LedsDriver_Init(void);
 //! \param[in] ledState - состояние светодиода
 void LedsDriver_SetLedState(uint8_t ledPin, LedState ledState);
 
+//! \brief Смена состояния светодиода
+//! \param[in] ledPin - пин светодиода
+void LedsDriver_ToggleLed(uint8_t ledPin);
+
 #ifdef __cplusplus
 }
 #endif
