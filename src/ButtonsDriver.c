@@ -38,6 +38,18 @@ static volatile ButtonPressSeriesStatus buttonsPressSeriesStatus[BUTTONS_QUANTIT
 // (32 бит - [31:0]). GPIO_IN1_REG содержит состояния пинов
 // GPIO_32 - GPIO_39 (8 бит - [7:0]).
 
+//! \brief Инициализация кнопок
+void ButtonsDriver_Init(void)
+{
+    // Настройка пина кнопки управления звуком
+    // (подтяжка к +3.3V)
+    pinMode(BUTTON_SOUND_CONTROL_PIN, INPUT_PULLUP);
+
+    // Настройка пина кнопки для инициализации Bluetooth
+    // (подтяжка к +3.3V)
+    pinMode(BUTTON_INIT_BLUETOOTH_PIN, INPUT_PULLUP);
+}
+
 //! \brief Фильтр антидребезга кнопок
 void ButtonsDriver_AntibounceFilter(void)
 {

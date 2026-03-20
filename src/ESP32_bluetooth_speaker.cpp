@@ -2,6 +2,7 @@
 
 #include "AdcMeasurements.h"
 #include "ButtonsDriver.h"
+#include "LedsDriver.h"
 #include "SoundControl.h"
 #include "UserTimer.h"
 
@@ -16,11 +17,11 @@ void setup()
     // Запуск UART для вывода отладочной информации
     Serial.begin(9600);
     
-    // Настройка пина кнопки управления звуком
-    pinMode(BUTTON_SOUND_CONTROL_PIN, INPUT_PULLUP);
+    // Инициализация кнопок
+    ButtonsDriver_Init();
 
-    // Настройка пина кнопки для инициализации Bluetooth
-    pinMode(BUTTON_INIT_BLUETOOTH_PIN, INPUT_PULLUP);
+    // Инициализация светодиода
+    LedsDriver_Init();
 
     // Инициализация АЦП
     AdcMeasurements_Init();
@@ -38,35 +39,28 @@ void setup()
 //! \brief Основной цикл программы
 void loop()
 {
-    // Время последнего опроса АЦП
-    static uint32_t lastAdcPollingTime = 0;
-    
-    // Чтение текущего положения ручек потенциометров каждые ADC_POLLINGS_PERIOD периодов таймера 0
-    if ((UserTimer_GetCounterTime() - lastAdcPollingTime) > ADC_POLLINGS_PERIOD)
-    {
-        // Фильтр скользящего среднего для каналов АЦП
-        AdcMeasurements_MovingAverageFilter();
-
-        // Вывод информации о положении ручки потенциометра
-        // управления яркостью светодиодной матрицы в процентах
-        #ifdef DEBUG_INFO_POTENTIOMETER_BRIGHT_CONTROL_PERCENTS
-
-            // Получение адреса массива с отсчетами АЦП в процентах
-            uint8_t *pAdcCountsInPercents = AdcMeasurements_GetAdcCountsInPercentsPointer();
-
-            Serial.printf("Яркость: %u%%\r\n", pAdcCountsInPercents[POTENTIOMETER_BRIGHT_CONTROL]);
-
-        #endif // DEBUG_INFO_POTENTIOMETER_BRIGHT_CONTROL_PERCENTS
-
-        // Обновление времени последнего опроса АЦП
-        lastAdcPollingTime = UserTimer_GetCounterTime();
-    }
+    // Периодический опрос каналов АЦП
+    AdcMeasurements_Pollings();
 
     // Управление воспроизведением звука
     SoundControl_Playback();
 
     // Управление громкостью звука
     SoundControl_Volume();
+
+    // Включение светодиода
+    LedsDriver_SetLedState(BLUETOOTH_STATUS_LED_PIN, LED_ON);
+
+    // Вывод информации о положении ручки потенциометра
+    // управления яркостью светодиодной матрицы в процентах
+    #ifdef DEBUG_INFO_POTENTIOMETER_BRIGHT_CONTROL_PERCENTS
+
+        // Получение адреса массива с отсчетами АЦП в процентах
+        uint8_t *pAdcCountsInPercents = AdcMeasurements_GetAdcCountsInPercentsPointer();
+
+        Serial.printf("Яркость: %u%%\r\n", pAdcCountsInPercents[POTENTIOMETER_BRIGHT_CONTROL]);
+
+    #endif // DEBUG_INFO_POTENTIOMETER_BRIGHT_CONTROL_PERCENTS
 
     // Вывод информации о состоянии кнопки
     // инициализации Bluetooth на терминал при необходимости

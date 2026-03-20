@@ -1,8 +1,12 @@
 #include "esp32-hal-adc.h"
+
 #include "AdcMeasurements.h"
+#include "UserTimer.h"
 
 #define POTENTIOMETER_VOLUME_CONTROL_PIN        34          //!< Номер пина потенциометра управления громкостью звука
 #define POTENTIOMETER_BRIGHT_CONTROL_PIN        35          //!< Номер пина управления яркостью светодиодной матрицы
+
+#define ADC_POLLINGS_PERIOD                     500         //!< Период опроса каналов АЦП в количестве периодов таймера 0 (100 мкс * 500 = 50 мс)
 #define ADC_CHANNELS_QUANTITY                   2           //!< Количество каналов АЦП
 #define ADC_MEASUREMENTS_QUANTITY               5           //!< Количество измерений АЦП для заполнения буфера измерений
 #define ADC_RESOLUTION                          12          //!< Разрядность АЦП
@@ -10,15 +14,15 @@
 #define MAX_PERCENTS                            100         //!< Максимальное значение отсчётов АЦП в процентах
 #define ADC_COUNTS_TO_PERCENTS_COEFF            ((float) MAX_PERCENTS / ADC_MAX_COUNTS) //!< Коэффициент для перевода отсчетов АЦП в проценты
 
-// Пояснение. В целях упрощения было принято решение один раз
-// откалибровать потенциометры с помощью метода наименьших квадратов,
-// не реализовывая калибровку программно. Двухпараметрическая
-// калибровка - оптимальный вариант: корректируется и наклон, и смещение.
-
 #define POTENTIOMETER_VOLUME_CONTROL_C0         1.0252f     //!< Калибровочный коэффициент C0 для потенциометра управления громкостью звука
 #define POTENTIOMETER_VOLUME_CONTROL_C1         11.5537f    //!< Калибровочный коэффициент C1 для потенциометра управления громкостью звука
 #define POTENTIOMETER_BRIGHT_CONTROL_C0         1.0216f     //!< Калибровочный коэффициент C0 для потенциометра управления яркостью светодиодной матрицы
 #define POTENTIOMETER_BRIGHT_CONTROL_C1         25.4780f    //!< Калибровочный коэффициент C1 для потенциометра управления яркостью светодиодной матрицы
+
+// Пояснение. В целях упрощения было принято решение один раз
+// откалибровать потенциометры с помощью метода наименьших квадратов,
+// не реализовывая калибровку программно. Двухпараметрическая
+// калибровка - оптимальный вариант: корректируется и наклон, и смещение.
 
 static float adcChannelsCoeffs0[ADC_CHANNELS_QUANTITY] = { POTENTIOMETER_VOLUME_CONTROL_C0, \
                                                            POTENTIOMETER_BRIGHT_CONTROL_C0 };   //!< Массив с калибровочными коэффициентами 0 для каналов АЦП
@@ -42,7 +46,7 @@ void AdcMeasurements_Init(void)
 }
 
 //! \brief Фильтр скользящего среднего для каналов АЦП
-void AdcMeasurements_MovingAverageFilter(void)
+static void AdcMeasurements_MovingAverageFilter(void)
 {
     // Массив измерений значений АЦП потенциометров
     static uint16_t adcValues[ADC_CHANNELS_QUANTITY][ADC_MEASUREMENTS_QUANTITY];
@@ -118,6 +122,24 @@ void AdcMeasurements_MovingAverageFilter(void)
                 adcCountsInPercents[channelIndex] = MAX_PERCENTS;
             }
         }
+    }
+}
+
+//! \brief Периодический опрос каналов АЦП
+void AdcMeasurements_Pollings(void)
+{
+    // Время последнего опроса АЦП
+    static uint32_t lastAdcPollingTime = 0;
+
+    // Чтение текущего положения ручек потенциометров
+    // каждые ADC_POLLINGS_PERIOD периодов таймера 0
+    if ((UserTimer_GetCounterTime() - lastAdcPollingTime) > ADC_POLLINGS_PERIOD)
+    {
+        // Фильтр скользящего среднего для каналов АЦП
+        AdcMeasurements_MovingAverageFilter();
+
+        // Обновление времени последнего опроса АЦП
+        lastAdcPollingTime = UserTimer_GetCounterTime();
     }
 }
 

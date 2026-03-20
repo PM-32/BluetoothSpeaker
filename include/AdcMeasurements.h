@@ -7,8 +7,6 @@
 extern "C" {
 #endif
 
-#define ADC_POLLINGS_PERIOD     500     //!< Период опроса каналов АЦП в количестве периодов таймера 0 (100 мкс * 500 = 50 мс)
-
 //! \brief Номера потенциометров
 typedef enum
 {
@@ -20,8 +18,8 @@ typedef enum
 //! \brief Инициализация АЦП
 void AdcMeasurements_Init(void);
 
-//! \brief Фильтр скользящего среднего для каналов АЦП
-void AdcMeasurements_MovingAverageFilter(void);
+//! \brief Периодический опрос каналов АЦП
+void AdcMeasurements_Pollings(void);
 
 //! \brief Получение адреса массива с отсчетами АЦП в процентах
 //! \return Адрес массива с отсчетами АЦП в процентах

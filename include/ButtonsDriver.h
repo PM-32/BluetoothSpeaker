@@ -33,6 +33,9 @@ typedef enum
     BUTTON_PRESS_SERIES_FINISHED                //!< Серия нажатий на кнопку завершена по таймауту
 } ButtonPressSeriesStatus;
 
+//! \brief Инициализация кнопок
+void ButtonsDriver_Init(void);
+
 //! \brief Фильтр антидребезга кнопок
 void ButtonsDriver_AntibounceFilter(void);
 
