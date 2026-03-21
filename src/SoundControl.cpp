@@ -1,5 +1,5 @@
-#include <AudioTools.h>
-#include <BluetoothA2DPSink.h>
+// #include <AudioTools.h>
+// #include <BluetoothA2DPSink.h>
 
 #include "ButtonsDriver.h"
 #include "SoundControl.h"
@@ -383,4 +383,10 @@ void SoundControl_Playback(void)
         // Сброс количества нажатий на кнопку управления звука
         pButtonsPressCount[BUTTON_SOUND_CONTROL] = 0;
     }
+}
+
+//! \brief Получение указателя на объект BluetoothA2DPSink
+BluetoothA2DPSink * SoundControl_GetA2DPSinkPointer(void)
+{
+    return &a2dp_sink;
 }

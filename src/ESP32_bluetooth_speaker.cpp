@@ -1,6 +1,7 @@
 #include <Arduino.h>
 
 #include "AdcMeasurements.h"
+#include "BluetoothConnectionControl.h"
 #include "ButtonsDriver.h"
 #include "LedsDriver.h"
 #include "SoundControl.h"
@@ -29,6 +30,9 @@ void setup()
     // Инициализация I2S1 и A2DP
     SoundControl_Init();
 
+    // Инициализация модуля управления Bluetooth-подключением
+    BluetoothConnectionControl_Init();
+
     // Инициализация таймера для отсчета интервалов
     UserTimer_InitTimer();
 
@@ -48,8 +52,11 @@ void loop()
     // Управление громкостью звука
     SoundControl_Volume();
 
-    // Моргание светодиодом с периодом 1 с
-    LedsDriver_BlinkLed(BLUETOOTH_STATUS_LED_PIN, 10000);
+    // Обработка кнопки инициализации Bluetooth
+    BluetoothConnectionControl_HandleButton();
+
+    // Обновление индикации состояния Bluetooth-подключения
+    BluetoothConnectionControl_UpdateLed();
 
     // Вывод информации о положении ручки потенциометра
     // управления яркостью светодиодной матрицы в процентах
