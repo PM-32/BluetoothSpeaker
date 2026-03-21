@@ -28,12 +28,6 @@ void LedsDriver_SetLedState(uint8_t ledPin, LedState ledState);
 //! \param[in] ledPin - пин светодиода
 void LedsDriver_ToggleLed(uint8_t ledPin);
 
-//! \brief Моргание светодиодом с заданным периодом
-//! \param[in] ledPin - пин светодиода
-//! \param[in] period - период включения светодиода
-//!                     в количестве периодов таймера 0
-void LedsDriver_BlinkLed(uint8_t ledPin, uint32_t period);
-
 #ifdef __cplusplus
 }
 #endif

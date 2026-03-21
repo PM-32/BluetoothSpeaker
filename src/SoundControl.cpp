@@ -1,6 +1,3 @@
-// #include <AudioTools.h>
-// #include <BluetoothA2DPSink.h>
-
 #include "ButtonsDriver.h"
 #include "SoundControl.h"
 #include "AdcMeasurements.h"
@@ -10,7 +7,6 @@
 // #define DEBUG_INFO_PLAYBACK_CONTROL                     // Вывод информации об управлении воспроизведением
 // #define DEBUG_INFO_VOLUME_CONTROL                       // Вывод информации о регулировке громкости на терминал 
 
-#define SPEAKER_NAME                    "MyMusic"       //!< Название колонки при подключении Bluetooth
 #define VOLUME_TIMEOUT_PERIOD           30000           //!< Таймаут возврата управления смартфону (3 секунды = 30000 * 100 мкс)
 #define DELTA_VOLUME_THRESHOLD_VALUE    7               //!< Пороговое значение для определения изменения положения потенциометра в процентах
 #define MAX_VOLUME_AVRCP                127             //!< Максимальное значение громкости в протоколе AVRCP
@@ -126,7 +122,7 @@ static void VolumeChangeCallback(int volume)
     lastPhoneVolumeInPercents = (uint8_t) ((volume * MAX_VOLUME_PERCENT) / MAX_VOLUME_AVRCP);
 }
 
-//! \brief Инициализация I2S1 и A2DP
+//! \brief Инициализация I2S1 и протокола A2DP
 void SoundControl_Init(void)
 {
     auto cfg = i2s.defaultConfig();             // Установка конфигурации по умолчанию

@@ -1,4 +1,5 @@
 #include <BluetoothA2DPSink.h>
+
 #include "esp_bt.h"
 #include "esp_bt_main.h"
 
@@ -8,69 +9,27 @@
 #include "SoundControl.h"
 #include "UserTimer.h"
 
-#define DEBUG_INFO_BLUETOOTH_CONNECTION                // Вывод информации о состоянии подключения
+// #define DEBUG_INFO_BLUETOOTH_CONNECTION             // Вывод информации о состоянии Bluetooth-подключения
 
-#define LED_BLINK_PERIOD_CONNECTED      10000           //!< Период мигания светодиода при подключении (1 секунда)
-#define LED_BLINK_PERIOD_DISCONNECTED   5000            //!< Период мигания светодиода при отключении (0.5 секунды)
+#define LED_BLINK_PERIOD_DISCONNECTED   5000        //!< Период мигания светодиода при отключении
+                                                    //!< Bluetooth в количестве периодов таймера 0 (500 мс)
 
-static BluetoothConnectionState connectionState = BLUETOOTH_DISCONNECTED;   //!< Текущее состояние подключения
-static uint32_t lastLedUpdateTime = 0;                                      //!< Время последнего обновления светодиода (в периодах таймера)
-static LedState currentLedState = LED_OFF;                                  //!< Текущее состояние светодиода (из LedsDriver.h)
-
-// // Указатель на объект A2DP (объявлен в SoundControl.cpp)
-// extern BluetoothA2DPSink a2dp_sink;
-
-//! \brief Обновление состояния светодиода в зависимости от подключения
-static void BluetoothConnectionControl_UpdateLedState(void)
+//! \brief Состояние подключения Bluetooth
+typedef enum
 {
-    // Если подключение установлено
-    if (BLUETOOTH_CONNECTED == connectionState)
-    {
-        // Светодиод должен гореть постоянно
-        if (LED_ON != currentLedState)
-        {
-            LedsDriver_SetLedState(BLUETOOTH_STATUS_LED_PIN, LED_ON);
-            currentLedState = LED_ON;
-        }
-        return;
-    }
-    
-    // Если подключение отсутствует - светодиод мигает
-    uint32_t blinkPeriod = LED_BLINK_PERIOD_DISCONNECTED;
-    
-    // Проверяем, прошло ли время для смены состояния светодиода
-    if ((UserTimer_GetCounterTime() - lastLedUpdateTime) > blinkPeriod)
-    {
-        // Меняем состояние светодиода
-        if (LED_OFF == currentLedState)
-        {
-            LedsDriver_SetLedState(BLUETOOTH_STATUS_LED_PIN, LED_ON);
-            currentLedState = LED_ON;
-        }
-        else
-        {
-            LedsDriver_SetLedState(BLUETOOTH_STATUS_LED_PIN, LED_OFF);
-            currentLedState = LED_OFF;
-        }
-        
-        // Обновляем время последнего изменения
-        lastLedUpdateTime = UserTimer_GetCounterTime();
-    }
-}
+    BLUETOOTH_DISCONNECTED = 0,     //!< Подключение отсутствует
+    BLUETOOTH_CONNECTED             //!< Подключение установлено
+} BluetoothConnectionState;
 
 //! \brief Инициализация модуля управления Bluetooth-подключением
 void BluetoothConnectionControl_Init(void)
 {
-    connectionState = BLUETOOTH_DISCONNECTED;
-    lastLedUpdateTime = UserTimer_GetCounterTime();
-    
-    // Инициализация состояния светодиода (выключен)
+    // Выключение светодиода
     LedsDriver_SetLedState(BLUETOOTH_STATUS_LED_PIN, LED_OFF);
-    currentLedState = LED_OFF;
 }
 
-//! \brief Обработка кнопки инициализации Bluetooth
-void BluetoothConnectionControl_HandleButton(void)
+//! \brief Управление Bluetooth-подключением
+void BluetoothConnectionControl_Execution(void)
 {
     // Получение адреса массива с количеством устойчивых нажатий на кнопки
     uint8_t *pButtonsPressCount = ButtonsDriver_GetButtonsPressCountPointer();
@@ -79,93 +38,97 @@ void BluetoothConnectionControl_HandleButton(void)
     ButtonPressSeriesStatus *pButtonSeriesStatus = ButtonsDriver_GetButtonsPressSeriesStatusPointer();
 
     // Если завершена серия нажатий на кнопку инициализации Bluetooth
-    if (BUTTON_PRESS_SERIES_FINISHED == pButtonSeriesStatus[BUTTON_INIT_BLUETOOTH])
+    if (BUTTON_PRESS_SERIES_FINISHED == pButtonSeriesStatus[BUTTON_BLUETOOTH_CONNECTION_CONTROL])
     {
-        // Одно нажатие: включение режима сопряжения (устройство становится видимым)
-        if (ONE_PRESS == pButtonsPressCount[BUTTON_INIT_BLUETOOTH])
+        if (ONE_PRESS == pButtonsPressCount[BUTTON_BLUETOOTH_CONNECTION_CONTROL])             // Зафиксировано одно нажатие на кнопку
         {
-            #ifdef DEBUG_INFO_BLUETOOTH_CONNECTION
-
-                Serial.println("»> ОДНО НАЖАТИЕ: Включение режима сопряжения");
-
-            #endif // DEBUG_INFO_BLUETOOTH_CONNECTION
-
-            // Делаем устройство видимым и доступным для подключения
+            // Устройство становится видимым и доступным для подключения
             esp_bt_gap_set_scan_mode(ESP_BT_CONNECTABLE, ESP_BT_GENERAL_DISCOVERABLE);
-        }
-        // Два нажатия: сброс текущего подключения и перезапуск
-        else if (TWO_PRESS == pButtonsPressCount[BUTTON_INIT_BLUETOOTH])
-        {
+
             #ifdef DEBUG_INFO_BLUETOOTH_CONNECTION
 
-                Serial.println("»> ДВА НАЖАТИЯ: Сброс подключения и перезапуск");
+                Serial.println("Включение режима сопряжения Bluetooth");
 
             #endif // DEBUG_INFO_BLUETOOTH_CONNECTION
-
+        }
+        else if (TWO_PRESS == pButtonsPressCount[BUTTON_BLUETOOTH_CONNECTION_CONTROL])        // Зафиксировано два нажатия на кнопку
+        {
+            // Получение адреса объекта BluetoothA2DPSink
             BluetoothA2DPSink *pBluetoothA2DPSink = SoundControl_GetA2DPSinkPointer();
 
-            // // Принудительно отключаем текущее устройство
-            // a2dp_sink.end();
-
+            // Отключение текущего подключенного устройства
             pBluetoothA2DPSink->end();
             
-            // Небольшая задержка для завершения процессов
+            // Задержка для завершения процесса отключения
             UserTimer_Delay(1000);
-            
-            // // Перезапускаем A2DP
-            // a2dp_sink.start("MyMusic");
 
-            pBluetoothA2DPSink->start("MyMusic");
+            // Перезапуск протокола A2DP
+            pBluetoothA2DPSink->start(SPEAKER_NAME);
+
+            #ifdef DEBUG_INFO_BLUETOOTH_CONNECTION
+
+                Serial.println("Сброс Bluetooth-подключения и перезапуск");
+
+            #endif // DEBUG_INFO_BLUETOOTH_CONNECTION
         }
 
         // Сброс статуса завершения серии нажатий
-        pButtonSeriesStatus[BUTTON_INIT_BLUETOOTH] = BUTTON_PRESS_SERIES_NONE;
-        pButtonsPressCount[BUTTON_INIT_BLUETOOTH] = 0;
+        pButtonSeriesStatus[BUTTON_BLUETOOTH_CONNECTION_CONTROL] = BUTTON_PRESS_SERIES_NONE;
+        pButtonsPressCount[BUTTON_BLUETOOTH_CONNECTION_CONTROL] = 0;
     }
 }
 
-//! \brief Обновление индикации состояния подключения
-void BluetoothConnectionControl_UpdateLed(void)
+//! \brief Индикация состояния Bluetooth-подключения
+void BluetoothConnectionControl_IndicateConnectionStatus(void)
 {
+    // Время последней смены состояния светодиода
+    static uint32_t lastLedChangeStateTime = 0;
+
+    // Текущее состояние Bluetooth-подключения
+    static BluetoothConnectionState connectionState = BLUETOOTH_DISCONNECTED;
+
+    // Получение адреса объекта BluetoothA2DPSink
     BluetoothA2DPSink *pBluetoothA2DPSink = SoundControl_GetA2DPSinkPointer();
 
-    // // Проверяем текущее состояние подключения и преобразуем в enum
-    // BluetoothConnectionState newState = (BluetoothConnectionState) a2dp_sink.is_connected();
+    // Получение нового состояния подключения
+    BluetoothConnectionState newConnectionState = (BluetoothConnectionState) pBluetoothA2DPSink->is_connected();
 
-    // Проверяем текущее состояние подключения и преобразуем в enum
-    BluetoothConnectionState newState = (BluetoothConnectionState) pBluetoothA2DPSink->is_connected();
-    
-    // Если состояние изменилось
-    if (newState != connectionState)
+    // Если состояние подключения изменилось
+    if (newConnectionState != connectionState)
     {
-        connectionState = newState;
-        
-        // При подключении сразу включаем светодиод, при отключении - выключаем
+        // Обновление текущего состояния подключения
+        connectionState = newConnectionState;
+
+        // Если подключение установлено
         if (BLUETOOTH_CONNECTED == connectionState)
         {
-            LedsDriver_SetLedState(BLUETOOTH_STATUS_LED_PIN, LED_ON);
-            currentLedState = LED_ON;
+            // Включение светодиода
+            LedsDriver_SetLedState(BLUETOOTH_STATUS_LED_PIN, LED_ON); 
         }
-        else
-        {
-            LedsDriver_SetLedState(BLUETOOTH_STATUS_LED_PIN, LED_OFF);
-            currentLedState = LED_OFF;
-        }
-        
-        // Сбрасываем таймер мигания
-        lastLedUpdateTime = UserTimer_GetCounterTime();
-        
+
+        // Обновление времени последней смены состояния светодиода
+        lastLedChangeStateTime = UserTimer_GetCounterTime();
+
         #ifdef DEBUG_INFO_BLUETOOTH_CONNECTION
         
-            Serial.printf("Состояние подключения изменилось: %s\r\n", 
-                         (BLUETOOTH_CONNECTED == connectionState) ? "ПОДКЛЮЧЕНО" : "ОТКЛЮЧЕНО");
+            Serial.printf("Состояние соединения изменилось: %s\r\n",
+                         (BLUETOOTH_CONNECTED == connectionState) ? "подключено" : "отключено");
         
         #endif // DEBUG_INFO_BLUETOOTH_CONNECTION
     }
-    
-    // Если подключение отсутствует, обновляем состояние мигающего светодиода
+
+    // Если подключение отсутствует
     if (BLUETOOTH_DISCONNECTED == connectionState)
     {
-        BluetoothConnectionControl_UpdateLedState();
+        // Переключение состояния светодиода при
+        // достижении периода LED_BLINK_PERIOD_DISCONNECTED
+        if ((UserTimer_GetCounterTime() - lastLedChangeStateTime) > LED_BLINK_PERIOD_DISCONNECTED)
+        {
+            // Смена состояния светодиода
+            LedsDriver_ToggleLed(BLUETOOTH_STATUS_LED_PIN);
+
+            // Обновление времени последней смены состояния светодиода
+            lastLedChangeStateTime = UserTimer_GetCounterTime();
+        }
     }
 }

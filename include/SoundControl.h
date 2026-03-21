@@ -4,7 +4,9 @@
 #include <AudioTools.h>
 #include <BluetoothA2DPSink.h>
 
-//! \brief Инициализация I2S1 и A2DP
+#define SPEAKER_NAME    "MyMusic"       //!< Название колонки при подключении Bluetooth
+
+//! \brief Инициализация I2S1 и протокола A2DP
 void SoundControl_Init(void);
 
 //! \brief Управление воспроизведением звука (кнопки)

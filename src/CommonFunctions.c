@@ -97,11 +97,8 @@ void CommonFunctions_GpioSetState(uint8_t gpioPin, PinState pinState)
 //! \param[in] gpioPin - номер пина
 void CommonFunctions_GpioToggleState(uint8_t gpioPin)
 {
-    // Состояние пина
-    PinState pinState = PIN_RESET;
-
     // Чтение состояния пина
-    pinState = CommonFunctions_GpioGetState(gpioPin);
+    PinState pinState = CommonFunctions_GpioGetState(gpioPin);
 
     // Если на выходе лог. "0"
     if (PIN_RESET == pinState)

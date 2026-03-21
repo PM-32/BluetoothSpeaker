@@ -27,7 +27,7 @@ void setup()
     // Инициализация АЦП
     AdcMeasurements_Init();
 
-    // Инициализация I2S1 и A2DP
+    // Инициализация I2S1 и протокола A2DP
     SoundControl_Init();
 
     // Инициализация модуля управления Bluetooth-подключением
@@ -52,11 +52,11 @@ void loop()
     // Управление громкостью звука
     SoundControl_Volume();
 
-    // Обработка кнопки инициализации Bluetooth
-    BluetoothConnectionControl_HandleButton();
+    // Управление Bluetooth-подключением
+    BluetoothConnectionControl_Execution();
 
-    // Обновление индикации состояния Bluetooth-подключения
-    BluetoothConnectionControl_UpdateLed();
+    // Индикация состояния Bluetooth-подключения
+    BluetoothConnectionControl_IndicateConnectionStatus();
 
     // Вывод информации о положении ручки потенциометра
     // управления яркостью светодиодной матрицы в процентах
@@ -68,37 +68,6 @@ void loop()
         Serial.printf("Яркость: %u%%\r\n", pAdcCountsInPercents[POTENTIOMETER_BRIGHT_CONTROL]);
 
     #endif // DEBUG_INFO_POTENTIOMETER_BRIGHT_CONTROL_PERCENTS
-
-    // Вывод информации о состоянии кнопки
-    // инициализации Bluetooth на терминал при необходимости
-    #ifdef DEBUG_INFO_BUTTON_INIT_BLUETOOTH_STATE
-    
-        // Получение адреса массива с количеством устойчивых нажатий на кнопки
-        uint8_t *pButtonsPressCount = ButtonsDriver_GetButtonsPressCountPointer();
-
-        // Получение адреса массива со статусами завершения серий нажатий 
-        ButtonPressSeriesStatus *pButtonSeriesStatus = ButtonsDriver_GetButtonsPressSeriesStatusPointer();
-
-        // Если завершена серия нажатий на кнопку управления звука
-        if (BUTTON_PRESS_SERIES_FINISHED == pButtonSeriesStatus[BUTTON_INIT_BLUETOOTH])
-        {
-            if (ONE_PRESS == pButtonsPressCount[BUTTON_INIT_BLUETOOTH])      // Зафиксировано одно нажатие на кнопку
-            {
-                Serial.println("Кнопка инициализации Bluetooth - действие на первое нажатие");
-            }
-            else if (TWO_PRESS == pButtonsPressCount[BUTTON_INIT_BLUETOOTH]) // Зафиксировано два нажатия на кнопку
-            {
-                Serial.println("Кнопка инициализации Bluetooth - действие на второе нажатие");
-            }
-
-            // Сброс статуса завершения серии нажатий на кнопку управления звука
-            pButtonSeriesStatus[BUTTON_INIT_BLUETOOTH] = BUTTON_PRESS_SERIES_NONE;
-
-            // Сброс количества нажатий на кнопку управления звука
-            pButtonsPressCount[BUTTON_INIT_BLUETOOTH] = 0;
-        }
-
-    #endif // DEBUG_INFO_BUTTON_INIT_BLUETOOTH_STATE
 
     // Задержка для вывода отладочной информации в терминал
     UserTimer_Delay(100);

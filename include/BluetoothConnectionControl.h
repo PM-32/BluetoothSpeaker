@@ -7,21 +7,14 @@
 extern "C" {
 #endif
 
-//! \brief Состояние подключения Bluetooth
-typedef enum
-{
-    BLUETOOTH_DISCONNECTED = 0,     //!< Подключение отсутствует
-    BLUETOOTH_CONNECTED             //!< Подключение установлено
-} BluetoothConnectionState;
-
 //! \brief Инициализация модуля управления Bluetooth-подключением
 void BluetoothConnectionControl_Init(void);
 
-//! \brief Обработка кнопки инициализации Bluetooth
-void BluetoothConnectionControl_HandleButton(void);
+//! \brief Управление Bluetooth-подключением
+void BluetoothConnectionControl_Execution(void);
 
-//! \brief Обновление индикации состояния подключения
-void BluetoothConnectionControl_UpdateLed(void);
+//! \brief Индикация состояния Bluetooth-подключения
+void BluetoothConnectionControl_IndicateConnectionStatus(void);
 
 #ifdef __cplusplus
 }
