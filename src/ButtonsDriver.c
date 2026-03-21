@@ -4,14 +4,11 @@
 #include "soc/gpio_reg.h"
 
 #include "ButtonsDriver.h"
+#include "CommonFunctions.h"
 #include "UserTimer.h"
 
-#define GPIO_IN_REG_SIZE_IN_BITS        32          //!< Размер регистра GPIO_IN_REG (регистр с состояниями пинов) в битах
 #define ANTIBOUNCE_FILTER_IN_TICKS      200         //!< Время работы фильтра антидребезга кнопки в количестве периодов таймера 0 (20 мс)
 #define NEXT_BUTTON_PRESS_TIMEOUT       5000        //!< Таймаут ожидания следующего нажатия на кнопку в количестве периодов таймера 0 (500 мс)
-
-#define BUTTON_SOUND_CONTROL_BIT_MASK       (1 << (BUTTON_SOUND_CONTROL_PIN - GPIO_IN_REG_SIZE_IN_BITS))    //!< Битовая маска для выделения пина кнопки управления звуком
-#define BUTTON_INIT_BLUETOOTH_PIN_BIT_MASK  (1 << (BUTTON_INIT_BLUETOOTH_PIN - GPIO_IN_REG_SIZE_IN_BITS))   //!< Битовая маска для выделения пина кнопки инициализации Bluetooth
 
 //! \brief Стадии работы фильтра антидребезга
 //!        кнопки для определения многократных нажатий
@@ -32,12 +29,6 @@ typedef enum
 static volatile uint8_t buttonsPressCount[BUTTONS_QUANTITY];                        //!< Массив с количеством устойчивых нажатий на кнопки
 static volatile ButtonPressSeriesStatus buttonsPressSeriesStatus[BUTTONS_QUANTITY]; //!< Массив со статусами завершения серий нажатий
 
-// Пояснение. Устройство пинов в ESP32.
-// Состояния пинов ESP32 содержатся в двух регистрах: GPIO_IN_REG и
-// GPIO_IN1_REG. GPIO_IN_REG содержит состояния пинов GPIO_0 - GPIO_31
-// (32 бит - [31:0]). GPIO_IN1_REG содержит состояния пинов
-// GPIO_32 - GPIO_39 (8 бит - [7:0]).
-
 //! \brief Инициализация кнопок
 void ButtonsDriver_Init(void)
 {
@@ -53,9 +44,9 @@ void ButtonsDriver_Init(void)
 //! \brief Фильтр антидребезга кнопок
 void ButtonsDriver_AntibounceFilter(void)
 {
-    // Массив битовых масок кнопок
-    static uint32_t buttonsMasksArray[BUTTONS_QUANTITY] = { BUTTON_SOUND_CONTROL_BIT_MASK, \
-                                                            BUTTON_INIT_BLUETOOTH_PIN_BIT_MASK };
+    // Массив пинов кнопок
+    static uint8_t buttonsPinArray[BUTTONS_QUANTITY] = { BUTTON_SOUND_CONTROL_PIN, \
+                                                         BUTTON_INIT_BLUETOOTH_PIN };
 
     // Массив с предельными количествами фиксируемых нажатий на кнопки
     static uint8_t maxButtonsPress[BUTTONS_QUANTITY] = { THREE_PRESS, TWO_PRESS };
@@ -84,7 +75,7 @@ void ButtonsDriver_AntibounceFilter(void)
     for (uint8_t buttonIndex = 0; buttonIndex < BUTTONS_QUANTITY; buttonIndex++)
     {
         // Чтение текущего состояния кнопки
-        uint8_t currentButtonState = (uint8_t) (REG_READ(GPIO_IN1_REG) & buttonsMasksArray[buttonIndex]);
+        PinState currentButtonState = CommonFunctions_GpioGetState(buttonsPinArray[buttonIndex]);
 
         // Если запущен таймер ожидания следующего нажатия на кнопку
         if (WAITING_FOR_NEXT_PRESS == severalPressFilterStage[buttonIndex])
@@ -110,7 +101,7 @@ void ButtonsDriver_AntibounceFilter(void)
         }
 
         // Если кнопка нажата
-        if (LOW == currentButtonState)
+        if (PIN_RESET == currentButtonState)
         {
             // Увеличение счетчика времени,
             // когда кнопка была нажата

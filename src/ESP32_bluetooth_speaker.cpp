@@ -48,6 +48,9 @@ void loop()
     // Управление громкостью звука
     SoundControl_Volume();
 
+    // Моргание светодиодом с периодом 1 с
+    LedsDriver_BlinkLed(BLUETOOTH_STATUS_LED_PIN, 10000);
+
     // Вывод информации о положении ручки потенциометра
     // управления яркостью светодиодной матрицы в процентах
     #ifdef DEBUG_INFO_POTENTIOMETER_BRIGHT_CONTROL_PERCENTS
