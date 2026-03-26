@@ -386,3 +386,9 @@ BluetoothA2DPSink * SoundControl_GetA2DPSinkPointer(void)
 {
     return &a2dp_sink;
 }
+
+//! \brief Получение указателя на I2SStream
+I2SStream * SoundControl_GetI2SStreamPointer(void)
+{
+    return &i2s;
+}

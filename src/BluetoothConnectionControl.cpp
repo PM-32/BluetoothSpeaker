@@ -3,6 +3,7 @@
 #include "esp_bt.h"
 #include "esp_bt_main.h"
 
+#include "AudioNotifications.h"
 #include "BluetoothConnectionControl.h"
 #include "ButtonsDriver.h"
 #include "LedsDriver.h"
@@ -11,8 +12,8 @@
 
 // #define DEBUG_INFO_BLUETOOTH_CONNECTION             // Вывод информации о состоянии Bluetooth-подключения
 
-#define LED_BLINK_PERIOD_DISCONNECTED   5000        //!< Период мигания светодиода при отключении
-                                                    //!< Bluetooth в количестве периодов таймера 0 (500 мс)
+#define LED_BLINK_PERIOD_DISCONNECTED   8000        //!< Период мигания светодиода при отключении
+                                                    //!< Bluetooth в количестве периодов таймера 0 (800 мс)
 
 //! \brief Состояние подключения Bluetooth
 typedef enum
@@ -103,7 +104,13 @@ void BluetoothConnectionControl_IndicateConnectionStatus(void)
         if (BLUETOOTH_CONNECTED == connectionState)
         {
             // Включение светодиода
-            LedsDriver_SetLedState(BLUETOOTH_STATUS_LED_PIN, LED_ON); 
+            LedsDriver_SetLedState(BLUETOOTH_STATUS_LED_PIN, LED_ON);
+            
+            AudioNotifications_Play(NOTIFICATION_CONNECT);
+        }
+        else
+        {
+            AudioNotifications_Play(NOTIFICATION_DISCONNECT);
         }
 
         // Обновление времени последней смены состояния светодиода

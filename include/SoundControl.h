@@ -19,4 +19,8 @@ void SoundControl_Volume(void);
 //! \return Указатель на объект BluetoothA2DPSink
 BluetoothA2DPSink * SoundControl_GetA2DPSinkPointer(void);
 
+//! \brief Получение указателя на I2SStream
+//! \return Указатель на I2SStream
+I2SStream * SoundControl_GetI2SStreamPointer(void);
+
 #endif // SOUND_CONTROL_H_
