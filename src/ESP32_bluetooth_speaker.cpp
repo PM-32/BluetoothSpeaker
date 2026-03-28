@@ -8,6 +8,7 @@
 #include "SoundControl.h"
 #include "UserTimer.h"
 
+// #define DEBUG_INFO_FREQUENCY                                 // Вывод информации о частотах CPU и шины APB
 // #define DEBUG_INFO_BUTTON_INIT_BLUETOOTH_STATE               // Вывод информации о состоянии кнопки
 //                                                              // инициализации Bluetooth на терминал
 // #define DEBUG_INFO_POTENTIOMETER_BRIGHT_CONTROL_PERCENTS     // Вывод информации о положении ручки потенциометра
@@ -18,6 +19,16 @@ void setup()
 {
     // Запуск UART для вывода отладочной информации
     Serial.begin(9600);
+
+    #ifdef DEBUG_INFO_FREQUENCY
+
+        // Количество Гц в одном МГц
+        const uint32_t HzInMhzQuantity = 1000000;
+
+        Serial.printf("Частота CPU: %d МГц\n", getCpuFrequencyMhz());
+        Serial.printf("Частота шины APB: %d МГц\n", getApbFrequency() / HzInMhzQuantity);
+    
+    #endif // DEBUG_INFO_FREQUENCY
     
     // Инициализация кнопок
     ButtonsDriver_Init();
