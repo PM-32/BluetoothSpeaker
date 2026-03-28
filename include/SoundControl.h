@@ -4,7 +4,11 @@
 #include <AudioTools.h>
 #include <BluetoothA2DPSink.h>
 
-#define SPEAKER_NAME    "MyMusic"       //!< Название колонки при подключении Bluetooth
+#define SPEAKER_NAME                "MyMusic"       //!< Название колонки при подключении Bluetooth
+
+#define MAX_VOLUME_SAMPLE           32767           //!< Абсолютный максимум для 16-ти битного сэмпла (положительная полуволна)
+#define MIN_VOLUME_SAMPLE           -32768          //!< Абсолютный минимум для 16-ти битного сэмпла (отрицательная полуволна)
+#define AUDIO_CHANNELS_QUANTITY     2               //!< Количество каналов (2 канала: правый и левый)
 
 //! \brief Инициализация I2S1 и протокола A2DP
 void SoundControl_Init(void);

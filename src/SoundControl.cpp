@@ -12,9 +12,6 @@
 #define MAX_VOLUME_AVRCP                127             //!< Максимальное значение громкости в протоколе AVRCP
 #define MAX_VOLUME_PERCENT              100             //!< Максимальное значение громкости в процентах
 #define TARGET_MAX_VOLUME_SAMPLE        30000           //!< Целевое максимальное значение сэмпла при 100% громкости
-#define MAX_VOLUME_SAMPLE               32767           //!< Абсолютный максимум для 16-ти битного сэмпла (положительная полуволна)
-#define MIN_VOLUME_SAMPLE               -32768          //!< Абсолютный минимум для 16-ти битного сэмпла (отрицательная полуволна)
-#define AUDIO_CHANNELS_QUANTITY         2               //!< Количество каналов (2 канала: правый и левый)
 #define LIMITER_COEFF                   ((float) TARGET_MAX_VOLUME_SAMPLE / MAX_VOLUME_SAMPLE)  //!< Коэффициент для ограничения максимальной громкости           
 
 //! \brief Текущее состояние воспроизведения звука
@@ -53,19 +50,19 @@ class VolumeControlStream: public AudioStream
     // Поток управления аудиоданными
     VolumeControlStream(AudioStream &out): audioOut(out) {}
 
-    // Функция для масштабирования громкости звука
+    // Функция для записи звука в I2S
     size_t write(const uint8_t *audioData, size_t lengthData) override
     {
         // Указатель на данные (сэмплы)
         int16_t *samples = (int16_t*) audioData;
 
         // Количество сэмплов
-        size_t samplesCount = lengthData / AUDIO_CHANNELS_QUANTITY;
+        size_t samplesQuantity = lengthData / AUDIO_CHANNELS_QUANTITY;
         
         // Вычисление коэффициента громкости
         float volumeScaleCoeff = ((float) volumeInPercents / (float) MAX_VOLUME_PERCENT) * LIMITER_COEFF;
 
-        for (size_t sampleIndex = 0; sampleIndex < samplesCount; sampleIndex++)
+        for (size_t sampleIndex = 0; sampleIndex < samplesQuantity; sampleIndex++)
         {
             // Масштабирование громкости сэмпла
             float scaledVolumeSample = samples[sampleIndex] * volumeScaleCoeff;

@@ -2,7 +2,6 @@
 #define INC_AUDIO_NOTIFICATIONS_H_
 
 #include <stdint.h>
-#include <stdbool.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -24,9 +23,6 @@ void AudioNotifications_Play(NotificationType type);
 
 //! \brief Обновление состояния воспроизведения (вызывать в loop)
 void AudioNotifications_Update(void);
-
-//! \brief Проверка, воспроизводится ли уведомление
-bool AudioNotifications_IsPlaying(void);
 
 #ifdef __cplusplus
 }
