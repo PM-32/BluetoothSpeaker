@@ -14,14 +14,14 @@ typedef enum
     NOTIFICATION_DISCONNECT         //!< Отключение Bluetooth
 } NotificationType;
 
-//! \brief Инициализация модуля звуковых уведомлений
+//! \brief Инициализация звуковых уведомлений
 void AudioNotifications_Init(void);
 
 //! \brief Воспроизведение звукового уведомления
-//! \param[in] type - тип уведомления (подключение/отключение)
-void AudioNotifications_Play(NotificationType type);
+//! \param[in] notificationType - тип уведомления
+void AudioNotifications_Play(NotificationType notificationType);
 
-//! \brief Обновление состояния воспроизведения (вызывать в loop)
+//! \brief Обновление состояния воспроизведения
 void AudioNotifications_Update(void);
 
 #ifdef __cplusplus

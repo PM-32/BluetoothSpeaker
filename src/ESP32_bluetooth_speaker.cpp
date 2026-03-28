@@ -62,7 +62,7 @@ void loop()
     // Индикация состояния Bluetooth-подключения
     BluetoothConnectionControl_IndicateConnectionStatus();
 
-    // Обновление состояния звуковых уведомлений
+    // Обновление состояния воспроизведения
     AudioNotifications_Update();
 
     // Вывод информации о положении ручки потенциометра

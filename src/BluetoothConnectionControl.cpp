@@ -106,10 +106,12 @@ void BluetoothConnectionControl_IndicateConnectionStatus(void)
             // Включение светодиода
             LedsDriver_SetLedState(BLUETOOTH_STATUS_LED_PIN, LED_ON);
             
+            // Воспроизведение звукового уведомления - подключение
             AudioNotifications_Play(NOTIFICATION_CONNECT);
         }
-        else
+        else // Если подключение не установлено
         {
+            // Воспроизведение звукового уведомления - отключение
             AudioNotifications_Play(NOTIFICATION_DISCONNECT);
         }
 

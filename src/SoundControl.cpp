@@ -379,12 +379,14 @@ void SoundControl_Playback(void)
 }
 
 //! \brief Получение указателя на объект BluetoothA2DPSink
+//! \return Указатель на объект BluetoothA2DPSink
 BluetoothA2DPSink * SoundControl_GetA2DPSinkPointer(void)
 {
     return &a2dp_sink;
 }
 
-//! \brief Получение указателя на I2SStream
+//! \brief Получение указателя на объект I2SStream
+//! \return Указатель на объект I2SStream
 I2SStream * SoundControl_GetI2SStreamPointer(void)
 {
     return &i2s;
