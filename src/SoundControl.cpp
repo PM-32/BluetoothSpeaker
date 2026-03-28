@@ -1,3 +1,5 @@
+#include "math.h"
+
 #include "ButtonsDriver.h"
 #include "SoundControl.h"
 #include "AdcMeasurements.h"
@@ -12,7 +14,11 @@
 #define MAX_VOLUME_AVRCP                127             //!< Максимальное значение громкости в протоколе AVRCP
 #define MAX_VOLUME_PERCENT              100             //!< Максимальное значение громкости в процентах
 #define TARGET_MAX_VOLUME_SAMPLE        30000           //!< Целевое максимальное значение сэмпла при 100% громкости
-#define LIMITER_COEFF                   ((float) TARGET_MAX_VOLUME_SAMPLE / MAX_VOLUME_SAMPLE)  //!< Коэффициент для ограничения максимальной громкости           
+#define MAX_VOLUME_SAMPLE               32767           //!< Абсолютный максимум для 16-ти битного сэмпла (положительная полуволна)
+#define MIN_VOLUME_SAMPLE               -32768          //!< Абсолютный минимум для 16-ти битного сэмпла (отрицательная полуволна)
+#define AUDIO_CHANNELS_QUANTITY         2               //!< Количество каналов (2 канала: правый и левый)
+#define LIMITER_COEFF                   ((float) TARGET_MAX_VOLUME_SAMPLE / MAX_VOLUME_SAMPLE)  //!< Коэффициент для ограничения максимальной громкости
+#define VOLUME_CURVE_SHAPE              0.4f            //!< Форма кривой для регулировки громкости
 
 //! \brief Текущее состояние воспроизведения звука
 typedef enum
@@ -59,8 +65,8 @@ class VolumeControlStream: public AudioStream
         // Количество сэмплов
         size_t samplesQuantity = lengthData / AUDIO_CHANNELS_QUANTITY;
         
-        // Вычисление коэффициента громкости
-        float volumeScaleCoeff = ((float) volumeInPercents / (float) MAX_VOLUME_PERCENT) * LIMITER_COEFF;
+        // Вычисление коэффициента громкости с учетом ограничителя
+        float volumeScaleCoeff = volumeCoeff * LIMITER_COEFF;
 
         for (size_t sampleIndex = 0; sampleIndex < samplesQuantity; sampleIndex++)
         {
@@ -94,17 +100,24 @@ class VolumeControlStream: public AudioStream
             percents = MAX_VOLUME_PERCENT;
         }
 
-        // Сохранение текущей громкости
-        volumeInPercents = percents;
+        // Примечание. Для регулировки громкости используется корневая
+        // функция. Она нужна для быстрого роста громкости в начале
+        // диапазона. Это компенсирует логарифмическое восприятие слуха 
+
+        // Нормализованное значение громкости
+        float normalizedVolume = (float) percents / MAX_VOLUME_PERCENT;
+
+        // Расчет коэффициента громкости
+        volumeCoeff = powf(normalizedVolume, VOLUME_CURVE_SHAPE);
     }
 
   private:
 
     // Ссылка на выходной поток аудиоданных
     AudioStream &audioOut;
-
-    // Текущая громкость звука в процентах
-    uint8_t volumeInPercents = MAX_VOLUME_PERCENT;
+    
+    // Коэффициент громкости (0.0 - 1.0)
+    float volumeCoeff = 1.0f;
 };
 
 VolumeControlStream volumeStream(i2s);  //!< Класс для управления громкостью звука
