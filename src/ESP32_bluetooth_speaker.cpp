@@ -2,6 +2,7 @@
 
 #include "AdcMeasurements.h"
 #include "AudioNotifications.h"
+#include "BatteryChargeIndication.h"
 #include "BluetoothConnectionControl.h"
 #include "ButtonsDriver.h"
 #include "LedsDriver.h"
@@ -35,6 +36,9 @@ void setup()
 
     // Инициализация светодиода
     LedsDriver_Init();
+
+    // Инициализация индикатора заряда на пине GPIO2
+    BatteryChargeIndication_Init(BATTERY_CHARGE_LED_PIN);
 
     // Инициализация АЦП
     AdcMeasurements_Init();
@@ -72,6 +76,9 @@ void loop()
 
     // Индикация состояния Bluetooth-подключения
     BluetoothConnectionControl_IndicateConnectionStatus();
+
+    // Обновление состояния индикатора (для демо-режима)
+    BatteryChargeIndication_Update();
 
     // Обновление состояния воспроизведения
     AudioNotifications_Update();
