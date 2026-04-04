@@ -7,13 +7,10 @@
 #include "ButtonsDriver.h"
 #include "LedsDriver.h"
 #include "SoundControl.h"
+#include "SoundPresets.h"
 #include "UserTimer.h"
 
 // #define DEBUG_INFO_FREQUENCY                                 // Вывод информации о частотах CPU и шины APB
-// #define DEBUG_INFO_BUTTON_INIT_BLUETOOTH_STATE               // Вывод информации о состоянии кнопки
-//                                                              // инициализации Bluetooth на терминал
-// #define DEBUG_INFO_POTENTIOMETER_BRIGHT_CONTROL_PERCENTS     // Вывод информации о положении ручки потенциометра
-//                                                              // управления яркостью светодиодной матрицы в процентах
 
 //! \brief Инициализация
 void setup()
@@ -71,6 +68,9 @@ void loop()
     // Управление громкостью звука
     SoundControl_Volume();
 
+    // Управление пресетами эквалайзера
+    SoundPresets_Control();
+
     // Управление Bluetooth-подключением
     BluetoothConnectionControl_Execution();
 
@@ -88,17 +88,6 @@ void loop()
 
     // Обновление состояния воспроизведения
     AudioNotifications_Update();
-
-    // Вывод информации о положении ручки потенциометра
-    // управления яркостью светодиодной матрицы в процентах
-    #ifdef DEBUG_INFO_POTENTIOMETER_BRIGHT_CONTROL_PERCENTS
-
-        // Получение адреса массива с отсчетами АЦП в процентах
-        uint8_t *pAdcCountsInPercents = AdcMeasurements_GetAdcCountsInPercentsPointer();
-
-        Serial.printf("Яркость: %u%%\r\n", pAdcCountsInPercents[POTENTIOMETER_BRIGHT_CONTROL]);
-
-    #endif // DEBUG_INFO_POTENTIOMETER_BRIGHT_CONTROL_PERCENTS
 
     // Задержка для вывода отладочной информации в терминал
     UserTimer_Delay(100);

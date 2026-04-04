@@ -9,12 +9,14 @@ extern "C" {
 
 #define BUTTON_SOUND_CONTROL_PIN                    32      //!< Номер пина кнопки управления звуком
 #define BUTTON_BLUETOOTH_CONNECTION_CONTROL_PIN     33      //!< Номер пина кнопки управления Bluetooth-подключением
+#define BUTTON_SOUND_PRESET_CONTROL_PIN             5       //!< Номер пина кнопки управления пресетами звука
 
 //! \brief Номера кнопок
 typedef enum
 {
     BUTTON_SOUND_CONTROL = 0,                   //!< Кнопка управления звуком
     BUTTON_BLUETOOTH_CONNECTION_CONTROL,        //!< Кнопка управления Bluetooth-подключением
+    BUTTON_SOUND_PRESET_CONTROL,                //!< Кнопка управления пресетами звука
     BUTTONS_QUANTITY                            //!< Общее количество кнопок
 } Buttons;
 

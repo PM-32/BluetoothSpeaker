@@ -39,6 +39,9 @@ void ButtonsDriver_Init(void)
     // Настройка пина кнопки для инициализации Bluetooth
     // (подтяжка к +3.3V)
     pinMode(BUTTON_BLUETOOTH_CONNECTION_CONTROL_PIN, INPUT_PULLUP);
+
+    // Настройка пина кнопки управления пресетами звука
+    pinMode(BUTTON_SOUND_PRESET_CONTROL_PIN, INPUT_PULLUP);
 }
 
 //! \brief Фильтр антидребезга кнопок
@@ -46,10 +49,11 @@ void ButtonsDriver_AntibounceFilter(void)
 {
     // Массив пинов кнопок
     static uint8_t buttonsPinArray[BUTTONS_QUANTITY] = { BUTTON_SOUND_CONTROL_PIN, \
-                                                         BUTTON_BLUETOOTH_CONNECTION_CONTROL_PIN };
+                                                         BUTTON_BLUETOOTH_CONNECTION_CONTROL_PIN,
+                                                         BUTTON_SOUND_PRESET_CONTROL_PIN };
 
     // Массив с предельными количествами фиксируемых нажатий на кнопки
-    static uint8_t maxButtonsPress[BUTTONS_QUANTITY] = { THREE_PRESS, TWO_PRESS };
+    static uint8_t maxButtonsPress[BUTTONS_QUANTITY] = { THREE_PRESS, TWO_PRESS, THREE_PRESS };
 
     // Текущая стадия работы фильтра антидребезга
     // кнопки для определения многократных нажатий

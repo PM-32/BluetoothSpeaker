@@ -27,8 +27,6 @@ void CommonFunctions_GpioSetState(uint8_t gpioPin, PinState bitState);
 //! \param[in] gpioPin - номер пина
 void CommonFunctions_GpioToggleState(uint8_t gpioPin);
 
-// void CommonFunctions_GpioReadBit(uint8_t gpioPin);
-
 #ifdef __cplusplus
 }
 #endif

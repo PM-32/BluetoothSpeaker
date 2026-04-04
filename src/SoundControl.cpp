@@ -2,6 +2,7 @@
 
 #include "ButtonsDriver.h"
 #include "SoundControl.h"
+#include "SoundPresets.h"
 #include "AdcMeasurements.h"
 #include "UserTimer.h"
 
@@ -62,16 +63,22 @@ class VolumeControlStream: public AudioStream
         // Указатель на данные (сэмплы)
         int16_t *samples = (int16_t*) audioData;
 
-        // Количество сэмплов
-        size_t samplesQuantity = lengthData / AUDIO_CHANNELS_QUANTITY;
+        // Количество сэмплов (стерео, поэтому делим на 2)
+        size_t samplesQuantity = lengthData / sizeof(int16_t);
         
         // Вычисление коэффициента громкости с учетом ограничителя
         float volumeScaleCoeff = volumeCoeff * LIMITER_COEFF;
 
         for (size_t sampleIndex = 0; sampleIndex < samplesQuantity; sampleIndex++)
         {
+            // Определение канала (чётные - левый, нечётные - правый)
+            uint8_t channel = (sampleIndex % 2 == 0) ? 0 : 1;
+            
+            // Применение эквалайзера
+            int16_t eqSample = SoundPresets_ProcessSample(samples[sampleIndex], channel);
+            
             // Масштабирование громкости сэмпла
-            float scaledVolumeSample = samples[sampleIndex] * volumeScaleCoeff;
+            float scaledVolumeSample = (float) eqSample * volumeScaleCoeff;
             
             // Ограничение громкости для 16-ти битного сэмпла
             if (scaledVolumeSample > MAX_VOLUME_SAMPLE)
@@ -169,6 +176,9 @@ void SoundControl_Init(void)
 
     // Установка громкости звука со смартфона
     volumeStream.SetVolume(currentVolumeInPercents);
+
+    // Инициализация модуля звуковых пресетов
+    SoundPresets_Init();
 }
 
 //! \brief Смена текущего состояния воспроизведения звука
