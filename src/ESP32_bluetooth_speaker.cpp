@@ -37,8 +37,8 @@ void setup()
     // Инициализация светодиода
     LedsDriver_Init();
 
-    // Инициализация индикатора заряда на пине GPIO2
-    BatteryChargeIndication_Init(BATTERY_CHARGE_LED_PIN);
+    // Инициализация светодиода индикации заряда батареи
+    BatteryChargeIndication_Init();
 
     // Инициализация АЦП
     AdcMeasurements_Init();
@@ -77,8 +77,14 @@ void loop()
     // Индикация состояния Bluetooth-подключения
     BluetoothConnectionControl_IndicateConnectionStatus();
 
-    // Обновление состояния индикатора (для демо-режима)
-    BatteryChargeIndication_Update();
+    // Выключение светодиода индикации заряда батареи
+    BatteryChargeIndication_LedOff();
+
+    // TODO: Пока устройство питается от блока питания.
+    //       Данный функционал будет использован позже,
+    //       когда устройство будет питаться от аккумуляторной сборки.
+    // Обновление цвета светодиода индикации заряда батареи
+    // BatteryChargeIndication_UpdateColor();
 
     // Обновление состояния воспроизведения
     AudioNotifications_Update();
