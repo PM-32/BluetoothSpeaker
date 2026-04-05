@@ -1,25 +1,32 @@
 #include <math.h>
+#include <stdbool.h>
 
 #include <Arduino.h>
+#include <Preferences.h>
 
 #include "ButtonsDriver.h"
 #include "SoundControl.h"
 #include "SoundPresets.h"
 #include "UserTimer.h"
 
-// #define DEBUG_INFO_SOUND_PRESETS                // Вывод информации о текущем пресете
-// #define DEBUG_INFO_BUTTON_SOUND_PRESETS         // Вывод информации о нажатии на кнопку управления пресетами
+// #define DEBUG_INFO_SOUND_PRESETS                    // Вывод информации о текущем пресете
+// #define DEBUG_INFO_BUTTON_SOUND_PRESETS             // Вывод информации о нажатии на кнопку управления пресетами
+// #define DEBUG_INFO_SOUND_PRESETS_FLASH              // Вывод информации о записи/чтении пресета с flash
 
 // Частоты среза для трех полос эквалайзера
-#define LOW_CROSSOVER_FREQUENCY     250         //!< Частота среза низких/средних частот (Гц)
-#define HIGH_CROSSOVER_FREQUENCY    4000        //!< Частота среза средних/высоких частот (Гц)
+#define LOW_CROSSOVER_FREQUENCY     250             //!< Частота среза низких/средних частот (Гц)
+#define HIGH_CROSSOVER_FREQUENCY    4000            //!< Частота среза средних/высоких частот (Гц)
 
 // Математические константы
-#define DECIBEL_TO_LINEAR_BASE      10.0f       //!< Основание для перевода децибел в линейный коэффициент
-#define DECIBEL_DIVISOR             20.0f       //!< Делитель в формуле перевода децибел (20 dB на декаду)
-#define PHASE_CYCLE                 2.0f        //!< Полный цикл фазы (2 * pi радиан)
-#define UNITY_GAIN                  1.0f        //!< Единичное усиление (0 dB)
-#define ALPHA_COEFF_ONE             1.0f        //!< Единица для расчета альфа коэффициента фильтра
+#define DECIBEL_TO_LINEAR_BASE      10.0f           //!< Основание для перевода децибел в линейный коэффициент
+#define DECIBEL_DIVISOR             20.0f           //!< Делитель в формуле перевода децибел (20 dB на декаду)
+#define PHASE_CYCLE                 2.0f            //!< Полный цикл фазы (2 * pi радиан)
+#define UNITY_GAIN                  1.0f            //!< Единичное усиление (0 dB)
+#define ALPHA_COEFF_ONE             1.0f            //!< Единица для расчета альфа коэффициента фильтра
+
+// Настройки сохранения пресета во flash-памяти
+#define STORAGE_NAMESPACE           "EqPresets"    //!< Пространство имен для хранения настроек
+#define STORAGE_KEY_PRESET          "Preset"       //!< Ключ для хранения текущего пресета
 
 //! \brief Состояния фильтров для левого и правого каналов
 typedef struct
@@ -62,6 +69,69 @@ static const int8_t presetGainsDb[EQUALIZER_PRESETS_QUANTITY][EQUALIZER_BANDS_QU
 // Названия пресетов для отладки
 static const char *presetNames[EQUALIZER_PRESETS_QUANTITY] = { "NORMAL", "BASS", "TREBLE", \
                                                                "VOCAL", "ROCK", "ELECTRO" };
+
+//! \brief Запись текущего пресета во flash-память
+static void WriteSoundPresetToFlash(void)
+{
+    // Создание объекта класса Preferences
+    Preferences preferences;
+    
+    // Открытие пространства имен в режиме чтения/записи
+    preferences.begin(STORAGE_NAMESPACE, false);
+    
+    // Сохранение текущего пресета
+    preferences.putUChar(STORAGE_KEY_PRESET, (uint8_t) currentPreset);
+    
+    // Закрытие пространства имен
+    preferences.end();
+    
+    #ifdef DEBUG_INFO_SOUND_PRESETS_FLASH
+
+        Serial.printf("Пресет %s сохранен во flash-память\r\n", presetNames[currentPreset]);
+
+    #endif // DEBUG_INFO_SOUND_PRESETS_FLASH
+}
+
+//! \brief Чтение сохраненного пресета из flash-памяти
+//! \return Пресет из flash-памяти
+static EqualizerPreset ReadSoundPresetFromFlash(void)
+{
+    // Создание объекта класса Preferences
+    Preferences preferences;
+
+    // Номер считанного с flash пресета
+    uint8_t savedPreset;
+    
+    // Открытие пространства имен в режиме только чтения
+    preferences.begin(STORAGE_NAMESPACE, true);
+    
+    // Чтение сохраненного пресета
+    // (по умолчанию NORMAL, если ключа нет)
+    savedPreset = preferences.getUChar(STORAGE_KEY_PRESET, EQUALIZER_PRESET_NORMAL);
+    
+    // Закрытие пространства имен
+    preferences.end();
+    
+    // Проверка допустимости считанного значения
+    if (savedPreset >= EQUALIZER_PRESETS_QUANTITY)
+    {
+        savedPreset = EQUALIZER_PRESET_NORMAL;
+        
+        #ifdef DEBUG_INFO_SOUND_PRESETS_FLASH
+
+            Serial.printf("Загружен невалидный пресет %u, установлен NORMAL\r\n", savedPreset);
+
+        #endif // DEBUG_INFO_SOUND_PRESETS_FLASH
+    }
+    
+    #ifdef DEBUG_INFO_SOUND_PRESETS_FLASH
+
+        Serial.printf("Загружен пресет из flash: %s\r\n", presetNames[savedPreset]);
+
+    #endif // DEBUG_INFO_SOUND_PRESETS_FLASH
+    
+    return (EqualizerPreset) savedPreset;
+}
 
 //! \brief Экспоненциальное преобразование децибел в линейный коэффициент
 //! \param[in] dB - значение децибел
@@ -215,7 +285,10 @@ void SoundPresets_Init(void)
 
     #endif // DEBUG_INFO_SOUND_PRESETS
     
-    // Установка начального пресета
+    // Чтение сохраненного пресета из flash-памяти
+    currentPreset = ReadSoundPresetFromFlash();
+    
+    // Обновление коэффициентов усиления в соответствии с загруженным пресетом
     SoundPresets_UpdateGains();
 }
 
@@ -250,6 +323,9 @@ void SoundPresets_SetPreset(EqualizerPreset preset)
 
     // Обновление коэффициентов усиления в соответствии с текущим пресетом
     SoundPresets_UpdateGains();
+    
+    // Запись текущего пресета во flash-память
+    WriteSoundPresetToFlash();
 }
 
 //! \brief Переключение на следующий пресет
