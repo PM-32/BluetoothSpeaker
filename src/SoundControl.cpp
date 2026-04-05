@@ -1,4 +1,4 @@
-#include "math.h"
+#include <math.h>
 
 #include "ButtonsDriver.h"
 #include "SoundControl.h"
@@ -15,9 +15,6 @@
 #define MAX_VOLUME_AVRCP                127             //!< Максимальное значение громкости в протоколе AVRCP
 #define MAX_VOLUME_PERCENT              100             //!< Максимальное значение громкости в процентах
 #define TARGET_MAX_VOLUME_SAMPLE        30000           //!< Целевое максимальное значение сэмпла при 100% громкости
-#define MAX_VOLUME_SAMPLE               32767           //!< Абсолютный максимум для 16-ти битного сэмпла (положительная полуволна)
-#define MIN_VOLUME_SAMPLE               -32768          //!< Абсолютный минимум для 16-ти битного сэмпла (отрицательная полуволна)
-#define AUDIO_CHANNELS_QUANTITY         2               //!< Количество каналов (2 канала: правый и левый)
 #define LIMITER_COEFF                   ((float) TARGET_MAX_VOLUME_SAMPLE / MAX_VOLUME_SAMPLE)  //!< Коэффициент для ограничения максимальной громкости
 #define VOLUME_CURVE_SHAPE              0.4f            //!< Форма кривой для регулировки громкости
 
@@ -63,22 +60,22 @@ class VolumeControlStream: public AudioStream
         // Указатель на данные (сэмплы)
         int16_t *samples = (int16_t*) audioData;
 
-        // Количество сэмплов (стерео, поэтому делим на 2)
-        size_t samplesQuantity = lengthData / sizeof(int16_t);
+        // Количество сэмплов
+        size_t samplesQuantity = lengthData / AUDIO_CHANNELS_QUANTITY;
         
         // Вычисление коэффициента громкости с учетом ограничителя
         float volumeScaleCoeff = volumeCoeff * LIMITER_COEFF;
 
         for (size_t sampleIndex = 0; sampleIndex < samplesQuantity; sampleIndex++)
         {
-            // Определение канала (чётные - левый, нечётные - правый)
-            uint8_t channel = (sampleIndex % 2 == 0) ? 0 : 1;
+            // Определение канала (четные - левый, нечетные - правый)
+            uint8_t channel = (0 == sampleIndex % 2) ? 0 : 1;
             
-            // Применение эквалайзера
-            int16_t eqSample = SoundPresets_ProcessSample(samples[sampleIndex], channel);
+            // Применение эквалайзера к сэмплу
+            int16_t equalizerSample = SoundPresets_ProcessSample(samples[sampleIndex], channel);
             
             // Масштабирование громкости сэмпла
-            float scaledVolumeSample = (float) eqSample * volumeScaleCoeff;
+            float scaledVolumeSample = (float) equalizerSample * volumeScaleCoeff;
             
             // Ограничение громкости для 16-ти битного сэмпла
             if (scaledVolumeSample > MAX_VOLUME_SAMPLE)
@@ -147,7 +144,7 @@ void SoundControl_Init(void)
     cfg.pin_bck = 19;                           // Номер пина BCK (тактовый сигнал)
     cfg.pin_ws = 18;                            // Номер пина WS/LCK (выбор канала: правый/левый)
     cfg.pin_data = 21;                          // Номер пина DIN (аудиоданные)
-    cfg.sample_rate = 44100;                    // Частота дискретизации (Гц)
+    cfg.sample_rate = SAMPLE_RATE;              // Частота дискретизации (Гц)
     cfg.bits_per_sample = 16;                   // Количество бит для цифрового представления одного сэмпла (отсчета) звука
     cfg.channels = AUDIO_CHANNELS_QUANTITY;     // Количество каналов (моно = 1/стерео = 2)
 
@@ -216,7 +213,7 @@ static void SoundControl_SwitchPlaybackState(void)
 }
 
 //! \brief Переключение на следующий трек
-static void SoundControl_NextTrack(void)
+static void SoundControl_SwitchNextTrack(void)
 {
     // Переключение на следующий трек
     a2dp_sink.next();
@@ -232,7 +229,7 @@ static void SoundControl_NextTrack(void)
 }
 
 //! \brief Переключение на предыдущий трек
-static void SoundControl_PreviousTrack(void)
+static void SoundControl_SwitchPreviousTrack(void)
 {
     // Переключение на предыдущий трек
     a2dp_sink.previous();
@@ -373,7 +370,7 @@ void SoundControl_Playback(void)
         else if (TWO_PRESS == pButtonsPressCount[BUTTON_SOUND_CONTROL])     // Зафиксировано два нажатия на кнопку
         {
             // Переключение на следующий трек
-            SoundControl_NextTrack();
+            SoundControl_SwitchNextTrack();
 
             #ifdef DEBUG_INFO_BUTTON_SOUND_CONTROL_STATE
 
@@ -384,7 +381,7 @@ void SoundControl_Playback(void)
         else if (THREE_PRESS == pButtonsPressCount[BUTTON_SOUND_CONTROL])   // Зафиксировано три нажатия на кнопку
         {
             // Переключение на предыдущий трек
-            SoundControl_PreviousTrack();
+            SoundControl_SwitchPreviousTrack();
 
             #ifdef DEBUG_INFO_BUTTON_SOUND_CONTROL_STATE
 

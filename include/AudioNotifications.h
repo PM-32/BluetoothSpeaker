@@ -1,8 +1,6 @@
 #ifndef INC_AUDIO_NOTIFICATIONS_H_
 #define INC_AUDIO_NOTIFICATIONS_H_
 
-#include <stdint.h>
-
 #ifdef __cplusplus
 extern "C" {
 #endif

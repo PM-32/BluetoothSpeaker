@@ -7,16 +7,15 @@
 // #define DEBUG_INFO_AUDIO_NOTIFICATIONS          // Вывод информации о работе модуля аудио уведомлений
 
 // Настройки звукового уведомления
-#define NOTIFICATION_SAMPLE_RATE    44100       //!< Частота дискретизации (Гц)
 #define NOTIFICATION_DURATION_MS    300         //!< Общая длительность уведомления (мс)
 #define NOTIFICATION_AMPLITUDE      3500        //!< Амплитуда сигнала (0-32767)
-#define NOTIFICATION_BUFFER_SIZE    1024        //!< Размер буфера для отправки в I2S (количетсво сэмплов)
+#define NOTIFICATION_BUFFER_SIZE    1024        //!< Размер буфера для отправки в I2S (количество сэмплов)
 
 #define MS_IN_SECOND_QUANTITY       1000        //!< Количество миллисекунд в одной секунде
 #define NOTIFICATION_DURATION_SEC   ((float) NOTIFICATION_DURATION_MS / MS_IN_SECOND_QUANTITY)  //!< Продолжительность уведомления в секундах
 
 //! Общее количество сэмплов для воспроизведения уведомления
-#define NOTIFICATION_TOTAL_SAMPLES  ((NOTIFICATION_DURATION_MS * NOTIFICATION_SAMPLE_RATE) / MS_IN_SECOND_QUANTITY)
+#define NOTIFICATION_TOTAL_SAMPLES  ((NOTIFICATION_DURATION_MS * SAMPLE_RATE) / MS_IN_SECOND_QUANTITY)
 
 // Частоты сигналов
 #define CONNECT_FREQUENCY           880.0f      //!< Частота сигнала при подключении (Гц)
@@ -29,12 +28,11 @@
 #define SECOND_IMPULSE_END          0.25f       //!< Конец второго импульса (с)
 
 #define IMPULSE_MAX_AMPLITUDE       1.0f        //!< Максимальная амплитуда огибающей
-#define PHASE_CYCLE                 2.0f        //!< Полный цикл фазы (2 * pi радиан)
 
 #define BYTES_IN_SAMPLE             2           //!< Количество байт на один сэмпл (16 бит)
 #define BYTES_IN_STEREO_SAMPLE      (BYTES_IN_SAMPLE * AUDIO_CHANNELS_QUANTITY)  //!< Размер стерео-сэмпла в байтах
 
-static const float pi = 3.14159f;               //!< Число Пи
+// static const float pi = 3.14159f;               //!< Число Пи
 
 //! \brief Состояние воспроизведения уведомления
 typedef enum
@@ -108,7 +106,7 @@ static void GenerateTone(int16_t *samplesBuffer, uint32_t samplesQuantity, uint3
     for (uint32_t sampleIndex = 0; sampleIndex < samplesQuantity; sampleIndex++)
     {
         // Текущее абсолютное время
-        float currentTime = (float) (startSample + sampleIndex) / NOTIFICATION_SAMPLE_RATE;
+        float currentTime = (float) (startSample + sampleIndex) / SAMPLE_RATE;
         
         // Если время вышло за пределы длительности,
         // то ничего не воспроизводится
@@ -142,7 +140,7 @@ static void GenerateTone(int16_t *samplesBuffer, uint32_t samplesQuantity, uint3
         // При этом (2 * pi) радиан составляют один полный период синусоиды.
 
         // Расчет приращения фазы для текущей частоты
-        float deltaPhase = PHASE_CYCLE * pi * frequency / NOTIFICATION_SAMPLE_RATE;
+        float deltaPhase = PHASE_CYCLE * pi * frequency / SAMPLE_RATE;
 
         // Текущая фаза синусоиды
         player.phase += deltaPhase;

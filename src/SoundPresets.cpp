@@ -1,270 +1,288 @@
-#include "SoundPresets.h"
-#include "ButtonsDriver.h"
-#include "UserTimer.h"
 #include <math.h>
 
 #include <Arduino.h>
 
-// Раскомментируй для отладки
-#define DEBUG_INFO_SOUND_PRESETS
+#include "ButtonsDriver.h"
+#include "SoundControl.h"
+#include "SoundPresets.h"
+#include "UserTimer.h"
 
-// Частота дискретизации
-#define SAMPLE_RATE                 44100       //!< Частота дискретизации (Гц)
+#define DEBUG_INFO_SOUND_PRESETS                // Вывод информации о текущем пресете
+#define DEBUG_INFO_BUTTON_SOUND_PRESETS         // Вывод информации о нажатии на кнопку управления пресетами
 
-// Частоты среза для трёх полос эквалайзера
-#define LOW_CROSSOVER_FREQ          250         //!< Частота среза низких/средних частот (Гц)
-#define HIGH_CROSSOVER_FREQ         4000        //!< Частота среза средних/высоких частот (Гц)
+// Частоты среза для трех полос эквалайзера
+#define LOW_CROSSOVER_FREQUENCY     250         //!< Частота среза низких/средних частот (Гц)
+#define HIGH_CROSSOVER_FREQUENCY    4000        //!< Частота среза средних/высоких частот (Гц)
 
-// Коэффициенты фильтров (рассчитываются один раз при инициализации)
-static float lowAlpha;      //!< Коэффициент ФНЧ для низких частот
-static float highAlpha;     //!< Коэффициент ФВЧ для высоких частот
+// Математические константы
+#define DECIBEL_TO_LINEAR_BASE      10.0f       //!< Основание для перевода децибел в линейный коэффициент
+#define DECIBEL_DIVISOR             20.0f       //!< Делитель в формуле перевода децибел (20 dB на декаду)
+#define PHASE_CYCLE                 2.0f        //!< Полный цикл фазы (2 * pi радиан)
+#define UNITY_GAIN                  1.0f        //!< Единичное усиление (0 dB)
+#define ALPHA_COEFF_ONE             1.0f        //!< Единица для расчета альфа коэффициента фильтра
 
-// Состояния фильтров для левого и правого каналов
+//! \brief Состояния фильтров для левого и правого каналов
 typedef struct
 {
-    float lowPrev;      //!< Предыдущее значение низких частот
-    float highPrev;     //!< Предыдущее значение высоких частот
+    float lowFrequencyPrevious;     //!< Предыдущее значение низких частот
+    float highFrequencyPrevious;    //!< Предыдущее значение высоких частот
 } FilterState;
+
+typedef enum
+{
+    LOW_FREQUENCIES = 0,            //!< Низкие частоты
+    MID_FREQUENCIES,                //!< Средние частоты
+    HIGH_FREQUENCIES,               //!< Высокие частоты
+    EQUALIZER_BANDS_QUANTITY        //!< Количество полос эквалайзера
+} EqualizerBands;
+
+// Коэффициенты фильтров
+static float lowAlphaCoeff;         //!< Коэффициент ФНЧ для низких частот
+static float highAlphaCoeff;        //!< Коэффициент ФВЧ для высоких частот
 
 static FilterState leftChannel;     //!< Состояние фильтров левого канала
 static FilterState rightChannel;    //!< Состояние фильтров правого канала
 
-// Текущие коэффициенты усиления
-static float lowGain = 1.0f;        //!< Коэффициент усиления низких частот
-static float midGain = 1.0f;        //!< Коэффициент усиления средних частот
-static float highGain = 1.0f;       //!< Коэффициент усиления высоких частот
-static EqPreset currentPreset = EQ_PRESET_NORMAL;     //!< Текущий пресет
+//!< Коэффициенты усиления (низкие, средние, высокие частоты)
+static float frequenciesGainCoeff[EQUALIZER_BANDS_QUANTITY] = { UNITY_GAIN, UNITY_GAIN, UNITY_GAIN };
 
-// Счётчик для отладки (чтобы не заспамить Serial)
-static uint32_t lastDebugTime = 0;
-#define DEBUG_PRINT_INTERVAL_TICKS  10000   // Печатать раз в секунду (10000 тиков * 100 мкс = 1 сек)
+static EqualizerPreset currentPreset = EQUALIZER_PRESET_NORMAL; //!< Текущий пресет эквалайзера
 
-//! \brief Коэффициенты усиления для каждого пресета в децибелах
-static const int8_t presetGainsDb[EQ_PRESETS_QUANTITY][3] = 
+//! \brief Коэффициенты усиления пресетов в децибелах
+static const int8_t presetGainsDb[EQUALIZER_PRESETS_QUANTITY][EQUALIZER_BANDS_QUANTITY] = 
 {
-    // Оригинальные
-    {  0,  0,  0 },   // NORMAL - плоская характеристика
-    { 12, -3, -6 },   // BASS - сильное усиление низких
-    { -6, -3, 12 },   // TREBLE - сильное усиление высоких
-    { -6,  8, -3 },   // VOCAL - усиление средних (голос)
-    {  6,  4,  6 },   // ROCK - подъём всех частот
-    {  8, -2,  8 },   // ELECTRO - подъём низких и высоких (V-образная)
+    {  0,  0,  0 },   // NORMAL  - плоская характеристика
+    { 12, -3, -6 },   // BASS    - сильное усиление низких частот
+    { -6, -3, 12 },   // TREBLE  - сильное усиление высоких частот
+    { -6,  8, -3 },   // VOCAL   - усиление средних частот (вокал)
+    {  6,  4,  6 },   // ROCK    - усиление всех частот
+    {  8, -2,  8 },   // ELECTRO - усиление низких и высоких частот
 };
 
 // Названия пресетов для отладки
-static const char* presetNames[EQ_PRESETS_QUANTITY] = 
-{
-    "NORMAL",
-    "BASS",
-    "TREBLE",
-    "VOCAL",
-    "ROCK",
-    "ELECTRO",
-};
+static const char *presetNames[EQUALIZER_PRESETS_QUANTITY] = { "NORMAL", "BASS", "TREBLE", \
+                                                               "VOCAL", "ROCK", "ELECTRO" };
 
-//! \brief Преобразование децибел в линейный коэффициент (экспоненциальное)
-//! \param[in] db - значение в децибелах
+//! \brief Экспоненциальное преобразование децибел в линейный коэффициент
+//! \param[in] dB - значение децибел
 //! \return Линейный коэффициент
-static float DbToLinear(int8_t db)
+static float ConvertDbToLinearCoefficient(int8_t dB)
 {
-    // Формула: linear = 10^(db/20)
-    return powf(10.0f, db / 20.0f);
-}
+    // Пояснение. Формула преобразования: linear = 10^(dB/20),
+    // где 10 - основание десятичного логарифма
+    //     20 - коэффициент для амплитуды (децибелы для 
+    //          амплитуды считаются как 20 * log10(A/A0))
+    // Примеры: 0 dB → 1.0 (единичное усиление)
+    //          6 dB → 2.0 (усиление в 2 раза)
+    //         -6 dB → 0.5 (ослабление в 2 раза)
 
-// //! \brief Преобразование децибел в линейный коэффициент
-// //! \param[in] db - значение в децибелах
-// //! \return Линейный коэффициент
-// static float DbToLinear(int8_t db)
-// {
-//     // Более точная формула: linear = 10^(db/20)
-//     if (db == 0)
-//     {
-//         return 1.0f;
-//     }
-//     else if (db > 0)
-//     {
-//         return 1.0f + (db / 10.0f);
-//     }
-//     else
-//     {
-//         return 1.0f - (abs(db) / 15.0f);
-//     }
-// }
+    return powf(DECIBEL_TO_LINEAR_BASE, dB / DECIBEL_DIVISOR);
+}
 
 //! \brief Обновление коэффициентов усиления в соответствии с текущим пресетом
 static void SoundPresets_UpdateGains(void)
 {
-    lowGain = DbToLinear(presetGainsDb[currentPreset][0]);
-    midGain = DbToLinear(presetGainsDb[currentPreset][1]);
-    highGain = DbToLinear(presetGainsDb[currentPreset][2]);
-    
+    // Экспоненциальное преобразование децибел в
+    // линейный коэффициент для всех полос эквалайзера
+    for (uint8_t equalizerBandIndex = 0; equalizerBandIndex < EQUALIZER_BANDS_QUANTITY; equalizerBandIndex++)
+    {
+        frequenciesGainCoeff[equalizerBandIndex] = ConvertDbToLinearCoefficient(presetGainsDb[currentPreset][equalizerBandIndex]);
+    }
+
     #ifdef DEBUG_INFO_SOUND_PRESETS
-        Serial.printf("[EQ] Пресет: %s | Low: %d dB (%.2fx), Mid: %d dB (%.2fx), High: %d dB (%.2fx)\r\n",
-                      presetNames[currentPreset],
-                      presetGainsDb[currentPreset][0], lowGain,
-                      presetGainsDb[currentPreset][1], midGain,
-                      presetGainsDb[currentPreset][2], highGain);
-    #endif
+
+        Serial.printf("Текущий пресет: %s\r\n", presetNames[currentPreset]);
+
+    #endif  // DEBUG_INFO_SOUND_PRESETS
 }
 
-//! \brief Фильтр низких частот (Low-pass filter) первого порядка
-//! \param[in] input - входное значение
-//! \param[in] alpha - коэффициент фильтра
-//! \param[in,out] prev - предыдущее выходное значение
+//! \brief Фильтр низких частот первого порядка
+//! \param[in] inputValue - входное значение фильтра
+//! \param[in] alphaCoeff - коэффициент фильтра (0 < alpha < 1)
+//! \param[in, out] previousValue - предыдущее выходное значение фильтра
 //! \return Отфильтрованное значение
-static float LowPassFilter(float input, float alpha, float *prev)
+static float LowPassFilterFirstOrder(float inputValue, float alphaCoeff, float *previousValue)
 {
-    float output = alpha * input + (1.0f - alpha) * (*prev);
-    *prev = output;
-    return output;
+    // Пояснение. Формула ФНЧ первого порядка:
+    // y[n] = alpha * x[n] + (1 - alpha) * y[n-1],
+    // где y[n] - текущее выходное значение,
+    //     y[n-1] - предыдущее выходное значение,
+    //     x[n] - текущее входное значение,
+    //     alpha - коэффициент фильтра (чем меньше, тем сильнее сглаживание)
+
+    float outputValue = alphaCoeff * inputValue + (UNITY_GAIN - alphaCoeff) * (*previousValue);
+
+    // Обновление предыдущего значения фильтра для следующего вызова
+    *previousValue = outputValue;
+
+    return outputValue;
 }
 
-//! \brief Фильтр высоких частот (High-pass filter) первого порядка
-//! \param[in] input - входное значение
-//! \param[in] alpha - коэффициент фильтра
-//! \param[in,out] prev - предыдущее выходное значение
+//! \brief Фильтр высоких частот первого порядка
+//! \param[in] inputValue - входное значение фильтра
+//! \param[in] alphaCoeff - коэффициент фильтра (0 < alpha < 1)
+//! \param[in, out] previousValue - предыдущее входное значение фильтра
 //! \return Отфильтрованное значение
-static float HighPassFilter(float input, float alpha, float *prev)
+static float HighPassFilterFirstOrder(float inputValue, float alphaCoeff, float *previousValue)
 {
-    // Формула ФВЧ: y[n] = alpha * (x[n] - x[n-1] + y[n-1])
-    float output = alpha * (input - (*prev) + output);
-    *prev = input;
-    return output;
+    // Пояснение. Формула ФВЧ первого порядка:
+    // y[n] = alpha * (x[n] - x[n-1] + y[n-1])
+    // где y[n] - текущее выходное значение,
+    //     y[n-1] - предыдущее выходное значение,
+    //     x[n] - текущее входное значение,
+    //     x[n-1] - предыдущее входное значение,
+    //     alpha - коэффициент фильтра (чем меньше, тем сильнее сглаживание)
+
+    float outputValue = alphaCoeff * (inputValue - (*previousValue) + outputValue);
+
+    // Обновление предыдущего значения фильтра для следующего вызова
+    *previousValue = inputValue;
+
+    return outputValue;
 }
 
-//! \brief Разделение сигнала на три полосы и применение усиления
+//! \brief Разделение сигнала на полосы и применение коэффициентов усиления
 //! \param[in] sample - входной сэмпл
 //! \param[in,out] state - состояние фильтров для канала
 //! \return Обработанный сэмпл
 static int16_t ProcessChannel(int16_t sample, FilterState *state)
 {
-    float input = (float) sample;
+    // Текущие значения частот
+    float currentEqualizerBands[EQUALIZER_BANDS_QUANTITY] = { 0.0f, 0.0f, 0.0f };
+
+    // Обработанные значения частот
+    float processedEqualizerBands[EQUALIZER_BANDS_QUANTITY] = { 0.0f, 0.0f, 0.0f };
+
+    // Обработанный сэмпл
+    float outputSample = 0.0f;
+
+    // Преобразование входного сэмпла из целочисленного в вещественный тип
+    float inputSample = (float) sample;
+
+    // Выделение низких частот с помощью ФНЧ
+    currentEqualizerBands[LOW_FREQUENCIES] = LowPassFilterFirstOrder(inputSample, lowAlphaCoeff, &state->lowFrequencyPrevious);
     
-    // Выделение низких частот (Low-pass)
-    float lowBand = LowPassFilter(input, lowAlpha, &state->lowPrev);
+    // Выделение высоких частот с помощью ФВЧ
+    currentEqualizerBands[HIGH_FREQUENCIES] = HighPassFilterFirstOrder(inputSample, highAlphaCoeff, &state->highFrequencyPrevious);
     
-    // Выделение высоких частот (High-pass)
-    float highBand = HighPassFilter(input, highAlpha, &state->highPrev);
+    // Выделение средних частот (исходный сигнал минус низкие и высокие частоты)
+    currentEqualizerBands[MID_FREQUENCIES] = inputSample - currentEqualizerBands[LOW_FREQUENCIES] - currentEqualizerBands[HIGH_FREQUENCIES];
     
-    // Выделение средних частот (исходный сигнал минус низкие и высокие)
-    float midBand = input - lowBand - highBand;
-    
-    // Применение усиления к каждой полосе
-    float processedLow = lowBand * lowGain;
-    float processedMid = midBand * midGain;
-    float processedHigh = highBand * highGain;
-    
-    // Смешивание обработанных полос
-    float output = processedLow + processedMid + processedHigh;
-    
-    // Ограничение диапазона
-    if (output > 32767.0f)
+    for (uint8_t equalizerBandIndex = 0; equalizerBandIndex < EQUALIZER_BANDS_QUANTITY; equalizerBandIndex++)
     {
-        output = 32767.0f;
-    }
-    else if (output < -32768.0f)
-    {
-        output = -32768.0f;
+        // Применение усиления к каждой полосе
+        processedEqualizerBands[equalizerBandIndex] = currentEqualizerBands[equalizerBandIndex] * frequenciesGainCoeff[equalizerBandIndex];
+
+        // Смешивание обработанных полос (суммирование всех частотных компонент)
+        outputSample += processedEqualizerBands[equalizerBandIndex];
     }
     
-    return (int16_t) output;
+    // Ограничение громкости для 16-ти битного сэмпла
+    if (outputSample > MAX_VOLUME_SAMPLE)
+    {
+        outputSample = MAX_VOLUME_SAMPLE;
+    }
+    else if (outputSample < MIN_VOLUME_SAMPLE)
+    {
+        outputSample = MIN_VOLUME_SAMPLE;
+    }
+    
+    // Приведение типа сэмпла обратно к целочисленному
+    return (int16_t) outputSample;
 }
 
 //! \brief Инициализация модуля звуковых пресетов
 void SoundPresets_Init(void)
 {
-    // Расчёт коэффициентов фильтров
-    // alpha = 1 - exp(-2 * pi * Fc / Fs)
-    float omegaLow = 2.0f * 3.14159265f * LOW_CROSSOVER_FREQ / SAMPLE_RATE;
-    float omegaHigh = 2.0f * 3.14159265f * HIGH_CROSSOVER_FREQ / SAMPLE_RATE;
+    // Пояснение. Расчет аргумента экспоненты для фильтра низких/высоких частот:
+    // -2 * pi * Fc / Fs. Отрицательный знак нужен для получения exp(-x)
+    // при вычислении alpha = 1 - exp(-x)
+
+    float omegaLow = -PHASE_CYCLE * pi * LOW_CROSSOVER_FREQUENCY / SAMPLE_RATE;
+    float omegaHigh = -PHASE_CYCLE * pi * HIGH_CROSSOVER_FREQUENCY / SAMPLE_RATE;
     
-    lowAlpha = 1.0f - expf(-omegaLow);
-    highAlpha = 1.0f - expf(-omegaHigh);
+    // Пояснение. Расчет коэффициента альфа для ФНЧ по формуле:
+    // alpha = 1 - exp(omegaLow), где 1 - единица, обеспечивающая значение
+    // alpha в диапазоне (0, 1), exp(omegaLow) - экспонента отрицательного
+    // аргумента (значение от 0 до 1). Для ФВЧ аналогично.
+    
+    lowAlphaCoeff = ALPHA_COEFF_ONE - expf(omegaLow);
+    highAlphaCoeff = ALPHA_COEFF_ONE - expf(omegaHigh);
     
     #ifdef DEBUG_INFO_SOUND_PRESETS
-        Serial.printf("[EQ] Инициализация: lowAlpha=%.4f, highAlpha=%.4f\r\n", lowAlpha, highAlpha);
-    #endif
-    
-    // Обнуление состояния фильтров
-    leftChannel.lowPrev = 0.0f;
-    leftChannel.highPrev = 0.0f;
-    
-    rightChannel.lowPrev = 0.0f;
-    rightChannel.highPrev = 0.0f;
+
+        Serial.printf("Инициализация: коэффициент ФНЧ = %.4f, коэффициент ФВЧ = %.4f\r\n", lowAlphaCoeff, highAlphaCoeff);
+
+    #endif // DEBUG_INFO_SOUND_PRESETS
     
     // Установка начального пресета
     SoundPresets_UpdateGains();
 }
 
 //! \brief Применение эквалайзера к аудиосэмплу
-//! \param[in] sample - входной сэмпл
-//! \param[in] channel - номер канала (0=левый, 1=правый)
+//! \param[in] inputSample - входной сэмпл
+//! \param[in] channel - номер канала (0 - левый, 1 - правый)
 //! \return Обработанный сэмпл
-int16_t SoundPresets_ProcessSample(int16_t sample, uint8_t channel)
+int16_t SoundPresets_ProcessSample(int16_t inputSample, uint8_t channel)
 {
-    if (channel == 0)
+    if (0 == channel) // Левый канал
     {
-        return ProcessChannel(sample, &leftChannel);
+        return ProcessChannel(inputSample, &leftChannel);
     }
-    else
+    else // Правый канал
     {
-        return ProcessChannel(sample, &rightChannel);
+        return ProcessChannel(inputSample, &rightChannel);
     }
 }
 
 //! \brief Установка пресета эквалайзера
-//! \param[in] preset - пресет из перечисления EqPreset
-void SoundPresets_SetPreset(EqPreset preset)
+//! \param[in] preset - пресет для установки
+static void SoundPresets_SetPreset(EqualizerPreset preset)
 {
-    if (preset >= EQ_PRESETS_QUANTITY)
+    // Защита от выхода за допустимый диапазон
+    if (EQUALIZER_PRESETS_QUANTITY <= preset)
     {
         return;
     }
     
+    // Обновление текущего пресета
     currentPreset = preset;
+
+    // Обновление коэффициентов усиления в соответствии с текущим пресетом
     SoundPresets_UpdateGains();
 }
 
-//! \brief Получение текущего пресета эквалайзера
-//! \return Текущий пресет
-EqPreset SoundPresets_GetCurrentPreset(void)
-{
-    return currentPreset;
-}
-
 //! \brief Переключение на следующий пресет
-void SoundPresets_NextPreset(void)
+static void SoundPresets_SwitchNextPreset(void)
 {
-    EqPreset newPreset = (EqPreset) (currentPreset + 1);
-    
-    if (newPreset >= EQ_PRESETS_QUANTITY)
+    if (((EqualizerPreset) (EQUALIZER_PRESETS_QUANTITY - 1)) == currentPreset) // Если установлен последний пресет
     {
-        newPreset = EQ_PRESET_NORMAL;
+        // Переключение на первый пресет
+        SoundPresets_SetPreset(EQUALIZER_PRESET_NORMAL);
     }
-    
-    SoundPresets_SetPreset(newPreset);
+    else // Если установлен не последний пресет
+    {
+        // Переключение на следующий пресет
+        SoundPresets_SetPreset((EqualizerPreset) (currentPreset + 1));
+    }
 }
 
 //! \brief Переключение на предыдущий пресет
-void SoundPresets_PreviousPreset(void)
-{
-    if (currentPreset == EQ_PRESET_NORMAL)
+static void SoundPresets_SwitchPreviousPreset(void)
+{   
+    if (EQUALIZER_PRESET_NORMAL == currentPreset) // Если установлен первый пресет
     {
-        SoundPresets_SetPreset((EqPreset) (EQ_PRESETS_QUANTITY - 1));
+        // Переключение на последний пресет
+        SoundPresets_SetPreset((EqualizerPreset) (EQUALIZER_PRESETS_QUANTITY - 1));
     }
-    else
+    else // Если установлен не первый пресет
     {
-        SoundPresets_SetPreset((EqPreset) (currentPreset - 1));
+        // Переключение на предыдущий пресет
+        SoundPresets_SetPreset((EqualizerPreset) (currentPreset - 1));
     }
 }
 
-//! \brief Сброс к пресету Normal
-void SoundPresets_ResetToNormal(void)
-{
-    SoundPresets_SetPreset(EQ_PRESET_NORMAL);
-}
-
-//! \brief Управление пресетами эквалайзера (обработка нажатий кнопки)
+//! \brief Управление пресетами эквалайзера
 void SoundPresets_Control(void)
 {
     // Получение адреса массива с количеством устойчивых нажатий на кнопки
@@ -276,24 +294,26 @@ void SoundPresets_Control(void)
     // Если завершена серия нажатий на кнопку управления пресетами
     if (BUTTON_PRESS_SERIES_FINISHED == pButtonSeriesStatus[BUTTON_SOUND_PRESET_CONTROL])
     {
-        #ifdef DEBUG_INFO_SOUND_PRESETS
-            Serial.printf("[EQ] Нажатий: %d\r\n", pButtonsPressCount[BUTTON_SOUND_PRESET_CONTROL]);
-        #endif
+        #ifdef DEBUG_INFO_BUTTON_SOUND_PRESETS
+
+            Serial.printf("Количество нажатий на кнопку управления пресетами: %d\r\n", pButtonsPressCount[BUTTON_SOUND_PRESET_CONTROL]);
+
+        #endif // DEBUG_INFO_BUTTON_SOUND_PRESETS
         
-        if (ONE_PRESS == pButtonsPressCount[BUTTON_SOUND_PRESET_CONTROL])
+        if (ONE_PRESS == pButtonsPressCount[BUTTON_SOUND_PRESET_CONTROL])           // Зафиксировано одно нажатие на кнопку
         {
-            // Одно нажатие - следующий пресет
-            SoundPresets_NextPreset();
+            // Переключение на следующий пресет
+            SoundPresets_SwitchNextPreset();
         }
-        else if (TWO_PRESS == pButtonsPressCount[BUTTON_SOUND_PRESET_CONTROL])
+        else if (TWO_PRESS == pButtonsPressCount[BUTTON_SOUND_PRESET_CONTROL])      // Зафиксировано два нажатия на кнопку
         {
-            // Два нажатия - предыдущий пресет
-            SoundPresets_PreviousPreset();
+            // Переключение на предыдущий пресет
+            SoundPresets_SwitchPreviousPreset();
         }
-        else if (THREE_PRESS == pButtonsPressCount[BUTTON_SOUND_PRESET_CONTROL])
+        else if (THREE_PRESS == pButtonsPressCount[BUTTON_SOUND_PRESET_CONTROL])    // Зафиксировано три нажатия на кнопку
         {
-            // Три нажатия - сброс к Normal
-            SoundPresets_ResetToNormal();
+            // Установка пресета по умолчанию
+            SoundPresets_SetPreset(EQUALIZER_PRESET_NORMAL);
         }
         
         // Сброс статуса завершения серии нажатий
