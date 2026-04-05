@@ -7,8 +7,8 @@
 #include "SoundPresets.h"
 #include "UserTimer.h"
 
-#define DEBUG_INFO_SOUND_PRESETS                // Вывод информации о текущем пресете
-#define DEBUG_INFO_BUTTON_SOUND_PRESETS         // Вывод информации о нажатии на кнопку управления пресетами
+// #define DEBUG_INFO_SOUND_PRESETS                // Вывод информации о текущем пресете
+// #define DEBUG_INFO_BUTTON_SOUND_PRESETS         // Вывод информации о нажатии на кнопку управления пресетами
 
 // Частоты среза для трех полос эквалайзера
 #define LOW_CROSSOVER_FREQUENCY     250         //!< Частота среза низких/средних частот (Гц)
@@ -237,7 +237,7 @@ int16_t SoundPresets_ProcessSample(int16_t inputSample, uint8_t channel)
 
 //! \brief Установка пресета эквалайзера
 //! \param[in] preset - пресет для установки
-static void SoundPresets_SetPreset(EqualizerPreset preset)
+void SoundPresets_SetPreset(EqualizerPreset preset)
 {
     // Защита от выхода за допустимый диапазон
     if (EQUALIZER_PRESETS_QUANTITY <= preset)
@@ -322,4 +322,11 @@ void SoundPresets_Control(void)
         // Сброс количества нажатий
         pButtonsPressCount[BUTTON_SOUND_PRESET_CONTROL] = 0;
     }
+}
+
+//! \brief Получение текущего пресета эквалайзера
+//! \return Текущий пресет
+EqualizerPreset SoundPresets_GetCurrentPreset(void)
+{
+    return currentPreset;
 }

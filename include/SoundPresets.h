@@ -28,6 +28,14 @@ void SoundPresets_Init(void);
 //! \return Обработанный сэмпл
 int16_t SoundPresets_ProcessSample(int16_t sample, uint8_t channel);
 
+//! \brief Установка пресета эквалайзера
+//! \param[in] preset - пресет для установки
+void SoundPresets_SetPreset(EqualizerPreset preset);
+
+//! \brief Получение текущего пресета эквалайзера
+//! \return Текущий пресет
+EqualizerPreset SoundPresets_GetCurrentPreset(void);
+
 //! \brief Управление пресетами эквалайзера
 void SoundPresets_Control(void);
 

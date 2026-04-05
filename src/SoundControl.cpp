@@ -18,6 +18,10 @@
 #define LIMITER_COEFF                   ((float) TARGET_MAX_VOLUME_SAMPLE / MAX_VOLUME_SAMPLE)  //!< Коэффициент для ограничения максимальной громкости
 #define VOLUME_CURVE_SHAPE              0.4f            //!< Форма кривой для регулировки громкости
 
+// Ограничения для защиты динамиков
+#define MAX_SAFE_VOLUME_PERCENT         80              //!< Максимальная безопасная громкость для агрессивных пресетов (%)
+#define MAX_LIMITED_VOLUME_PERCENT      90              //!< Абсолютный максимум громкости (%)
+
 //! \brief Текущее состояние воспроизведения звука
 typedef enum
 {
@@ -126,11 +130,41 @@ class VolumeControlStream: public AudioStream
 
 VolumeControlStream volumeStream(i2s);  //!< Класс для управления громкостью звука
 
+//! \brief Защита от опасной комбинации громкости и пресета
+static void VolumeProtectionCheck(uint8_t volumePercent)
+{
+    // Получение текущего пресета
+    EqualizerPreset currentPreset = SoundPresets_GetCurrentPreset();
+    
+    // Если выбран опасный пресет (BASS или ELECTRO)
+    // и громкость превышает безопасный уровень
+    if ((EQUALIZER_PRESET_BASS == currentPreset || EQUALIZER_PRESET_ELECTRO == currentPreset) &&
+        (volumePercent > MAX_SAFE_VOLUME_PERCENT))
+    {
+        #ifdef DEBUG_INFO_VOLUME_CONTROL
+
+            Serial.printf("Защита: громкость %u%% превышает безопасный уровень %u%% для пресета %s. Переключение на NORMAL.\r\n",
+                          volumePercent, MAX_SAFE_VOLUME_PERCENT,
+                          (EQUALIZER_PRESET_BASS == currentPreset) ? "BASS" : "ELECTRO");
+
+        #endif // DEBUG_INFO_VOLUME_CONTROL
+        
+        // Переключение на безопасный пресет
+        SoundPresets_SetPreset(EQUALIZER_PRESET_NORMAL);
+    }
+}
+
 //! \brief Коллбэк-функция прерывания по изменению громкости звука со смартфона
 //! \param[in] volume - значение громкости в формате
 //!            AVRCP (0 - 127), установленное со смартфона
 static void VolumeChangeCallback(int volume)
 {
+    // Ограничение максимальной громкости на уровне 90%
+    if (volume > (MAX_LIMITED_VOLUME_PERCENT * MAX_VOLUME_AVRCP / MAX_VOLUME_PERCENT))
+    {
+        volume = (MAX_LIMITED_VOLUME_PERCENT * MAX_VOLUME_AVRCP / MAX_VOLUME_PERCENT);
+    }
+    
     // Сохранение значения громкости звука,
     // установленной со смартфона, в процентах
     lastPhoneVolumeInPercents = (uint8_t) ((volume * MAX_VOLUME_PERCENT) / MAX_VOLUME_AVRCP);
@@ -163,6 +197,12 @@ void SoundControl_Init(void)
     
     // Получение громкости звука со смартфона при старте
     uint8_t startVolume = (uint8_t) a2dp_sink.get_volume();
+
+    // Ограничение стартовой громкости
+    if (startVolume > (MAX_LIMITED_VOLUME_PERCENT * MAX_VOLUME_AVRCP / MAX_VOLUME_PERCENT))
+    {
+        startVolume = (MAX_LIMITED_VOLUME_PERCENT * MAX_VOLUME_AVRCP / MAX_VOLUME_PERCENT);
+    }
 
     // Вычисление стартовой громкости в процентах
     currentVolumeInPercents = (uint8_t) ((startVolume * MAX_VOLUME_PERCENT) / MAX_VOLUME_AVRCP);
@@ -252,11 +292,14 @@ void SoundControl_Volume(void)
     {
         // Если получено новое значение громкости со
         // смартфона и оно отличается от предыдущего
-        if ((lastPhoneVolumeInPercents <= MAX_VOLUME_PERCENT) &&
+        if ((lastPhoneVolumeInPercents <= MAX_LIMITED_VOLUME_PERCENT) &&
             (lastPhoneVolumeInPercents != currentVolumeInPercents))
         {
             // Сохранение текущей громкости звука
             currentVolumeInPercents = lastPhoneVolumeInPercents;
+            
+            // Защита от опасной комбинации громкости и пресета
+            VolumeProtectionCheck(currentVolumeInPercents);
             
             // Установка громкости звука
             volumeStream.SetVolume(currentVolumeInPercents);
@@ -325,6 +368,15 @@ void SoundControl_Volume(void)
 
         // Обновление текущей громкости звука
         currentVolumeInPercents = pAdcCountsInPercents[POTENTIOMETER_VOLUME_CONTROL];
+        
+        // Ограничение максимальной громкости
+        if (currentVolumeInPercents > MAX_LIMITED_VOLUME_PERCENT)
+        {
+            currentVolumeInPercents = MAX_LIMITED_VOLUME_PERCENT;
+        }
+        
+        // Защита от опасной комбинации громкости и пресета
+        VolumeProtectionCheck(currentVolumeInPercents);
         
         // Установка громкости звука
         volumeStream.SetVolume(currentVolumeInPercents);
