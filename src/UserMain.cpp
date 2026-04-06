@@ -9,8 +9,9 @@
 #include "SoundControl.h"
 #include "SoundPresets.h"
 #include "UserTimer.h"
+#include "WatchDog.h"
 
-// #define DEBUG_INFO_FREQUENCY                                 // Вывод информации о частотах CPU и шины APB
+// #define DEBUG_INFO_FREQUENCY       // Вывод информации о частотах CPU и шины APB
 
 //! \brief Инициализация
 void setup()
@@ -49,6 +50,9 @@ void setup()
     // Инициализация модуля управления Bluetooth-подключением
     BluetoothConnectionControl_Init();
 
+    // Инициализация сторожевого таймера
+    WatchDog_Init();
+
     // Инициализация таймера для отсчета интервалов
     UserTimer_InitTimer();
 
@@ -59,6 +63,9 @@ void setup()
 //! \brief Основной цикл программы
 void loop()
 {
+    // Сброс сторожевого таймера
+    WatchDog_Reset();
+
     // Периодический опрос каналов АЦП
     AdcMeasurements_Pollings();
 
