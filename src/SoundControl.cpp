@@ -339,8 +339,8 @@ void SoundControl_Volume(void)
         }
     }
 
-    // Получение адреса массива с отсчетами АЦП в процентах
-    uint8_t *pAdcCountsInPercents = AdcMeasurements_GetAdcCountsInPercentsPointer();
+    // Получение отсчетов АЦП потенциометра в процентах
+    uint8_t adcCountsInPercents = AdcMeasurements_GetPotentiometerAdcCountsInPercents();
     
     // Пояснение. Значения АЦП, приходящие с каналов, к которым подключены
     // потенциометры изменяются в большом диапазоне даже в случае, когда
@@ -350,13 +350,13 @@ void SoundControl_Volume(void)
     // изменилась на значение, превышающее DELTA_VOLUME_THRESHOLD_VALUE.
 
     // Определение изменения положения потенциометра
-    int16_t deltaPotentiometerPosition = abs((int16_t) pAdcCountsInPercents[POTENTIOMETER_VOLUME_CONTROL] - (int16_t) lastPotentiometerPositionInPercents);
+    int16_t deltaPotentiometerPosition = abs(adcCountsInPercents - lastPotentiometerPositionInPercents);
     
     // Если изменение положения потенциометра превышает пороговое значение
     if (deltaPotentiometerPosition > DELTA_VOLUME_THRESHOLD_VALUE)
     {
         // Обновление последнего положения потенциометра
-        lastPotentiometerPositionInPercents = pAdcCountsInPercents[POTENTIOMETER_VOLUME_CONTROL];
+        lastPotentiometerPositionInPercents = adcCountsInPercents;
         
         // Текущим источником управления
         // громкостью звука становится потенциометр
@@ -367,7 +367,7 @@ void SoundControl_Volume(void)
         lastPotentiometerChangePositionTime = UserTimer_GetCounterTime();
 
         // Обновление текущей громкости звука
-        currentVolumeInPercents = pAdcCountsInPercents[POTENTIOMETER_VOLUME_CONTROL];
+        currentVolumeInPercents = adcCountsInPercents;
         
         // Ограничение максимальной громкости
         if (currentVolumeInPercents > MAX_LIMITED_VOLUME_PERCENT)

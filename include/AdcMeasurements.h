@@ -7,23 +7,15 @@
 extern "C" {
 #endif
 
-//! \brief Номера потенциометров
-typedef enum
-{
-    POTENTIOMETER_VOLUME_CONTROL = 0,   //!< Потенциометр управления громкостью звука
-    POTENTIOMETER_BRIGHT_CONTROL,       //!< Потенциометр управления яркостью светодиодной матрицы
-    POTENTIOMETERS_QUANTITY             //!< Общее количество потенциометров
-} Potentiometers;
-
 //! \brief Инициализация АЦП
 void AdcMeasurements_Init(void);
 
-//! \brief Периодический опрос каналов АЦП
+//! \brief Периодический опрос канала АЦП
 void AdcMeasurements_Pollings(void);
 
-//! \brief Получение адреса массива с отсчетами АЦП в процентах
-//! \return Адрес массива с отсчетами АЦП в процентах
-uint8_t * AdcMeasurements_GetAdcCountsInPercentsPointer(void);
+//! \brief Получение отсчетов АЦП потенциометра в процентах
+//! \return Отсчеты АЦП потенциометра в процентах
+uint8_t AdcMeasurements_GetPotentiometerAdcCountsInPercents(void);
 
 #ifdef __cplusplus
 }
