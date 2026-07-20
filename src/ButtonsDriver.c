@@ -49,7 +49,7 @@ void ButtonsDriver_AntibounceFilter(void)
 {
     // Массив пинов кнопок
     static uint8_t buttonsPinArray[BUTTONS_QUANTITY] = { BUTTON_SOUND_CONTROL_PIN, \
-                                                         BUTTON_BLUETOOTH_CONNECTION_CONTROL_PIN,
+                                                         BUTTON_BLUETOOTH_CONNECTION_CONTROL_PIN, \
                                                          BUTTON_SOUND_PRESET_CONTROL_PIN };
 
     // Массив с предельными количествами фиксируемых нажатий на кнопки

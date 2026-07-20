@@ -17,6 +17,10 @@ void AdcMeasurements_Pollings(void);
 //! \return Отсчеты АЦП потенциометра в процентах
 uint8_t AdcMeasurements_GetPotentiometerAdcCountsInPercents(void);
 
+//! \brief Получение значения напряжения батареи
+//! \return Напряжение батареи
+float AdcMeasurements_GetBatteryVoltage(void);
+
 #ifdef __cplusplus
 }
 #endif

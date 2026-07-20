@@ -10,13 +10,8 @@ extern "C" {
 //! \brief Инициализация светодиода индикации заряда батареи
 void BatteryChargeIndication_Init(void);
 
-//! \brief Выключение светодиода индикации заряда батареи
-void BatteryChargeIndication_LedOff(void);
-
-//! \brief Обновление цвета светодиода индикации заряда батареи
-//! \note Временная проверка работы светодиода -
-//!       переключение 5 цветов с заданным периодом
-void BatteryChargeIndication_UpdateColor(void);
+//! \brief Индикация заряда батареи
+void BatteryChargeIndication_Execute(void);
 
 #ifdef __cplusplus
 }
