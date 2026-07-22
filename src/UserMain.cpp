@@ -1,6 +1,7 @@
 #include <Arduino.h>
 
 #include "AdcMeasurements.h"
+#include "AmplifierAndDacControl.h"
 #include "AudioNotifications.h"
 #include "BatteryChargeIndication.h"
 #include "BluetoothConnectionControl.h"
@@ -41,6 +42,9 @@ void setup()
     // Инициализация АЦП
     AdcMeasurements_Init();
 
+    // Инициализация модуля для управления включением усилителя и ЦАП
+    AmplifierAndDacControl_Init();
+
     // Инициализация I2S1 и протокола A2DP
     SoundControl_Init();
 
@@ -65,6 +69,9 @@ void loop()
 {
     // Сброс сторожевого таймера
     WatchDog_Reset();
+
+    // Включение усилителя и ЦАП с задержкой
+    AmplifierAndDacControl_TurnOnChipsAfterDelay();
 
     // Периодический опрос канала АЦП
     AdcMeasurements_Pollings();
