@@ -1,0 +1,1478 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.15.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>BluetoothSpeaker: Файл D:/vscode_projects/BluetoothSpeaker/src/SoundControl.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">BluetoothSpeaker<span id="projectnumber">&#160;0.0.1</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.15.0 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Поиск',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('_sound_control_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Загрузка...</div>
+<div class="SRStatus" id="Searching">Поиск...</div>
+<div class="SRStatus" id="NoMatches">Не найдено</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Файл SoundControl.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;math.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="_buttons_driver_8h_source.html">ButtonsDriver.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_sound_control_8h_source.html">SoundControl.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_sound_presets_8h_source.html">SoundPresets.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_adc_measurements_8h_source.html">AdcMeasurements.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_user_timer_8h_source.html">UserTimer.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Граф включаемых заголовочных файлов для SoundControl.cpp:</div>
+<div class="dyncontent">
+<div class="center"><img src="_sound_control_8cpp__incl.png" border="0" usemap="#a_d_1_2vscode__projects_2_bluetooth_speaker_2src_2_sound_control_8cpp" loading="lazy" alt=""/></div>
+</div>
+</div>
+<p><a href="_sound_control_8cpp_source.html">См. исходные тексты.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Структуры данных</h2></td></tr>
+<tr class="memitem:VolumeControlStream" id="r_VolumeControlStream"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_volume_control_stream.html">VolumeControlStream</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Класс для регулировки громкости звука  <a href="class_volume_control_stream.html#details">Подробнее...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+Макросы</h2></td></tr>
+<tr class="memitem:a50b19563bdb3c4bcf79ca930b0aed21c" id="r_a50b19563bdb3c4bcf79ca930b0aed21c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a50b19563bdb3c4bcf79ca930b0aed21c">I2S_NUMBER</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:a50b19563bdb3c4bcf79ca930b0aed21c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Номер используемого I2S (I2S0 или I2S1).  <br /></td></tr>
+<tr class="memitem:a8796d34b74cd0e81495b25a2413604ca" id="r_a8796d34b74cd0e81495b25a2413604ca"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8796d34b74cd0e81495b25a2413604ca">I2S_BCK_PIN</a>&#160;&#160;&#160;19</td></tr>
+<tr class="memdesc:a8796d34b74cd0e81495b25a2413604ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Номер пина BCK (тактовый сигнал).  <br /></td></tr>
+<tr class="memitem:affd690983402abc512d2daf0a986ad47" id="r_affd690983402abc512d2daf0a986ad47"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#affd690983402abc512d2daf0a986ad47">I2S_WS_PIN</a>&#160;&#160;&#160;18</td></tr>
+<tr class="memdesc:affd690983402abc512d2daf0a986ad47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Номер пина WS/LCK (выбор канала: правый/левый).  <br /></td></tr>
+<tr class="memitem:a18d64cfd7b3955b9dab5b85efdf55cc8" id="r_a18d64cfd7b3955b9dab5b85efdf55cc8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a18d64cfd7b3955b9dab5b85efdf55cc8">I2S_DIN_PIN</a>&#160;&#160;&#160;21</td></tr>
+<tr class="memdesc:a18d64cfd7b3955b9dab5b85efdf55cc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Номер пина DIN (аудиоданные).  <br /></td></tr>
+<tr class="memitem:a6a6b0f9f0d06df1809035c0d7f8a2724" id="r_a6a6b0f9f0d06df1809035c0d7f8a2724"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6a6b0f9f0d06df1809035c0d7f8a2724">VOLUME_TIMEOUT_PERIOD</a>&#160;&#160;&#160;30000</td></tr>
+<tr class="memdesc:a6a6b0f9f0d06df1809035c0d7f8a2724"><td class="mdescLeft">&#160;</td><td class="mdescRight">Таймаут возврата управления смартфону (3 секунды = 30000 * 100 мкс).  <br /></td></tr>
+<tr class="memitem:a0cbd6757497b7da91b692bd1e7006e9b" id="r_a0cbd6757497b7da91b692bd1e7006e9b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0cbd6757497b7da91b692bd1e7006e9b">DELTA_VOLUME_THRESHOLD_VALUE</a>&#160;&#160;&#160;7</td></tr>
+<tr class="memdesc:a0cbd6757497b7da91b692bd1e7006e9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Пороговое значение для определения изменения положения потенциометра в процентах  <br /></td></tr>
+<tr class="memitem:a6a5d17b3df649085f00533f306efa704" id="r_a6a5d17b3df649085f00533f306efa704"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6a5d17b3df649085f00533f306efa704">MAX_VOLUME_AVRCP</a>&#160;&#160;&#160;127</td></tr>
+<tr class="memdesc:a6a5d17b3df649085f00533f306efa704"><td class="mdescLeft">&#160;</td><td class="mdescRight">Максимальное значение громкости в протоколе AVRCP.  <br /></td></tr>
+<tr class="memitem:aa637f84fd65ebd182248cba449fa16b1" id="r_aa637f84fd65ebd182248cba449fa16b1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa637f84fd65ebd182248cba449fa16b1">MAX_VOLUME_PERCENT</a>&#160;&#160;&#160;100</td></tr>
+<tr class="memdesc:aa637f84fd65ebd182248cba449fa16b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Максимальное значение громкости в процентах  <br /></td></tr>
+<tr class="memitem:a7be255c634662553ba4096d322443617" id="r_a7be255c634662553ba4096d322443617"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7be255c634662553ba4096d322443617">TARGET_MAX_VOLUME_SAMPLE</a>&#160;&#160;&#160;30000</td></tr>
+<tr class="memdesc:a7be255c634662553ba4096d322443617"><td class="mdescLeft">&#160;</td><td class="mdescRight">Целевое максимальное значение сэмпла при 100% громкости  <br /></td></tr>
+<tr class="memitem:a955ca74f753ebfbde42142260bacdca9" id="r_a955ca74f753ebfbde42142260bacdca9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a955ca74f753ebfbde42142260bacdca9">LIMITER_COEFF</a>&#160;&#160;&#160;((float) <a class="el" href="#a7be255c634662553ba4096d322443617">TARGET_MAX_VOLUME_SAMPLE</a> / <a class="el" href="_sound_control_8h.html#a3165aaf8779fa25976edff3a2a43a4f1">MAX_VOLUME_SAMPLE</a>)</td></tr>
+<tr class="memdesc:a955ca74f753ebfbde42142260bacdca9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Коэффициент для ограничения максимальной громкости  <br /></td></tr>
+<tr class="memitem:af4d035f9ecea0fd60721ad98051420cc" id="r_af4d035f9ecea0fd60721ad98051420cc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af4d035f9ecea0fd60721ad98051420cc">VOLUME_CURVE_SHAPE</a>&#160;&#160;&#160;0.4f</td></tr>
+<tr class="memdesc:af4d035f9ecea0fd60721ad98051420cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Форма кривой для регулировки громкости  <br /></td></tr>
+<tr class="memitem:ac489a032f92e86bb1315af5eb895fa1e" id="r_ac489a032f92e86bb1315af5eb895fa1e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac489a032f92e86bb1315af5eb895fa1e">VOLUME_PERCENT_TO_AVRCP_COEFF</a>&#160;&#160;&#160;((float) <a class="el" href="#a6a5d17b3df649085f00533f306efa704">MAX_VOLUME_AVRCP</a> / <a class="el" href="#aa637f84fd65ebd182248cba449fa16b1">MAX_VOLUME_PERCENT</a>)</td></tr>
+<tr class="memdesc:ac489a032f92e86bb1315af5eb895fa1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Коэффициент пересчета процентов в AVRCP.  <br /></td></tr>
+<tr class="memitem:a1830cb662b301e8432b2bad8c2d3f69a" id="r_a1830cb662b301e8432b2bad8c2d3f69a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1830cb662b301e8432b2bad8c2d3f69a">MAX_LIMITED_VOLUME_AVRCP</a>&#160;&#160;&#160;((uint8_t) (<a class="el" href="#abb05fa5680a56d04193743a1cc8daffe">MAX_LIMITED_VOLUME_PERCENT</a> * <a class="el" href="#ac489a032f92e86bb1315af5eb895fa1e">VOLUME_PERCENT_TO_AVRCP_COEFF</a>))</td></tr>
+<tr class="memdesc:a1830cb662b301e8432b2bad8c2d3f69a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Максимальная громкость в AVRCP (ограниченная).  <br /></td></tr>
+<tr class="memitem:af1cd9ecca268f0855bb9e6d56ae53426" id="r_af1cd9ecca268f0855bb9e6d56ae53426"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af1cd9ecca268f0855bb9e6d56ae53426">MAX_SAFE_VOLUME_PERCENT</a>&#160;&#160;&#160;80</td></tr>
+<tr class="memdesc:af1cd9ecca268f0855bb9e6d56ae53426"><td class="mdescLeft">&#160;</td><td class="mdescRight">Максимальная безопасная громкость для агрессивных пресетов (%).  <br /></td></tr>
+<tr class="memitem:abb05fa5680a56d04193743a1cc8daffe" id="r_abb05fa5680a56d04193743a1cc8daffe"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abb05fa5680a56d04193743a1cc8daffe">MAX_LIMITED_VOLUME_PERCENT</a>&#160;&#160;&#160;90</td></tr>
+<tr class="memdesc:abb05fa5680a56d04193743a1cc8daffe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Абсолютный максимум громкости (%).  <br /></td></tr>
+<tr class="memitem:a180511077e60f773b9c989d9474d82a3" id="r_a180511077e60f773b9c989d9474d82a3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a180511077e60f773b9c989d9474d82a3">VOLUME_ZERO_THRESHOLD</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:a180511077e60f773b9c989d9474d82a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Порог принудительного обнуления громкости (%).  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Перечисления</h2></td></tr>
+<tr class="memitem:ae777c4083532155b0f63774284124497" id="r_ae777c4083532155b0f63774284124497"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae777c4083532155b0f63774284124497">PlaybackState</a> { <a class="el" href="#ae777c4083532155b0f63774284124497aa07ee6ac7020e5ee88683b8a3faaa7a2">PLAYBACK_PLAYING</a> = 0
+, <a class="el" href="#ae777c4083532155b0f63774284124497accf70b89046bf15f1bdda33f81c53b93">PLAYBACK_PAUSED</a>
+ }</td></tr>
+<tr class="memdesc:ae777c4083532155b0f63774284124497"><td class="mdescLeft">&#160;</td><td class="mdescRight">Текущее состояние воспроизведения звука  <a href="#ae777c4083532155b0f63774284124497">Подробнее...</a><br /></td></tr>
+<tr class="memitem:a5c4388bb21b82d3dca8b3b462250d899" id="r_a5c4388bb21b82d3dca8b3b462250d899"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5c4388bb21b82d3dca8b3b462250d899">VolumeControlSource</a> { <a class="el" href="#a5c4388bb21b82d3dca8b3b462250d899aa96d6f6b6395412e3f5d97f03b56a63b">VOLUME_CONTROL_SOURCE_PHONE</a> = 0
+, <a class="el" href="#a5c4388bb21b82d3dca8b3b462250d899aa6b4db26eb0f50dbe0ae7afa208b3023">VOLUME_CONTROL_SOURCE_POTENTIOMETER</a>
+ }</td></tr>
+<tr class="memdesc:a5c4388bb21b82d3dca8b3b462250d899"><td class="mdescLeft">&#160;</td><td class="mdescRight">Источник управления громкостью звука  <a href="#a5c4388bb21b82d3dca8b3b462250d899">Подробнее...</a><br /></td></tr>
+<tr class="memitem:ad490fdd6e856f01cf6cb8e52008cb8ff" id="r_ad490fdd6e856f01cf6cb8e52008cb8ff"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad490fdd6e856f01cf6cb8e52008cb8ff">VolumeChangeDirection</a> { <a class="el" href="#ad490fdd6e856f01cf6cb8e52008cb8ffa9e8f29a2d2573f183a3e5e1e0a45a7b9">INCREASE_VOLUME</a> = 0
+, <a class="el" href="#ad490fdd6e856f01cf6cb8e52008cb8ffa8e147d947d442b1fe3ac0e1ea5b0c868">DECREASE_VOLUME</a>
+ }</td></tr>
+<tr class="memdesc:ad490fdd6e856f01cf6cb8e52008cb8ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Направление изменения громкости звука потенциометром  <a href="#ad490fdd6e856f01cf6cb8e52008cb8ff">Подробнее...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Функции</h2></td></tr>
+<tr class="memitem:a07d95c13e7db7d4e45f7653ac64955fb" id="r_a07d95c13e7db7d4e45f7653ac64955fb"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a07d95c13e7db7d4e45f7653ac64955fb">VolumeProtectionCheck</a> (uint8_t volumePercent)</td></tr>
+<tr class="memdesc:a07d95c13e7db7d4e45f7653ac64955fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Защита от опасной комбинации громкости и пресета  <br /></td></tr>
+<tr class="memitem:a963c959a58df9aa6bc67eea40777bcd7" id="r_a963c959a58df9aa6bc67eea40777bcd7"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a963c959a58df9aa6bc67eea40777bcd7">VolumeChangeCallback</a> (int volume)</td></tr>
+<tr class="memdesc:a963c959a58df9aa6bc67eea40777bcd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Коллбэк-функция прерывания по изменению громкости звука со смартфона  <br /></td></tr>
+<tr class="memitem:a889c8529a72dffb65dee385882ecec5d" id="r_a889c8529a72dffb65dee385882ecec5d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a889c8529a72dffb65dee385882ecec5d">SoundControl_Init</a> (void)</td></tr>
+<tr class="memdesc:a889c8529a72dffb65dee385882ecec5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Инициализация I2S1 и протокола A2DP.  <br /></td></tr>
+<tr class="memitem:a30dada635bd82df9193be4f75d21045e" id="r_a30dada635bd82df9193be4f75d21045e"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a30dada635bd82df9193be4f75d21045e">SoundControl_SwitchPlaybackState</a> (void)</td></tr>
+<tr class="memdesc:a30dada635bd82df9193be4f75d21045e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Смена текущего состояния воспроизведения звука  <br /></td></tr>
+<tr class="memitem:a0eda31e00dec24748eedd1a639a1faf6" id="r_a0eda31e00dec24748eedd1a639a1faf6"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0eda31e00dec24748eedd1a639a1faf6">SoundControl_SwitchNextTrack</a> (void)</td></tr>
+<tr class="memdesc:a0eda31e00dec24748eedd1a639a1faf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Переключение на следующий трек  <br /></td></tr>
+<tr class="memitem:ace14a6904de9ef174a57732fd2f33346" id="r_ace14a6904de9ef174a57732fd2f33346"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ace14a6904de9ef174a57732fd2f33346">SoundControl_SwitchPreviousTrack</a> (void)</td></tr>
+<tr class="memdesc:ace14a6904de9ef174a57732fd2f33346"><td class="mdescLeft">&#160;</td><td class="mdescRight">Переключение на предыдущий трек  <br /></td></tr>
+<tr class="memitem:a6a9ac1701ae5e71b313bb847f02aac33" id="r_a6a9ac1701ae5e71b313bb847f02aac33"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6a9ac1701ae5e71b313bb847f02aac33">SoundControl_Volume</a> (void)</td></tr>
+<tr class="memdesc:a6a9ac1701ae5e71b313bb847f02aac33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Регулировка громкости звука  <br /></td></tr>
+<tr class="memitem:a7f250c5896250380b9c4fe80187c3841" id="r_a7f250c5896250380b9c4fe80187c3841"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7f250c5896250380b9c4fe80187c3841">SoundControl_Playback</a> (void)</td></tr>
+<tr class="memdesc:a7f250c5896250380b9c4fe80187c3841"><td class="mdescLeft">&#160;</td><td class="mdescRight">Управление воспроизведением звука  <br /></td></tr>
+<tr class="memitem:a969298621babf491d03310759b1973a2" id="r_a969298621babf491d03310759b1973a2"><td class="memItemLeft" align="right" valign="top">BluetoothA2DPSink *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a969298621babf491d03310759b1973a2">SoundControl_GetA2DPSinkPointer</a> (void)</td></tr>
+<tr class="memdesc:a969298621babf491d03310759b1973a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получение указателя на объект BluetoothA2DPSink.  <br /></td></tr>
+<tr class="memitem:a8fe57d0cc45aff515b649f15c0922d9c" id="r_a8fe57d0cc45aff515b649f15c0922d9c"><td class="memItemLeft" align="right" valign="top">I2SStream *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8fe57d0cc45aff515b649f15c0922d9c">SoundControl_GetI2SStreamPointer</a> (void)</td></tr>
+<tr class="memdesc:a8fe57d0cc45aff515b649f15c0922d9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получение указателя на объект I2SStream.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Переменные</h2></td></tr>
+<tr class="memitem:af095452576161fc157eb4f463b05608b" id="r_af095452576161fc157eb4f463b05608b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="#ae777c4083532155b0f63774284124497">PlaybackState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af095452576161fc157eb4f463b05608b">playbackState</a> = <a class="el" href="#ae777c4083532155b0f63774284124497aa07ee6ac7020e5ee88683b8a3faaa7a2">PLAYBACK_PLAYING</a></td></tr>
+<tr class="memdesc:af095452576161fc157eb4f463b05608b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Текущее состояние воспроизведения звука  <br /></td></tr>
+<tr class="memitem:a732c48b5886e540e7b29ed2c1f075cce" id="r_a732c48b5886e540e7b29ed2c1f075cce"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="#a5c4388bb21b82d3dca8b3b462250d899">VolumeControlSource</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a732c48b5886e540e7b29ed2c1f075cce">volumeControlSource</a> = <a class="el" href="#a5c4388bb21b82d3dca8b3b462250d899aa96d6f6b6395412e3f5d97f03b56a63b">VOLUME_CONTROL_SOURCE_PHONE</a></td></tr>
+<tr class="memdesc:a732c48b5886e540e7b29ed2c1f075cce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Текущий источник управления громкостью звука  <br /></td></tr>
+<tr class="memitem:aa5a7329ca0d70ba8292a8dab3258338c" id="r_aa5a7329ca0d70ba8292a8dab3258338c"><td class="memItemLeft" align="right" valign="top">static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa5a7329ca0d70ba8292a8dab3258338c">lastPotentiometerChangePositionTime</a> = 0</td></tr>
+<tr class="memitem:a5756262f4be7a9fae845f4f0bfe30133" id="r_a5756262f4be7a9fae845f4f0bfe30133"><td class="memItemLeft" align="right" valign="top">static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5756262f4be7a9fae845f4f0bfe30133">currentVolumeInPercents</a> = 50</td></tr>
+<tr class="memdesc:a5756262f4be7a9fae845f4f0bfe30133"><td class="mdescLeft">&#160;</td><td class="mdescRight">Текущая громкость звука (0 - 100%).  <br /></td></tr>
+<tr class="memitem:aa2fdb5d1152fb70ee3d9773575414107" id="r_aa2fdb5d1152fb70ee3d9773575414107"><td class="memItemLeft" align="right" valign="top">static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa2fdb5d1152fb70ee3d9773575414107">lastPotentiometerPositionInPercents</a> = 255</td></tr>
+<tr class="memitem:a3edd672630bc2fc014090284e17ff966" id="r_a3edd672630bc2fc014090284e17ff966"><td class="memItemLeft" align="right" valign="top">static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3edd672630bc2fc014090284e17ff966">lastPhoneVolumeInPercents</a> = 255</td></tr>
+<tr class="memitem:a4f2666dd37f8cfae1d93fb22225bd29c" id="r_a4f2666dd37f8cfae1d93fb22225bd29c"><td class="memItemLeft" align="right" valign="top">I2SStream&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4f2666dd37f8cfae1d93fb22225bd29c">i2s</a></td></tr>
+<tr class="memdesc:a4f2666dd37f8cfae1d93fb22225bd29c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Класс для I2S1.  <br /></td></tr>
+<tr class="memitem:a7ce8a752a492f1e9f0bb58a747264cb5" id="r_a7ce8a752a492f1e9f0bb58a747264cb5"><td class="memItemLeft" align="right" valign="top">BluetoothA2DPSink&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7ce8a752a492f1e9f0bb58a747264cb5">a2dp_sink</a></td></tr>
+<tr class="memdesc:a7ce8a752a492f1e9f0bb58a747264cb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Класс для реализации протокола A2DP (Bluetooth).  <br /></td></tr>
+<tr class="memitem:adfa27a9bc2dba6d9722eabe7b42acd3c" id="r_adfa27a9bc2dba6d9722eabe7b42acd3c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_volume_control_stream.html">VolumeControlStream</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adfa27a9bc2dba6d9722eabe7b42acd3c">volumeStream</a> (<a class="el" href="#a4f2666dd37f8cfae1d93fb22225bd29c">i2s</a>)</td></tr>
+<tr class="memdesc:adfa27a9bc2dba6d9722eabe7b42acd3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Класс для управления громкостью звука  <br /></td></tr>
+</table>
+<a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Макросы</h2>
+<a id="a0cbd6757497b7da91b692bd1e7006e9b" name="a0cbd6757497b7da91b692bd1e7006e9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cbd6757497b7da91b692bd1e7006e9b">&#9670;&#160;</a></span>DELTA_VOLUME_THRESHOLD_VALUE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DELTA_VOLUME_THRESHOLD_VALUE&#160;&#160;&#160;7</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Пороговое значение для определения изменения положения потенциометра в процентах </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00021">21</a></p>
+
+</div>
+</div>
+<a id="a8796d34b74cd0e81495b25a2413604ca" name="a8796d34b74cd0e81495b25a2413604ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8796d34b74cd0e81495b25a2413604ca">&#9670;&#160;</a></span>I2S_BCK_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define I2S_BCK_PIN&#160;&#160;&#160;19</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Номер пина BCK (тактовый сигнал). </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00016">16</a></p>
+
+</div>
+</div>
+<a id="a18d64cfd7b3955b9dab5b85efdf55cc8" name="a18d64cfd7b3955b9dab5b85efdf55cc8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18d64cfd7b3955b9dab5b85efdf55cc8">&#9670;&#160;</a></span>I2S_DIN_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define I2S_DIN_PIN&#160;&#160;&#160;21</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Номер пина DIN (аудиоданные). </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00018">18</a></p>
+
+</div>
+</div>
+<a id="a50b19563bdb3c4bcf79ca930b0aed21c" name="a50b19563bdb3c4bcf79ca930b0aed21c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50b19563bdb3c4bcf79ca930b0aed21c">&#9670;&#160;</a></span>I2S_NUMBER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define I2S_NUMBER&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Номер используемого I2S (I2S0 или I2S1). </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00013">13</a></p>
+
+</div>
+</div>
+<a id="affd690983402abc512d2daf0a986ad47" name="affd690983402abc512d2daf0a986ad47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#affd690983402abc512d2daf0a986ad47">&#9670;&#160;</a></span>I2S_WS_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define I2S_WS_PIN&#160;&#160;&#160;18</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Номер пина WS/LCK (выбор канала: правый/левый). </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00017">17</a></p>
+
+</div>
+</div>
+<a id="a955ca74f753ebfbde42142260bacdca9" name="a955ca74f753ebfbde42142260bacdca9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a955ca74f753ebfbde42142260bacdca9">&#9670;&#160;</a></span>LIMITER_COEFF</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LIMITER_COEFF&#160;&#160;&#160;((float) <a class="el" href="#a7be255c634662553ba4096d322443617">TARGET_MAX_VOLUME_SAMPLE</a> / <a class="el" href="_sound_control_8h.html#a3165aaf8779fa25976edff3a2a43a4f1">MAX_VOLUME_SAMPLE</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Коэффициент для ограничения максимальной громкости </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00025">25</a></p>
+
+</div>
+</div>
+<a id="a1830cb662b301e8432b2bad8c2d3f69a" name="a1830cb662b301e8432b2bad8c2d3f69a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1830cb662b301e8432b2bad8c2d3f69a">&#9670;&#160;</a></span>MAX_LIMITED_VOLUME_AVRCP</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX_LIMITED_VOLUME_AVRCP&#160;&#160;&#160;((uint8_t) (<a class="el" href="#abb05fa5680a56d04193743a1cc8daffe">MAX_LIMITED_VOLUME_PERCENT</a> * <a class="el" href="#ac489a032f92e86bb1315af5eb895fa1e">VOLUME_PERCENT_TO_AVRCP_COEFF</a>))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Максимальная громкость в AVRCP (ограниченная). </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00028">28</a></p>
+
+</div>
+</div>
+<a id="abb05fa5680a56d04193743a1cc8daffe" name="abb05fa5680a56d04193743a1cc8daffe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb05fa5680a56d04193743a1cc8daffe">&#9670;&#160;</a></span>MAX_LIMITED_VOLUME_PERCENT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX_LIMITED_VOLUME_PERCENT&#160;&#160;&#160;90</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Абсолютный максимум громкости (%). </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00032">32</a></p>
+
+</div>
+</div>
+<a id="af1cd9ecca268f0855bb9e6d56ae53426" name="af1cd9ecca268f0855bb9e6d56ae53426"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1cd9ecca268f0855bb9e6d56ae53426">&#9670;&#160;</a></span>MAX_SAFE_VOLUME_PERCENT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX_SAFE_VOLUME_PERCENT&#160;&#160;&#160;80</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Максимальная безопасная громкость для агрессивных пресетов (%). </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00031">31</a></p>
+
+</div>
+</div>
+<a id="a6a5d17b3df649085f00533f306efa704" name="a6a5d17b3df649085f00533f306efa704"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a5d17b3df649085f00533f306efa704">&#9670;&#160;</a></span>MAX_VOLUME_AVRCP</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX_VOLUME_AVRCP&#160;&#160;&#160;127</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Максимальное значение громкости в протоколе AVRCP. </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00022">22</a></p>
+
+</div>
+</div>
+<a id="aa637f84fd65ebd182248cba449fa16b1" name="aa637f84fd65ebd182248cba449fa16b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa637f84fd65ebd182248cba449fa16b1">&#9670;&#160;</a></span>MAX_VOLUME_PERCENT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX_VOLUME_PERCENT&#160;&#160;&#160;100</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Максимальное значение громкости в процентах </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00023">23</a></p>
+
+</div>
+</div>
+<a id="a7be255c634662553ba4096d322443617" name="a7be255c634662553ba4096d322443617"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7be255c634662553ba4096d322443617">&#9670;&#160;</a></span>TARGET_MAX_VOLUME_SAMPLE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TARGET_MAX_VOLUME_SAMPLE&#160;&#160;&#160;30000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Целевое максимальное значение сэмпла при 100% громкости </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00024">24</a></p>
+
+</div>
+</div>
+<a id="af4d035f9ecea0fd60721ad98051420cc" name="af4d035f9ecea0fd60721ad98051420cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4d035f9ecea0fd60721ad98051420cc">&#9670;&#160;</a></span>VOLUME_CURVE_SHAPE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define VOLUME_CURVE_SHAPE&#160;&#160;&#160;0.4f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Форма кривой для регулировки громкости </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00026">26</a></p>
+
+</div>
+</div>
+<a id="ac489a032f92e86bb1315af5eb895fa1e" name="ac489a032f92e86bb1315af5eb895fa1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac489a032f92e86bb1315af5eb895fa1e">&#9670;&#160;</a></span>VOLUME_PERCENT_TO_AVRCP_COEFF</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define VOLUME_PERCENT_TO_AVRCP_COEFF&#160;&#160;&#160;((float) <a class="el" href="#a6a5d17b3df649085f00533f306efa704">MAX_VOLUME_AVRCP</a> / <a class="el" href="#aa637f84fd65ebd182248cba449fa16b1">MAX_VOLUME_PERCENT</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Коэффициент пересчета процентов в AVRCP. </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00027">27</a></p>
+
+</div>
+</div>
+<a id="a6a6b0f9f0d06df1809035c0d7f8a2724" name="a6a6b0f9f0d06df1809035c0d7f8a2724"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a6b0f9f0d06df1809035c0d7f8a2724">&#9670;&#160;</a></span>VOLUME_TIMEOUT_PERIOD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define VOLUME_TIMEOUT_PERIOD&#160;&#160;&#160;30000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Таймаут возврата управления смартфону (3 секунды = 30000 * 100 мкс). </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00020">20</a></p>
+
+</div>
+</div>
+<a id="a180511077e60f773b9c989d9474d82a3" name="a180511077e60f773b9c989d9474d82a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a180511077e60f773b9c989d9474d82a3">&#9670;&#160;</a></span>VOLUME_ZERO_THRESHOLD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define VOLUME_ZERO_THRESHOLD&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Порог принудительного обнуления громкости (%). </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00033">33</a></p>
+
+</div>
+</div>
+<a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Перечисления</h2>
+<a id="ae777c4083532155b0f63774284124497" name="ae777c4083532155b0f63774284124497"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae777c4083532155b0f63774284124497">&#9670;&#160;</a></span>PlaybackState</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#ae777c4083532155b0f63774284124497">PlaybackState</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Текущее состояние воспроизведения звука </p>
+<table class="fieldtable">
+<tr><th colspan="2">Элементы перечислений</th></tr><tr><td class="fieldname"><a id="ae777c4083532155b0f63774284124497aa07ee6ac7020e5ee88683b8a3faaa7a2" name="ae777c4083532155b0f63774284124497aa07ee6ac7020e5ee88683b8a3faaa7a2"></a>PLAYBACK_PLAYING&#160;</td><td class="fielddoc"><p>Звук воспроизводится </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ae777c4083532155b0f63774284124497accf70b89046bf15f1bdda33f81c53b93" name="ae777c4083532155b0f63774284124497accf70b89046bf15f1bdda33f81c53b93"></a>PLAYBACK_PAUSED&#160;</td><td class="fielddoc"><p>Воспроизведение звука остановлено </p>
+</td></tr>
+</table>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00036">36</a></p>
+<div class="fragment"><div class="line"><span class="lineno">   37</span>{</div>
+<div class="line"><span class="lineno">   38</span>    <a class="code hl_enumvalue" href="#ae777c4083532155b0f63774284124497aa07ee6ac7020e5ee88683b8a3faaa7a2">PLAYBACK_PLAYING</a> = 0,                               </div>
+<div class="line"><span class="lineno">   39</span>    <a class="code hl_enumvalue" href="#ae777c4083532155b0f63774284124497accf70b89046bf15f1bdda33f81c53b93">PLAYBACK_PAUSED</a>                                     </div>
+<div class="line"><span class="lineno">   40</span>} <a class="code hl_enumeration" href="#ae777c4083532155b0f63774284124497">PlaybackState</a>;</div>
+<div class="ttc" id="a_sound_control_8cpp_html_ae777c4083532155b0f63774284124497"><div class="ttname"><a href="#ae777c4083532155b0f63774284124497">PlaybackState</a></div><div class="ttdeci">PlaybackState</div><div class="ttdoc">Текущее состояние воспроизведения звука</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00036">SoundControl.cpp:37</a></div></div>
+<div class="ttc" id="a_sound_control_8cpp_html_ae777c4083532155b0f63774284124497aa07ee6ac7020e5ee88683b8a3faaa7a2"><div class="ttname"><a href="#ae777c4083532155b0f63774284124497aa07ee6ac7020e5ee88683b8a3faaa7a2">PLAYBACK_PLAYING</a></div><div class="ttdeci">@ PLAYBACK_PLAYING</div><div class="ttdoc">Звук воспроизводится</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00038">SoundControl.cpp:38</a></div></div>
+<div class="ttc" id="a_sound_control_8cpp_html_ae777c4083532155b0f63774284124497accf70b89046bf15f1bdda33f81c53b93"><div class="ttname"><a href="#ae777c4083532155b0f63774284124497accf70b89046bf15f1bdda33f81c53b93">PLAYBACK_PAUSED</a></div><div class="ttdeci">@ PLAYBACK_PAUSED</div><div class="ttdoc">Воспроизведение звука остановлено</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00039">SoundControl.cpp:39</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ad490fdd6e856f01cf6cb8e52008cb8ff" name="ad490fdd6e856f01cf6cb8e52008cb8ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad490fdd6e856f01cf6cb8e52008cb8ff">&#9670;&#160;</a></span>VolumeChangeDirection</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#ad490fdd6e856f01cf6cb8e52008cb8ff">VolumeChangeDirection</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Направление изменения громкости звука потенциометром </p>
+<table class="fieldtable">
+<tr><th colspan="2">Элементы перечислений</th></tr><tr><td class="fieldname"><a id="ad490fdd6e856f01cf6cb8e52008cb8ffa9e8f29a2d2573f183a3e5e1e0a45a7b9" name="ad490fdd6e856f01cf6cb8e52008cb8ffa9e8f29a2d2573f183a3e5e1e0a45a7b9"></a>INCREASE_VOLUME&#160;</td><td class="fielddoc"><p>Громкость увеличивается </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad490fdd6e856f01cf6cb8e52008cb8ffa8e147d947d442b1fe3ac0e1ea5b0c868" name="ad490fdd6e856f01cf6cb8e52008cb8ffa8e147d947d442b1fe3ac0e1ea5b0c868"></a>DECREASE_VOLUME&#160;</td><td class="fielddoc"><p>Громкость уменьшается </p>
+</td></tr>
+</table>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00050">50</a></p>
+<div class="fragment"><div class="line"><span class="lineno">   51</span>{</div>
+<div class="line"><span class="lineno">   52</span>    <a class="code hl_enumvalue" href="#ad490fdd6e856f01cf6cb8e52008cb8ffa9e8f29a2d2573f183a3e5e1e0a45a7b9">INCREASE_VOLUME</a> = 0,                                </div>
+<div class="line"><span class="lineno">   53</span>    <a class="code hl_enumvalue" href="#ad490fdd6e856f01cf6cb8e52008cb8ffa8e147d947d442b1fe3ac0e1ea5b0c868">DECREASE_VOLUME</a>                                     </div>
+<div class="line"><span class="lineno">   54</span> </div>
+<div class="line"><span class="lineno">   55</span>} <a class="code hl_enumeration" href="#ad490fdd6e856f01cf6cb8e52008cb8ff">VolumeChangeDirection</a>;</div>
+<div class="ttc" id="a_sound_control_8cpp_html_ad490fdd6e856f01cf6cb8e52008cb8ff"><div class="ttname"><a href="#ad490fdd6e856f01cf6cb8e52008cb8ff">VolumeChangeDirection</a></div><div class="ttdeci">VolumeChangeDirection</div><div class="ttdoc">Направление изменения громкости звука потенциометром</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00050">SoundControl.cpp:51</a></div></div>
+<div class="ttc" id="a_sound_control_8cpp_html_ad490fdd6e856f01cf6cb8e52008cb8ffa8e147d947d442b1fe3ac0e1ea5b0c868"><div class="ttname"><a href="#ad490fdd6e856f01cf6cb8e52008cb8ffa8e147d947d442b1fe3ac0e1ea5b0c868">DECREASE_VOLUME</a></div><div class="ttdeci">@ DECREASE_VOLUME</div><div class="ttdoc">Громкость уменьшается</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00053">SoundControl.cpp:53</a></div></div>
+<div class="ttc" id="a_sound_control_8cpp_html_ad490fdd6e856f01cf6cb8e52008cb8ffa9e8f29a2d2573f183a3e5e1e0a45a7b9"><div class="ttname"><a href="#ad490fdd6e856f01cf6cb8e52008cb8ffa9e8f29a2d2573f183a3e5e1e0a45a7b9">INCREASE_VOLUME</a></div><div class="ttdeci">@ INCREASE_VOLUME</div><div class="ttdoc">Громкость увеличивается</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00052">SoundControl.cpp:52</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a5c4388bb21b82d3dca8b3b462250d899" name="a5c4388bb21b82d3dca8b3b462250d899"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c4388bb21b82d3dca8b3b462250d899">&#9670;&#160;</a></span>VolumeControlSource</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#a5c4388bb21b82d3dca8b3b462250d899">VolumeControlSource</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Источник управления громкостью звука </p>
+<table class="fieldtable">
+<tr><th colspan="2">Элементы перечислений</th></tr><tr><td class="fieldname"><a id="a5c4388bb21b82d3dca8b3b462250d899aa96d6f6b6395412e3f5d97f03b56a63b" name="a5c4388bb21b82d3dca8b3b462250d899aa96d6f6b6395412e3f5d97f03b56a63b"></a>VOLUME_CONTROL_SOURCE_PHONE&#160;</td><td class="fielddoc"><p>Громкость звука задана смартфоном </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a5c4388bb21b82d3dca8b3b462250d899aa6b4db26eb0f50dbe0ae7afa208b3023" name="a5c4388bb21b82d3dca8b3b462250d899aa6b4db26eb0f50dbe0ae7afa208b3023"></a>VOLUME_CONTROL_SOURCE_POTENTIOMETER&#160;</td><td class="fielddoc"><p>Громкость звука задана потенциометром </p>
+</td></tr>
+</table>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00043">43</a></p>
+<div class="fragment"><div class="line"><span class="lineno">   44</span>{</div>
+<div class="line"><span class="lineno">   45</span>    <a class="code hl_enumvalue" href="#a5c4388bb21b82d3dca8b3b462250d899aa96d6f6b6395412e3f5d97f03b56a63b">VOLUME_CONTROL_SOURCE_PHONE</a> = 0,                    </div>
+<div class="line"><span class="lineno">   46</span>    <a class="code hl_enumvalue" href="#a5c4388bb21b82d3dca8b3b462250d899aa6b4db26eb0f50dbe0ae7afa208b3023">VOLUME_CONTROL_SOURCE_POTENTIOMETER</a>                 </div>
+<div class="line"><span class="lineno">   47</span>} <a class="code hl_enumeration" href="#a5c4388bb21b82d3dca8b3b462250d899">VolumeControlSource</a>;</div>
+<div class="ttc" id="a_sound_control_8cpp_html_a5c4388bb21b82d3dca8b3b462250d899"><div class="ttname"><a href="#a5c4388bb21b82d3dca8b3b462250d899">VolumeControlSource</a></div><div class="ttdeci">VolumeControlSource</div><div class="ttdoc">Источник управления громкостью звука</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00043">SoundControl.cpp:44</a></div></div>
+<div class="ttc" id="a_sound_control_8cpp_html_a5c4388bb21b82d3dca8b3b462250d899aa6b4db26eb0f50dbe0ae7afa208b3023"><div class="ttname"><a href="#a5c4388bb21b82d3dca8b3b462250d899aa6b4db26eb0f50dbe0ae7afa208b3023">VOLUME_CONTROL_SOURCE_POTENTIOMETER</a></div><div class="ttdeci">@ VOLUME_CONTROL_SOURCE_POTENTIOMETER</div><div class="ttdoc">Громкость звука задана потенциометром</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00046">SoundControl.cpp:46</a></div></div>
+<div class="ttc" id="a_sound_control_8cpp_html_a5c4388bb21b82d3dca8b3b462250d899aa96d6f6b6395412e3f5d97f03b56a63b"><div class="ttname"><a href="#a5c4388bb21b82d3dca8b3b462250d899aa96d6f6b6395412e3f5d97f03b56a63b">VOLUME_CONTROL_SOURCE_PHONE</a></div><div class="ttdeci">@ VOLUME_CONTROL_SOURCE_PHONE</div><div class="ttdoc">Громкость звука задана смартфоном</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00045">SoundControl.cpp:45</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Функции</h2>
+<a id="a969298621babf491d03310759b1973a2" name="a969298621babf491d03310759b1973a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a969298621babf491d03310759b1973a2">&#9670;&#160;</a></span>SoundControl_GetA2DPSinkPointer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BluetoothA2DPSink * SoundControl_GetA2DPSinkPointer </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Получение указателя на объект BluetoothA2DPSink. </p>
+<dl class="section return"><dt>Возвращает</dt><dd>Указатель на объект BluetoothA2DPSink </dd></dl>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00528">528</a></p>
+<div class="fragment"><div class="line"><span class="lineno">  529</span>{</div>
+<div class="line"><span class="lineno">  530</span>    <span class="keywordflow">return</span> &amp;<a class="code hl_variable" href="#a7ce8a752a492f1e9f0bb58a747264cb5">a2dp_sink</a>;</div>
+<div class="line"><span class="lineno">  531</span>}</div>
+<div class="ttc" id="a_sound_control_8cpp_html_a7ce8a752a492f1e9f0bb58a747264cb5"><div class="ttname"><a href="#a7ce8a752a492f1e9f0bb58a747264cb5">a2dp_sink</a></div><div class="ttdeci">BluetoothA2DPSink a2dp_sink</div><div class="ttdoc">Класс для реализации протокола A2DP (Bluetooth).</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00069">SoundControl.cpp:69</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a8fe57d0cc45aff515b649f15c0922d9c" name="a8fe57d0cc45aff515b649f15c0922d9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fe57d0cc45aff515b649f15c0922d9c">&#9670;&#160;</a></span>SoundControl_GetI2SStreamPointer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">I2SStream * SoundControl_GetI2SStreamPointer </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Получение указателя на объект I2SStream. </p>
+<dl class="section return"><dt>Возвращает</dt><dd>Указатель на объект I2SStream </dd></dl>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00535">535</a></p>
+<div class="fragment"><div class="line"><span class="lineno">  536</span>{</div>
+<div class="line"><span class="lineno">  537</span>    <span class="keywordflow">return</span> &amp;<a class="code hl_variable" href="#a4f2666dd37f8cfae1d93fb22225bd29c">i2s</a>;</div>
+<div class="line"><span class="lineno">  538</span>}</div>
+<div class="ttc" id="a_sound_control_8cpp_html_a4f2666dd37f8cfae1d93fb22225bd29c"><div class="ttname"><a href="#a4f2666dd37f8cfae1d93fb22225bd29c">i2s</a></div><div class="ttdeci">I2SStream i2s</div><div class="ttdoc">Класс для I2S1.</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00068">SoundControl.cpp:68</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a889c8529a72dffb65dee385882ecec5d" name="a889c8529a72dffb65dee385882ecec5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a889c8529a72dffb65dee385882ecec5d">&#9670;&#160;</a></span>SoundControl_Init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SoundControl_Init </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Инициализация I2S1 и протокола A2DP. </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00195">195</a></p>
+<div class="fragment"><div class="line"><span class="lineno">  196</span>{</div>
+<div class="line"><span class="lineno">  197</span>    <span class="keyword">auto</span> cfg = <a class="code hl_variable" href="#a4f2666dd37f8cfae1d93fb22225bd29c">i2s</a>.defaultConfig();             <span class="comment">// Установка конфигурации по умолчанию</span></div>
+<div class="line"><span class="lineno">  198</span>    </div>
+<div class="line"><span class="lineno">  199</span>    cfg.port_no = <a class="code hl_define" href="#a50b19563bdb3c4bcf79ca930b0aed21c">I2S_NUMBER</a>;                   <span class="comment">// Номер используемого I2S (I2S0 или I2S1)</span></div>
+<div class="line"><span class="lineno">  200</span>    cfg.pin_bck = <a class="code hl_define" href="#a8796d34b74cd0e81495b25a2413604ca">I2S_BCK_PIN</a>;                  <span class="comment">// Номер пина BCK (тактовый сигнал)</span></div>
+<div class="line"><span class="lineno">  201</span>    cfg.pin_ws = <a class="code hl_define" href="#affd690983402abc512d2daf0a986ad47">I2S_WS_PIN</a>;                    <span class="comment">// Номер пина WS/LCK (выбор канала: правый/левый)</span></div>
+<div class="line"><span class="lineno">  202</span>    cfg.pin_data = <a class="code hl_define" href="#a18d64cfd7b3955b9dab5b85efdf55cc8">I2S_DIN_PIN</a>;                 <span class="comment">// Номер пина DIN (аудиоданные)</span></div>
+<div class="line"><span class="lineno">  203</span>    cfg.sample_rate = <a class="code hl_define" href="_sound_control_8h.html#a4b76a0c2859cfd819a343a780070ee2b">SAMPLE_RATE</a>;              <span class="comment">// Частота дискретизации (Гц)</span></div>
+<div class="line"><span class="lineno">  204</span>    cfg.bits_per_sample = 16;                   <span class="comment">// Количество бит для цифрового представления одного сэмпла (отсчета) звука</span></div>
+<div class="line"><span class="lineno">  205</span>    cfg.channels = <a class="code hl_define" href="_sound_control_8h.html#ae5ba6ee8485bbf083b025320318c1713">AUDIO_CHANNELS_QUANTITY</a>;     <span class="comment">// Количество каналов (моно = 1/стерео = 2)</span></div>
+<div class="line"><span class="lineno">  206</span> </div>
+<div class="line"><span class="lineno">  207</span>    <span class="comment">// Запуск I2S1</span></div>
+<div class="line"><span class="lineno">  208</span>    <a class="code hl_variable" href="#a4f2666dd37f8cfae1d93fb22225bd29c">i2s</a>.begin(cfg);</div>
+<div class="line"><span class="lineno">  209</span>    </div>
+<div class="line"><span class="lineno">  210</span>    <span class="comment">// Включение регулировки громкости</span></div>
+<div class="line"><span class="lineno">  211</span>    <a class="code hl_variable" href="#a7ce8a752a492f1e9f0bb58a747264cb5">a2dp_sink</a>.set_output(<a class="code hl_variable" href="#adfa27a9bc2dba6d9722eabe7b42acd3c">volumeStream</a>);</div>
+<div class="line"><span class="lineno">  212</span>    </div>
+<div class="line"><span class="lineno">  213</span>    <span class="comment">// Регистрация коллбэк-функции для прерывания</span></div>
+<div class="line"><span class="lineno">  214</span>    <span class="comment">// по изменению громкости со смартфона</span></div>
+<div class="line"><span class="lineno">  215</span>    <a class="code hl_variable" href="#a7ce8a752a492f1e9f0bb58a747264cb5">a2dp_sink</a>.set_avrc_rn_volumechange(<a class="code hl_function" href="#a963c959a58df9aa6bc67eea40777bcd7">VolumeChangeCallback</a>);</div>
+<div class="line"><span class="lineno">  216</span>    </div>
+<div class="line"><span class="lineno">  217</span>    <span class="comment">// Запуск A2DP-протокола</span></div>
+<div class="line"><span class="lineno">  218</span>    <a class="code hl_variable" href="#a7ce8a752a492f1e9f0bb58a747264cb5">a2dp_sink</a>.start(<a class="code hl_define" href="_sound_control_8h.html#a4c7c4b7e9a58180197cbea44d819bef0">SPEAKER_NAME</a>);</div>
+<div class="line"><span class="lineno">  219</span>    </div>
+<div class="line"><span class="lineno">  220</span>    <span class="comment">// Получение громкости звука со смартфона при старте</span></div>
+<div class="line"><span class="lineno">  221</span>    uint8_t startVolume = (uint8_t) <a class="code hl_variable" href="#a7ce8a752a492f1e9f0bb58a747264cb5">a2dp_sink</a>.get_volume();</div>
+<div class="line"><span class="lineno">  222</span> </div>
+<div class="line"><span class="lineno">  223</span>    <span class="comment">// Ограничение стартовой громкости</span></div>
+<div class="line"><span class="lineno">  224</span>    <span class="keywordflow">if</span> (startVolume &gt; <a class="code hl_define" href="#a1830cb662b301e8432b2bad8c2d3f69a">MAX_LIMITED_VOLUME_AVRCP</a>)</div>
+<div class="line"><span class="lineno">  225</span>    {</div>
+<div class="line"><span class="lineno">  226</span>        startVolume = <a class="code hl_define" href="#a1830cb662b301e8432b2bad8c2d3f69a">MAX_LIMITED_VOLUME_AVRCP</a>;</div>
+<div class="line"><span class="lineno">  227</span>    }</div>
+<div class="line"><span class="lineno">  228</span> </div>
+<div class="line"><span class="lineno">  229</span>    <span class="comment">// Вычисление стартовой громкости в процентах</span></div>
+<div class="line"><span class="lineno">  230</span>    <a class="code hl_variable" href="#a5756262f4be7a9fae845f4f0bfe30133">currentVolumeInPercents</a> = (uint8_t) (startVolume / <a class="code hl_define" href="#ac489a032f92e86bb1315af5eb895fa1e">VOLUME_PERCENT_TO_AVRCP_COEFF</a>);</div>
+<div class="line"><span class="lineno">  231</span> </div>
+<div class="line"><span class="lineno">  232</span>    <span class="comment">// Сохранение значения громкости звука,</span></div>
+<div class="line"><span class="lineno">  233</span>    <span class="comment">// установленной со смартфона, в процентах</span></div>
+<div class="line"><span class="lineno">  234</span>    <a class="code hl_variable" href="#a3edd672630bc2fc014090284e17ff966">lastPhoneVolumeInPercents</a> = <a class="code hl_variable" href="#a5756262f4be7a9fae845f4f0bfe30133">currentVolumeInPercents</a>;</div>
+<div class="line"><span class="lineno">  235</span> </div>
+<div class="line"><span class="lineno">  236</span>    <span class="comment">// Установка громкости звука со смартфона</span></div>
+<div class="line"><span class="lineno">  237</span>    <a class="code hl_variable" href="#adfa27a9bc2dba6d9722eabe7b42acd3c">volumeStream</a>.SetVolume(<a class="code hl_variable" href="#a5756262f4be7a9fae845f4f0bfe30133">currentVolumeInPercents</a>);</div>
+<div class="line"><span class="lineno">  238</span> </div>
+<div class="line"><span class="lineno">  239</span>    <span class="comment">// Инициализация модуля звуковых пресетов</span></div>
+<div class="line"><span class="lineno">  240</span>    <a class="code hl_function" href="_sound_presets_8cpp.html#a95fc0a2dd75b612a83697095ac6042e2">SoundPresets_Init</a>();</div>
+<div class="line"><span class="lineno">  241</span>}</div>
+<div class="ttc" id="a_sound_control_8cpp_html_a1830cb662b301e8432b2bad8c2d3f69a"><div class="ttname"><a href="#a1830cb662b301e8432b2bad8c2d3f69a">MAX_LIMITED_VOLUME_AVRCP</a></div><div class="ttdeci">#define MAX_LIMITED_VOLUME_AVRCP</div><div class="ttdoc">Максимальная громкость в AVRCP (ограниченная).</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00028">SoundControl.cpp:28</a></div></div>
+<div class="ttc" id="a_sound_control_8cpp_html_a18d64cfd7b3955b9dab5b85efdf55cc8"><div class="ttname"><a href="#a18d64cfd7b3955b9dab5b85efdf55cc8">I2S_DIN_PIN</a></div><div class="ttdeci">#define I2S_DIN_PIN</div><div class="ttdoc">Номер пина DIN (аудиоданные).</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00018">SoundControl.cpp:18</a></div></div>
+<div class="ttc" id="a_sound_control_8cpp_html_a3edd672630bc2fc014090284e17ff966"><div class="ttname"><a href="#a3edd672630bc2fc014090284e17ff966">lastPhoneVolumeInPercents</a></div><div class="ttdeci">static uint8_t lastPhoneVolumeInPercents</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00065">SoundControl.cpp:65</a></div></div>
+<div class="ttc" id="a_sound_control_8cpp_html_a50b19563bdb3c4bcf79ca930b0aed21c"><div class="ttname"><a href="#a50b19563bdb3c4bcf79ca930b0aed21c">I2S_NUMBER</a></div><div class="ttdeci">#define I2S_NUMBER</div><div class="ttdoc">Номер используемого I2S (I2S0 или I2S1).</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00013">SoundControl.cpp:13</a></div></div>
+<div class="ttc" id="a_sound_control_8cpp_html_a5756262f4be7a9fae845f4f0bfe30133"><div class="ttname"><a href="#a5756262f4be7a9fae845f4f0bfe30133">currentVolumeInPercents</a></div><div class="ttdeci">static uint8_t currentVolumeInPercents</div><div class="ttdoc">Текущая громкость звука (0 - 100%).</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00061">SoundControl.cpp:61</a></div></div>
+<div class="ttc" id="a_sound_control_8cpp_html_a8796d34b74cd0e81495b25a2413604ca"><div class="ttname"><a href="#a8796d34b74cd0e81495b25a2413604ca">I2S_BCK_PIN</a></div><div class="ttdeci">#define I2S_BCK_PIN</div><div class="ttdoc">Номер пина BCK (тактовый сигнал).</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00016">SoundControl.cpp:16</a></div></div>
+<div class="ttc" id="a_sound_control_8cpp_html_a963c959a58df9aa6bc67eea40777bcd7"><div class="ttname"><a href="#a963c959a58df9aa6bc67eea40777bcd7">VolumeChangeCallback</a></div><div class="ttdeci">static void VolumeChangeCallback(int volume)</div><div class="ttdoc">Коллбэк-функция прерывания по изменению громкости звука со смартфона</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00178">SoundControl.cpp:178</a></div></div>
+<div class="ttc" id="a_sound_control_8cpp_html_ac489a032f92e86bb1315af5eb895fa1e"><div class="ttname"><a href="#ac489a032f92e86bb1315af5eb895fa1e">VOLUME_PERCENT_TO_AVRCP_COEFF</a></div><div class="ttdeci">#define VOLUME_PERCENT_TO_AVRCP_COEFF</div><div class="ttdoc">Коэффициент пересчета процентов в AVRCP.</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00027">SoundControl.cpp:27</a></div></div>
+<div class="ttc" id="a_sound_control_8cpp_html_adfa27a9bc2dba6d9722eabe7b42acd3c"><div class="ttname"><a href="#adfa27a9bc2dba6d9722eabe7b42acd3c">volumeStream</a></div><div class="ttdeci">VolumeControlStream volumeStream(i2s)</div><div class="ttdoc">Класс для управления громкостью звука</div></div>
+<div class="ttc" id="a_sound_control_8cpp_html_affd690983402abc512d2daf0a986ad47"><div class="ttname"><a href="#affd690983402abc512d2daf0a986ad47">I2S_WS_PIN</a></div><div class="ttdeci">#define I2S_WS_PIN</div><div class="ttdoc">Номер пина WS/LCK (выбор канала: правый/левый).</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00017">SoundControl.cpp:17</a></div></div>
+<div class="ttc" id="a_sound_control_8h_html_a4b76a0c2859cfd819a343a780070ee2b"><div class="ttname"><a href="_sound_control_8h.html#a4b76a0c2859cfd819a343a780070ee2b">SAMPLE_RATE</a></div><div class="ttdeci">#define SAMPLE_RATE</div><div class="ttdoc">Частота дискретизации (Гц).</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8h_source.html#l00012">SoundControl.h:12</a></div></div>
+<div class="ttc" id="a_sound_control_8h_html_a4c7c4b7e9a58180197cbea44d819bef0"><div class="ttname"><a href="_sound_control_8h.html#a4c7c4b7e9a58180197cbea44d819bef0">SPEAKER_NAME</a></div><div class="ttdeci">#define SPEAKER_NAME</div><div class="ttdoc">Название колонки при подключении Bluetooth.</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8h_source.html#l00007">SoundControl.h:7</a></div></div>
+<div class="ttc" id="a_sound_control_8h_html_ae5ba6ee8485bbf083b025320318c1713"><div class="ttname"><a href="_sound_control_8h.html#ae5ba6ee8485bbf083b025320318c1713">AUDIO_CHANNELS_QUANTITY</a></div><div class="ttdeci">#define AUDIO_CHANNELS_QUANTITY</div><div class="ttdoc">Количество каналов (2 канала: правый и левый).</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8h_source.html#l00011">SoundControl.h:11</a></div></div>
+<div class="ttc" id="a_sound_presets_8cpp_html_a95fc0a2dd75b612a83697095ac6042e2"><div class="ttname"><a href="_sound_presets_8cpp.html#a95fc0a2dd75b612a83697095ac6042e2">SoundPresets_Init</a></div><div class="ttdeci">void SoundPresets_Init(void)</div><div class="ttdoc">Инициализация модуля звуковых пресетов</div><div class="ttdef"><b>Определения</b> <a href="_sound_presets_8cpp_source.html#l00265">SoundPresets.cpp:265</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a7f250c5896250380b9c4fe80187c3841" name="a7f250c5896250380b9c4fe80187c3841"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f250c5896250380b9c4fe80187c3841">&#9670;&#160;</a></span>SoundControl_Playback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SoundControl_Playback </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Управление воспроизведением звука </p>
+<p>Управление воспроизведением звука (кнопки). </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00473">473</a></p>
+<div class="fragment"><div class="line"><span class="lineno">  474</span>{</div>
+<div class="line"><span class="lineno">  475</span>    <span class="comment">// Получение адреса массива с количеством устойчивых нажатий на кнопки</span></div>
+<div class="line"><span class="lineno">  476</span>    uint8_t *pButtonsPressCount = <a class="code hl_function" href="_buttons_driver_8c.html#a5d7a6b5f780ba2eef21568bde7dc9d71">ButtonsDriver_GetButtonsPressCountPointer</a>();</div>
+<div class="line"><span class="lineno">  477</span> </div>
+<div class="line"><span class="lineno">  478</span>    <span class="comment">// Получение адреса массива со статусами завершения серий нажатий </span></div>
+<div class="line"><span class="lineno">  479</span>    <a class="code hl_enumeration" href="_buttons_driver_8h.html#a24bf277feb9cb47b2b44f52744f19fc1">ButtonPressSeriesStatus</a> *pButtonSeriesStatus = <a class="code hl_function" href="_buttons_driver_8c.html#aaac2e03283d592427ceb3940dd465c40">ButtonsDriver_GetButtonsPressSeriesStatusPointer</a>();</div>
+<div class="line"><span class="lineno">  480</span> </div>
+<div class="line"><span class="lineno">  481</span>    <span class="comment">// Если завершена серия нажатий на кнопку управления звука</span></div>
+<div class="line"><span class="lineno">  482</span>    <span class="keywordflow">if</span> (<a class="code hl_enumvalue" href="_buttons_driver_8h.html#a24bf277feb9cb47b2b44f52744f19fc1a92f54477c3d9396b9512b767b0a44d97">BUTTON_PRESS_SERIES_FINISHED</a> == pButtonSeriesStatus[<a class="code hl_enumvalue" href="_buttons_driver_8h.html#a2200c9a3564da59c1160338587ecb034a61c2f967da3a4ed5a1fa48ed2150e17a">BUTTON_SOUND_CONTROL</a>])</div>
+<div class="line"><span class="lineno">  483</span>    {</div>
+<div class="line"><span class="lineno">  484</span>        <span class="keywordflow">if</span> (<a class="code hl_enumvalue" href="_buttons_driver_8h.html#a826153fccdea44b82db88b6deb7a6970abbec85722accc9d67d8dc4cfd1a65e22">ONE_PRESS</a> == pButtonsPressCount[<a class="code hl_enumvalue" href="_buttons_driver_8h.html#a2200c9a3564da59c1160338587ecb034a61c2f967da3a4ed5a1fa48ed2150e17a">BUTTON_SOUND_CONTROL</a>])          <span class="comment">// Зафиксировано одно нажатие на кнопку</span></div>
+<div class="line"><span class="lineno">  485</span>        {</div>
+<div class="line"><span class="lineno">  486</span>            <span class="comment">// Смена текущего состояния звука</span></div>
+<div class="line"><span class="lineno">  487</span>            <a class="code hl_function" href="#a30dada635bd82df9193be4f75d21045e">SoundControl_SwitchPlaybackState</a>();</div>
+<div class="line"><span class="lineno">  488</span> </div>
+<div class="line"><span class="lineno">  489</span><span class="preprocessor">            #ifdef DEBUG_INFO_BUTTON_SOUND_CONTROL_STATE</span></div>
+<div class="line"><span class="lineno">  490</span>            </div>
+<div class="line"><span class="lineno">  491</span>                Serial.println(<span class="stringliteral">&quot;Кнопка управления звуком - действие на первое нажатие&quot;</span>);</div>
+<div class="line"><span class="lineno">  492</span> </div>
+<div class="line"><span class="lineno">  493</span><span class="preprocessor">            #endif </span><span class="comment">// DEBUG_INFO_BUTTON_SOUND_CONTROL_STATE</span></div>
+<div class="line"><span class="lineno">  494</span>        }</div>
+<div class="line"><span class="lineno">  495</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_enumvalue" href="_buttons_driver_8h.html#a826153fccdea44b82db88b6deb7a6970a5c1aade001f5ddfe3eeb219c7494bc6b">TWO_PRESS</a> == pButtonsPressCount[<a class="code hl_enumvalue" href="_buttons_driver_8h.html#a2200c9a3564da59c1160338587ecb034a61c2f967da3a4ed5a1fa48ed2150e17a">BUTTON_SOUND_CONTROL</a>])     <span class="comment">// Зафиксировано два нажатия на кнопку</span></div>
+<div class="line"><span class="lineno">  496</span>        {</div>
+<div class="line"><span class="lineno">  497</span>            <span class="comment">// Переключение на следующий трек</span></div>
+<div class="line"><span class="lineno">  498</span>            <a class="code hl_function" href="#a0eda31e00dec24748eedd1a639a1faf6">SoundControl_SwitchNextTrack</a>();</div>
+<div class="line"><span class="lineno">  499</span> </div>
+<div class="line"><span class="lineno">  500</span><span class="preprocessor">            #ifdef DEBUG_INFO_BUTTON_SOUND_CONTROL_STATE</span></div>
+<div class="line"><span class="lineno">  501</span> </div>
+<div class="line"><span class="lineno">  502</span>                Serial.println(<span class="stringliteral">&quot;Кнопка управления звуком - действие на второе нажатие&quot;</span>);</div>
+<div class="line"><span class="lineno">  503</span> </div>
+<div class="line"><span class="lineno">  504</span><span class="preprocessor">            #endif </span><span class="comment">// DEBUG_INFO_BUTTON_SOUND_CONTROL_STATE</span></div>
+<div class="line"><span class="lineno">  505</span>        }</div>
+<div class="line"><span class="lineno">  506</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_enumvalue" href="_buttons_driver_8h.html#a826153fccdea44b82db88b6deb7a6970afcdac2cb880e83b854f606729e7f97a1">THREE_PRESS</a> == pButtonsPressCount[<a class="code hl_enumvalue" href="_buttons_driver_8h.html#a2200c9a3564da59c1160338587ecb034a61c2f967da3a4ed5a1fa48ed2150e17a">BUTTON_SOUND_CONTROL</a>])   <span class="comment">// Зафиксировано три нажатия на кнопку</span></div>
+<div class="line"><span class="lineno">  507</span>        {</div>
+<div class="line"><span class="lineno">  508</span>            <span class="comment">// Переключение на предыдущий трек</span></div>
+<div class="line"><span class="lineno">  509</span>            <a class="code hl_function" href="#ace14a6904de9ef174a57732fd2f33346">SoundControl_SwitchPreviousTrack</a>();</div>
+<div class="line"><span class="lineno">  510</span> </div>
+<div class="line"><span class="lineno">  511</span><span class="preprocessor">            #ifdef DEBUG_INFO_BUTTON_SOUND_CONTROL_STATE</span></div>
+<div class="line"><span class="lineno">  512</span> </div>
+<div class="line"><span class="lineno">  513</span>                Serial.println(<span class="stringliteral">&quot;Кнопка управления звуком - действие на третье нажатие&quot;</span>);</div>
+<div class="line"><span class="lineno">  514</span> </div>
+<div class="line"><span class="lineno">  515</span><span class="preprocessor">            #endif </span><span class="comment">// DEBUG_INFO_BUTTON_SOUND_CONTROL_STATE</span></div>
+<div class="line"><span class="lineno">  516</span>        }</div>
+<div class="line"><span class="lineno">  517</span> </div>
+<div class="line"><span class="lineno">  518</span>        <span class="comment">// Сброс статуса завершения серии нажатий на кнопку управления звука</span></div>
+<div class="line"><span class="lineno">  519</span>        pButtonSeriesStatus[<a class="code hl_enumvalue" href="_buttons_driver_8h.html#a2200c9a3564da59c1160338587ecb034a61c2f967da3a4ed5a1fa48ed2150e17a">BUTTON_SOUND_CONTROL</a>] = <a class="code hl_enumvalue" href="_buttons_driver_8h.html#a24bf277feb9cb47b2b44f52744f19fc1a6b2b1a8a4dc5f9f4d6cb332f8c186a7b">BUTTON_PRESS_SERIES_NONE</a>;</div>
+<div class="line"><span class="lineno">  520</span> </div>
+<div class="line"><span class="lineno">  521</span>        <span class="comment">// Сброс количества нажатий на кнопку управления звука</span></div>
+<div class="line"><span class="lineno">  522</span>        pButtonsPressCount[<a class="code hl_enumvalue" href="_buttons_driver_8h.html#a2200c9a3564da59c1160338587ecb034a61c2f967da3a4ed5a1fa48ed2150e17a">BUTTON_SOUND_CONTROL</a>] = 0;</div>
+<div class="line"><span class="lineno">  523</span>    }</div>
+<div class="line"><span class="lineno">  524</span>}</div>
+<div class="ttc" id="a_buttons_driver_8c_html_a5d7a6b5f780ba2eef21568bde7dc9d71"><div class="ttname"><a href="_buttons_driver_8c.html#a5d7a6b5f780ba2eef21568bde7dc9d71">ButtonsDriver_GetButtonsPressCountPointer</a></div><div class="ttdeci">uint8_t * ButtonsDriver_GetButtonsPressCountPointer(void)</div><div class="ttdoc">Получение адреса массива с количеством устойчивых нажатий на кнопки</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8c_source.html#l00201">ButtonsDriver.c:201</a></div></div>
+<div class="ttc" id="a_buttons_driver_8c_html_aaac2e03283d592427ceb3940dd465c40"><div class="ttname"><a href="_buttons_driver_8c.html#aaac2e03283d592427ceb3940dd465c40">ButtonsDriver_GetButtonsPressSeriesStatusPointer</a></div><div class="ttdeci">ButtonPressSeriesStatus * ButtonsDriver_GetButtonsPressSeriesStatusPointer(void)</div><div class="ttdoc">Получение адреса массива со статусами завершения серий нажатий на кнопки</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8c_source.html#l00208">ButtonsDriver.c:208</a></div></div>
+<div class="ttc" id="a_buttons_driver_8h_html_a2200c9a3564da59c1160338587ecb034a61c2f967da3a4ed5a1fa48ed2150e17a"><div class="ttname"><a href="_buttons_driver_8h.html#a2200c9a3564da59c1160338587ecb034a61c2f967da3a4ed5a1fa48ed2150e17a">BUTTON_SOUND_CONTROL</a></div><div class="ttdeci">@ BUTTON_SOUND_CONTROL</div><div class="ttdoc">Кнопка управления звуком</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8h_source.html#l00017">ButtonsDriver.h:17</a></div></div>
+<div class="ttc" id="a_buttons_driver_8h_html_a24bf277feb9cb47b2b44f52744f19fc1"><div class="ttname"><a href="_buttons_driver_8h.html#a24bf277feb9cb47b2b44f52744f19fc1">ButtonPressSeriesStatus</a></div><div class="ttdeci">ButtonPressSeriesStatus</div><div class="ttdoc">Статус завершения серии нажатий на кнопку</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8h_source.html#l00032">ButtonsDriver.h:33</a></div></div>
+<div class="ttc" id="a_buttons_driver_8h_html_a24bf277feb9cb47b2b44f52744f19fc1a6b2b1a8a4dc5f9f4d6cb332f8c186a7b"><div class="ttname"><a href="_buttons_driver_8h.html#a24bf277feb9cb47b2b44f52744f19fc1a6b2b1a8a4dc5f9f4d6cb332f8c186a7b">BUTTON_PRESS_SERIES_NONE</a></div><div class="ttdeci">@ BUTTON_PRESS_SERIES_NONE</div><div class="ttdoc">Серия нажатий на кнопку не завершена</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8h_source.html#l00034">ButtonsDriver.h:34</a></div></div>
+<div class="ttc" id="a_buttons_driver_8h_html_a24bf277feb9cb47b2b44f52744f19fc1a92f54477c3d9396b9512b767b0a44d97"><div class="ttname"><a href="_buttons_driver_8h.html#a24bf277feb9cb47b2b44f52744f19fc1a92f54477c3d9396b9512b767b0a44d97">BUTTON_PRESS_SERIES_FINISHED</a></div><div class="ttdeci">@ BUTTON_PRESS_SERIES_FINISHED</div><div class="ttdoc">Серия нажатий на кнопку завершена по таймауту</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8h_source.html#l00035">ButtonsDriver.h:35</a></div></div>
+<div class="ttc" id="a_buttons_driver_8h_html_a826153fccdea44b82db88b6deb7a6970a5c1aade001f5ddfe3eeb219c7494bc6b"><div class="ttname"><a href="_buttons_driver_8h.html#a826153fccdea44b82db88b6deb7a6970a5c1aade001f5ddfe3eeb219c7494bc6b">TWO_PRESS</a></div><div class="ttdeci">@ TWO_PRESS</div><div class="ttdoc">Два нажатия на кнопку</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8h_source.html#l00027">ButtonsDriver.h:27</a></div></div>
+<div class="ttc" id="a_buttons_driver_8h_html_a826153fccdea44b82db88b6deb7a6970abbec85722accc9d67d8dc4cfd1a65e22"><div class="ttname"><a href="_buttons_driver_8h.html#a826153fccdea44b82db88b6deb7a6970abbec85722accc9d67d8dc4cfd1a65e22">ONE_PRESS</a></div><div class="ttdeci">@ ONE_PRESS</div><div class="ttdoc">Одно нажатие на кнопку</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8h_source.html#l00026">ButtonsDriver.h:26</a></div></div>
+<div class="ttc" id="a_buttons_driver_8h_html_a826153fccdea44b82db88b6deb7a6970afcdac2cb880e83b854f606729e7f97a1"><div class="ttname"><a href="_buttons_driver_8h.html#a826153fccdea44b82db88b6deb7a6970afcdac2cb880e83b854f606729e7f97a1">THREE_PRESS</a></div><div class="ttdeci">@ THREE_PRESS</div><div class="ttdoc">Три нажатия на кнопку</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8h_source.html#l00028">ButtonsDriver.h:28</a></div></div>
+<div class="ttc" id="a_sound_control_8cpp_html_a0eda31e00dec24748eedd1a639a1faf6"><div class="ttname"><a href="#a0eda31e00dec24748eedd1a639a1faf6">SoundControl_SwitchNextTrack</a></div><div class="ttdeci">static void SoundControl_SwitchNextTrack(void)</div><div class="ttdoc">Переключение на следующий трек</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00278">SoundControl.cpp:278</a></div></div>
+<div class="ttc" id="a_sound_control_8cpp_html_a30dada635bd82df9193be4f75d21045e"><div class="ttname"><a href="#a30dada635bd82df9193be4f75d21045e">SoundControl_SwitchPlaybackState</a></div><div class="ttdeci">static void SoundControl_SwitchPlaybackState(void)</div><div class="ttdoc">Смена текущего состояния воспроизведения звука</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00244">SoundControl.cpp:244</a></div></div>
+<div class="ttc" id="a_sound_control_8cpp_html_ace14a6904de9ef174a57732fd2f33346"><div class="ttname"><a href="#ace14a6904de9ef174a57732fd2f33346">SoundControl_SwitchPreviousTrack</a></div><div class="ttdeci">static void SoundControl_SwitchPreviousTrack(void)</div><div class="ttdoc">Переключение на предыдущий трек</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00294">SoundControl.cpp:294</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a0eda31e00dec24748eedd1a639a1faf6" name="a0eda31e00dec24748eedd1a639a1faf6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0eda31e00dec24748eedd1a639a1faf6">&#9670;&#160;</a></span>SoundControl_SwitchNextTrack()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SoundControl_SwitchNextTrack </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Переключение на следующий трек </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00278">278</a></p>
+<div class="fragment"><div class="line"><span class="lineno">  279</span>{</div>
+<div class="line"><span class="lineno">  280</span>    <span class="comment">// Переключение на следующий трек</span></div>
+<div class="line"><span class="lineno">  281</span>    <a class="code hl_variable" href="#a7ce8a752a492f1e9f0bb58a747264cb5">a2dp_sink</a>.next();</div>
+<div class="line"><span class="lineno">  282</span> </div>
+<div class="line"><span class="lineno">  283</span>    <span class="comment">// Установка состояния - воспроизведение продолжается</span></div>
+<div class="line"><span class="lineno">  284</span>    <a class="code hl_variable" href="#af095452576161fc157eb4f463b05608b">playbackState</a> = <a class="code hl_enumvalue" href="#ae777c4083532155b0f63774284124497aa07ee6ac7020e5ee88683b8a3faaa7a2">PLAYBACK_PLAYING</a>;</div>
+<div class="line"><span class="lineno">  285</span> </div>
+<div class="line"><span class="lineno">  286</span><span class="preprocessor">    #ifdef DEBUG_INFO_PLAYBACK_CONTROL</span></div>
+<div class="line"><span class="lineno">  287</span> </div>
+<div class="line"><span class="lineno">  288</span>        Serial.println(<span class="stringliteral">&quot;Переключение на следующий трек&quot;</span>);</div>
+<div class="line"><span class="lineno">  289</span> </div>
+<div class="line"><span class="lineno">  290</span><span class="preprocessor">    #endif </span><span class="comment">// DEBUG_INFO_PLAYBACK_CONTROL</span></div>
+<div class="line"><span class="lineno">  291</span>}</div>
+<div class="ttc" id="a_sound_control_8cpp_html_af095452576161fc157eb4f463b05608b"><div class="ttname"><a href="#af095452576161fc157eb4f463b05608b">playbackState</a></div><div class="ttdeci">static PlaybackState playbackState</div><div class="ttdoc">Текущее состояние воспроизведения звука</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00057">SoundControl.cpp:57</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a30dada635bd82df9193be4f75d21045e" name="a30dada635bd82df9193be4f75d21045e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30dada635bd82df9193be4f75d21045e">&#9670;&#160;</a></span>SoundControl_SwitchPlaybackState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SoundControl_SwitchPlaybackState </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Смена текущего состояния воспроизведения звука </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00244">244</a></p>
+<div class="fragment"><div class="line"><span class="lineno">  245</span>{</div>
+<div class="line"><span class="lineno">  246</span>    <span class="comment">// Если звук воспроизводился</span></div>
+<div class="line"><span class="lineno">  247</span>    <span class="keywordflow">if</span> (<a class="code hl_enumvalue" href="#ae777c4083532155b0f63774284124497aa07ee6ac7020e5ee88683b8a3faaa7a2">PLAYBACK_PLAYING</a> == <a class="code hl_variable" href="#af095452576161fc157eb4f463b05608b">playbackState</a>)</div>
+<div class="line"><span class="lineno">  248</span>    {</div>
+<div class="line"><span class="lineno">  249</span>        <span class="comment">// Остановка воспроизведения звука</span></div>
+<div class="line"><span class="lineno">  250</span>        <a class="code hl_variable" href="#a7ce8a752a492f1e9f0bb58a747264cb5">a2dp_sink</a>.pause();</div>
+<div class="line"><span class="lineno">  251</span> </div>
+<div class="line"><span class="lineno">  252</span>        <span class="comment">// Установка состояния - воспроизведение приостановлено</span></div>
+<div class="line"><span class="lineno">  253</span>        <a class="code hl_variable" href="#af095452576161fc157eb4f463b05608b">playbackState</a> = <a class="code hl_enumvalue" href="#ae777c4083532155b0f63774284124497accf70b89046bf15f1bdda33f81c53b93">PLAYBACK_PAUSED</a>;</div>
+<div class="line"><span class="lineno">  254</span> </div>
+<div class="line"><span class="lineno">  255</span><span class="preprocessor">        #ifdef DEBUG_INFO_PLAYBACK_CONTROL</span></div>
+<div class="line"><span class="lineno">  256</span> </div>
+<div class="line"><span class="lineno">  257</span>            Serial.println(<span class="stringliteral">&quot;Воспроизведение приостановлено&quot;</span>);</div>
+<div class="line"><span class="lineno">  258</span> </div>
+<div class="line"><span class="lineno">  259</span><span class="preprocessor">        #endif </span><span class="comment">// DEBUG_INFO_PLAYBACK_CONTROL</span></div>
+<div class="line"><span class="lineno">  260</span>    }</div>
+<div class="line"><span class="lineno">  261</span>    <span class="keywordflow">else</span> <span class="comment">// Если звук не воспроизводился</span></div>
+<div class="line"><span class="lineno">  262</span>    {</div>
+<div class="line"><span class="lineno">  263</span>        <span class="comment">// Продолжение воспроизведения звука</span></div>
+<div class="line"><span class="lineno">  264</span>        <a class="code hl_variable" href="#a7ce8a752a492f1e9f0bb58a747264cb5">a2dp_sink</a>.play();</div>
+<div class="line"><span class="lineno">  265</span> </div>
+<div class="line"><span class="lineno">  266</span>        <span class="comment">// Установка состояния - воспроизведение продолжается</span></div>
+<div class="line"><span class="lineno">  267</span>        <a class="code hl_variable" href="#af095452576161fc157eb4f463b05608b">playbackState</a> = <a class="code hl_enumvalue" href="#ae777c4083532155b0f63774284124497aa07ee6ac7020e5ee88683b8a3faaa7a2">PLAYBACK_PLAYING</a>;</div>
+<div class="line"><span class="lineno">  268</span> </div>
+<div class="line"><span class="lineno">  269</span><span class="preprocessor">        #ifdef DEBUG_INFO_PLAYBACK_CONTROL</span></div>
+<div class="line"><span class="lineno">  270</span> </div>
+<div class="line"><span class="lineno">  271</span>            Serial.println(<span class="stringliteral">&quot;Воспроизведение продолжено&quot;</span>);</div>
+<div class="line"><span class="lineno">  272</span> </div>
+<div class="line"><span class="lineno">  273</span><span class="preprocessor">        #endif </span><span class="comment">// DEBUG_INFO_PLAYBACK_CONTROL</span></div>
+<div class="line"><span class="lineno">  274</span>    }</div>
+<div class="line"><span class="lineno">  275</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ace14a6904de9ef174a57732fd2f33346" name="ace14a6904de9ef174a57732fd2f33346"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace14a6904de9ef174a57732fd2f33346">&#9670;&#160;</a></span>SoundControl_SwitchPreviousTrack()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SoundControl_SwitchPreviousTrack </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Переключение на предыдущий трек </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00294">294</a></p>
+<div class="fragment"><div class="line"><span class="lineno">  295</span>{</div>
+<div class="line"><span class="lineno">  296</span>    <span class="comment">// Переключение на предыдущий трек</span></div>
+<div class="line"><span class="lineno">  297</span>    <a class="code hl_variable" href="#a7ce8a752a492f1e9f0bb58a747264cb5">a2dp_sink</a>.previous();</div>
+<div class="line"><span class="lineno">  298</span> </div>
+<div class="line"><span class="lineno">  299</span>    <span class="comment">// Установка состояния - воспроизведение продолжается</span></div>
+<div class="line"><span class="lineno">  300</span>    <a class="code hl_variable" href="#af095452576161fc157eb4f463b05608b">playbackState</a> = <a class="code hl_enumvalue" href="#ae777c4083532155b0f63774284124497aa07ee6ac7020e5ee88683b8a3faaa7a2">PLAYBACK_PLAYING</a>;</div>
+<div class="line"><span class="lineno">  301</span> </div>
+<div class="line"><span class="lineno">  302</span><span class="preprocessor">    #ifdef DEBUG_INFO_PLAYBACK_CONTROL</span></div>
+<div class="line"><span class="lineno">  303</span> </div>
+<div class="line"><span class="lineno">  304</span>        Serial.println(<span class="stringliteral">&quot;Переключение на предыдущий трек&quot;</span>);</div>
+<div class="line"><span class="lineno">  305</span> </div>
+<div class="line"><span class="lineno">  306</span><span class="preprocessor">    #endif </span><span class="comment">// DEBUG_INFO_PLAYBACK_CONTROL</span></div>
+<div class="line"><span class="lineno">  307</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a6a9ac1701ae5e71b313bb847f02aac33" name="a6a9ac1701ae5e71b313bb847f02aac33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a9ac1701ae5e71b313bb847f02aac33">&#9670;&#160;</a></span>SoundControl_Volume()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SoundControl_Volume </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Регулировка громкости звука </p>
+<p>Регулировка громкости (потенциометр + синхронизация со смартфоном). </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00310">310</a></p>
+<div class="fragment"><div class="line"><span class="lineno">  311</span>{</div>
+<div class="line"><span class="lineno">  312</span>    <span class="comment">// Если текущим источником установки громкости звука является смартфон</span></div>
+<div class="line"><span class="lineno">  313</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="#a732c48b5886e540e7b29ed2c1f075cce">volumeControlSource</a> == <a class="code hl_enumvalue" href="#a5c4388bb21b82d3dca8b3b462250d899aa96d6f6b6395412e3f5d97f03b56a63b">VOLUME_CONTROL_SOURCE_PHONE</a>)</div>
+<div class="line"><span class="lineno">  314</span>    {</div>
+<div class="line"><span class="lineno">  315</span>        <span class="comment">// Если получено новое значение громкости со</span></div>
+<div class="line"><span class="lineno">  316</span>        <span class="comment">// смартфона и оно отличается от предыдущего</span></div>
+<div class="line"><span class="lineno">  317</span>        <span class="keywordflow">if</span> ((<a class="code hl_variable" href="#a3edd672630bc2fc014090284e17ff966">lastPhoneVolumeInPercents</a> &lt;= <a class="code hl_define" href="#abb05fa5680a56d04193743a1cc8daffe">MAX_LIMITED_VOLUME_PERCENT</a>) &amp;&amp;</div>
+<div class="line"><span class="lineno">  318</span>            (<a class="code hl_variable" href="#a3edd672630bc2fc014090284e17ff966">lastPhoneVolumeInPercents</a> != <a class="code hl_variable" href="#a5756262f4be7a9fae845f4f0bfe30133">currentVolumeInPercents</a>))</div>
+<div class="line"><span class="lineno">  319</span>        {</div>
+<div class="line"><span class="lineno">  320</span>            <span class="comment">// Сохранение текущей громкости звука</span></div>
+<div class="line"><span class="lineno">  321</span>            <a class="code hl_variable" href="#a5756262f4be7a9fae845f4f0bfe30133">currentVolumeInPercents</a> = <a class="code hl_variable" href="#a3edd672630bc2fc014090284e17ff966">lastPhoneVolumeInPercents</a>;</div>
+<div class="line"><span class="lineno">  322</span>            </div>
+<div class="line"><span class="lineno">  323</span>            <span class="comment">// Защита от опасной комбинации громкости и пресета</span></div>
+<div class="line"><span class="lineno">  324</span>            <a class="code hl_function" href="#a07d95c13e7db7d4e45f7653ac64955fb">VolumeProtectionCheck</a>(<a class="code hl_variable" href="#a5756262f4be7a9fae845f4f0bfe30133">currentVolumeInPercents</a>);</div>
+<div class="line"><span class="lineno">  325</span>            </div>
+<div class="line"><span class="lineno">  326</span>            <span class="comment">// Установка громкости звука</span></div>
+<div class="line"><span class="lineno">  327</span>            <a class="code hl_variable" href="#adfa27a9bc2dba6d9722eabe7b42acd3c">volumeStream</a>.SetVolume(<a class="code hl_variable" href="#a5756262f4be7a9fae845f4f0bfe30133">currentVolumeInPercents</a>);</div>
+<div class="line"><span class="lineno">  328</span>            </div>
+<div class="line"><span class="lineno">  329</span><span class="preprocessor">            #ifdef DEBUG_INFO_VOLUME_CONTROL</span></div>
+<div class="line"><span class="lineno">  330</span> </div>
+<div class="line"><span class="lineno">  331</span>                Serial.printf(<span class="stringliteral">&quot;Громкость, установленная смартфоном: %u%%\r\n&quot;</span>, <a class="code hl_variable" href="#a5756262f4be7a9fae845f4f0bfe30133">currentVolumeInPercents</a>);</div>
+<div class="line"><span class="lineno">  332</span> </div>
+<div class="line"><span class="lineno">  333</span><span class="preprocessor">            #endif </span><span class="comment">// DEBUG_INFO_VOLUME_CONTROL</span></div>
+<div class="line"><span class="lineno">  334</span>        }</div>
+<div class="line"><span class="lineno">  335</span>    }</div>
+<div class="line"><span class="lineno">  336</span> </div>
+<div class="line"><span class="lineno">  337</span>    <span class="comment">// Если текущим источником установки громкости звука является потенциометр</span></div>
+<div class="line"><span class="lineno">  338</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="#a732c48b5886e540e7b29ed2c1f075cce">volumeControlSource</a> == <a class="code hl_enumvalue" href="#a5c4388bb21b82d3dca8b3b462250d899aa6b4db26eb0f50dbe0ae7afa208b3023">VOLUME_CONTROL_SOURCE_POTENTIOMETER</a>)</div>
+<div class="line"><span class="lineno">  339</span>    {</div>
+<div class="line"><span class="lineno">  340</span>        <span class="comment">// Если потенциометр не вращался более VOLUME_TIMEOUT_PERIOD</span></div>
+<div class="line"><span class="lineno">  341</span>        <span class="keywordflow">if</span> ((<a class="code hl_function" href="_user_timer_8c.html#a5bbf9046a3bdf1a8e281d89dcbc2f0c8">UserTimer_GetCounterTime</a>() - <a class="code hl_variable" href="#aa5a7329ca0d70ba8292a8dab3258338c">lastPotentiometerChangePositionTime</a>) &gt; <a class="code hl_define" href="#a6a6b0f9f0d06df1809035c0d7f8a2724">VOLUME_TIMEOUT_PERIOD</a>)</div>
+<div class="line"><span class="lineno">  342</span>        {</div>
+<div class="line"><span class="lineno">  343</span>            <span class="comment">// Возврат управления громкостью звука к смартфону</span></div>
+<div class="line"><span class="lineno">  344</span>            <a class="code hl_variable" href="#a732c48b5886e540e7b29ed2c1f075cce">volumeControlSource</a> = <a class="code hl_enumvalue" href="#a5c4388bb21b82d3dca8b3b462250d899aa96d6f6b6395412e3f5d97f03b56a63b">VOLUME_CONTROL_SOURCE_PHONE</a>;</div>
+<div class="line"><span class="lineno">  345</span>            </div>
+<div class="line"><span class="lineno">  346</span>            <span class="comment">// Расчет громкости звука в рамках протокола AVRCP</span></div>
+<div class="line"><span class="lineno">  347</span>            uint8_t avrcpVolume = (uint8_t) (<a class="code hl_variable" href="#a5756262f4be7a9fae845f4f0bfe30133">currentVolumeInPercents</a> * <a class="code hl_define" href="#ac489a032f92e86bb1315af5eb895fa1e">VOLUME_PERCENT_TO_AVRCP_COEFF</a>);</div>
+<div class="line"><span class="lineno">  348</span> </div>
+<div class="line"><span class="lineno">  349</span>            <span class="comment">// Обновление текущей громкости звука</span></div>
+<div class="line"><span class="lineno">  350</span>            <span class="comment">// смартфоне для синхронизации значения</span></div>
+<div class="line"><span class="lineno">  351</span>            <a class="code hl_variable" href="#a7ce8a752a492f1e9f0bb58a747264cb5">a2dp_sink</a>.set_volume(avrcpVolume);</div>
+<div class="line"><span class="lineno">  352</span>            </div>
+<div class="line"><span class="lineno">  353</span>            <span class="comment">// Обновление последнего значения со смартфона</span></div>
+<div class="line"><span class="lineno">  354</span>            <a class="code hl_variable" href="#a3edd672630bc2fc014090284e17ff966">lastPhoneVolumeInPercents</a> = <a class="code hl_variable" href="#a5756262f4be7a9fae845f4f0bfe30133">currentVolumeInPercents</a>;</div>
+<div class="line"><span class="lineno">  355</span>            </div>
+<div class="line"><span class="lineno">  356</span><span class="preprocessor">            #ifdef DEBUG_INFO_VOLUME_CONTROL</span></div>
+<div class="line"><span class="lineno">  357</span> </div>
+<div class="line"><span class="lineno">  358</span>                Serial.printf(<span class="stringliteral">&quot;Управление громкостью вернулось к смартфону, текущая громкость: %u%%\r\n&quot;</span>, <a class="code hl_variable" href="#a5756262f4be7a9fae845f4f0bfe30133">currentVolumeInPercents</a>);</div>
+<div class="line"><span class="lineno">  359</span> </div>
+<div class="line"><span class="lineno">  360</span><span class="preprocessor">            #endif </span><span class="comment">// DEBUG_INFO_VOLUME_CONTROL</span></div>
+<div class="line"><span class="lineno">  361</span>        }</div>
+<div class="line"><span class="lineno">  362</span>    }</div>
+<div class="line"><span class="lineno">  363</span> </div>
+<div class="line"><span class="lineno">  364</span>    <span class="comment">// Получение отсчетов АЦП потенциометра в процентах</span></div>
+<div class="line"><span class="lineno">  365</span>    uint8_t adcCountsInPercents = <a class="code hl_function" href="_adc_measurements_8c.html#aadb4a6e32df28e815157fd1e9489ed35">AdcMeasurements_GetPotentiometerAdcCountsInPercents</a>();</div>
+<div class="line"><span class="lineno">  366</span> </div>
+<div class="line"><span class="lineno">  367</span>    <span class="comment">// Направление изменения громкости звука потенциометром</span></div>
+<div class="line"><span class="lineno">  368</span>    <a class="code hl_enumeration" href="#ad490fdd6e856f01cf6cb8e52008cb8ff">VolumeChangeDirection</a> volumeChangeDirection = <a class="code hl_enumvalue" href="#ad490fdd6e856f01cf6cb8e52008cb8ffa9e8f29a2d2573f183a3e5e1e0a45a7b9">INCREASE_VOLUME</a>;</div>
+<div class="line"><span class="lineno">  369</span> </div>
+<div class="line"><span class="lineno">  370</span>    <span class="comment">// Определение изменения положения потенциометра</span></div>
+<div class="line"><span class="lineno">  371</span>    int16_t deltaPotentiometerPosition = (int16_t)adcCountsInPercents - (int16_t)<a class="code hl_variable" href="#aa2fdb5d1152fb70ee3d9773575414107">lastPotentiometerPositionInPercents</a>;</div>
+<div class="line"><span class="lineno">  372</span> </div>
+<div class="line"><span class="lineno">  373</span>    <span class="comment">// Если приращение положения потенциометра отрицательное</span></div>
+<div class="line"><span class="lineno">  374</span>    <span class="keywordflow">if</span> (deltaPotentiometerPosition &lt; 0)</div>
+<div class="line"><span class="lineno">  375</span>    {</div>
+<div class="line"><span class="lineno">  376</span>        <span class="comment">// Установка направления изменения громкости звука</span></div>
+<div class="line"><span class="lineno">  377</span>        <span class="comment">// потенциометром - громкость уменьшается</span></div>
+<div class="line"><span class="lineno">  378</span>        volumeChangeDirection = <a class="code hl_enumvalue" href="#ad490fdd6e856f01cf6cb8e52008cb8ffa8e147d947d442b1fe3ac0e1ea5b0c868">DECREASE_VOLUME</a>;</div>
+<div class="line"><span class="lineno">  379</span>    }</div>
+<div class="line"><span class="lineno">  380</span> </div>
+<div class="line"><span class="lineno">  381</span>    <span class="comment">// Если потенциометр показывает очень низкое значение и</span></div>
+<div class="line"><span class="lineno">  382</span>    <span class="comment">// выполняется уменьшение громкости и</span></div>
+<div class="line"><span class="lineno">  383</span>    <span class="comment">// громкость регулируется потенциометром</span></div>
+<div class="line"><span class="lineno">  384</span>    <span class="keywordflow">if</span> ((adcCountsInPercents &lt; <a class="code hl_define" href="#a180511077e60f773b9c989d9474d82a3">VOLUME_ZERO_THRESHOLD</a>) &amp;&amp; </div>
+<div class="line"><span class="lineno">  385</span>        (<a class="code hl_enumvalue" href="#ad490fdd6e856f01cf6cb8e52008cb8ffa8e147d947d442b1fe3ac0e1ea5b0c868">DECREASE_VOLUME</a> == volumeChangeDirection) &amp;&amp;</div>
+<div class="line"><span class="lineno">  386</span>        (<a class="code hl_enumvalue" href="#a5c4388bb21b82d3dca8b3b462250d899aa6b4db26eb0f50dbe0ae7afa208b3023">VOLUME_CONTROL_SOURCE_POTENTIOMETER</a> == <a class="code hl_variable" href="#a732c48b5886e540e7b29ed2c1f075cce">volumeControlSource</a>))</div>
+<div class="line"><span class="lineno">  387</span>    {</div>
+<div class="line"><span class="lineno">  388</span>        <span class="comment">// Обновление последнего положения</span></div>
+<div class="line"><span class="lineno">  389</span>        <a class="code hl_variable" href="#aa2fdb5d1152fb70ee3d9773575414107">lastPotentiometerPositionInPercents</a> = adcCountsInPercents;</div>
+<div class="line"><span class="lineno">  390</span>        </div>
+<div class="line"><span class="lineno">  391</span>        <span class="comment">// Если громкость не достигла 0%</span></div>
+<div class="line"><span class="lineno">  392</span>        <span class="keywordflow">if</span> (0 != <a class="code hl_variable" href="#a5756262f4be7a9fae845f4f0bfe30133">currentVolumeInPercents</a>)</div>
+<div class="line"><span class="lineno">  393</span>        {</div>
+<div class="line"><span class="lineno">  394</span>            <span class="comment">// Текущим источником управления</span></div>
+<div class="line"><span class="lineno">  395</span>            <span class="comment">// громкостью звука является потенциометр</span></div>
+<div class="line"><span class="lineno">  396</span>            <a class="code hl_variable" href="#a732c48b5886e540e7b29ed2c1f075cce">volumeControlSource</a> = <a class="code hl_enumvalue" href="#a5c4388bb21b82d3dca8b3b462250d899aa6b4db26eb0f50dbe0ae7afa208b3023">VOLUME_CONTROL_SOURCE_POTENTIOMETER</a>;</div>
+<div class="line"><span class="lineno">  397</span>            </div>
+<div class="line"><span class="lineno">  398</span>            <span class="comment">// Обновление времени последнего изменения положения потенциометра</span></div>
+<div class="line"><span class="lineno">  399</span>            <a class="code hl_variable" href="#aa5a7329ca0d70ba8292a8dab3258338c">lastPotentiometerChangePositionTime</a> = <a class="code hl_function" href="_user_timer_8c.html#a5bbf9046a3bdf1a8e281d89dcbc2f0c8">UserTimer_GetCounterTime</a>();</div>
+<div class="line"><span class="lineno">  400</span>            </div>
+<div class="line"><span class="lineno">  401</span>            <span class="comment">// Установка громкости в 0%</span></div>
+<div class="line"><span class="lineno">  402</span>            <a class="code hl_variable" href="#a5756262f4be7a9fae845f4f0bfe30133">currentVolumeInPercents</a> = 0;</div>
+<div class="line"><span class="lineno">  403</span>            </div>
+<div class="line"><span class="lineno">  404</span>            <span class="comment">// Синхронизация с переменной смартфона</span></div>
+<div class="line"><span class="lineno">  405</span>            <a class="code hl_variable" href="#a3edd672630bc2fc014090284e17ff966">lastPhoneVolumeInPercents</a> = 0;</div>
+<div class="line"><span class="lineno">  406</span>            </div>
+<div class="line"><span class="lineno">  407</span>            <span class="comment">// Установка громкости звука</span></div>
+<div class="line"><span class="lineno">  408</span>            <a class="code hl_variable" href="#adfa27a9bc2dba6d9722eabe7b42acd3c">volumeStream</a>.SetVolume(<a class="code hl_variable" href="#a5756262f4be7a9fae845f4f0bfe30133">currentVolumeInPercents</a>);</div>
+<div class="line"><span class="lineno">  409</span>            </div>
+<div class="line"><span class="lineno">  410</span>            <span class="comment">// Расчет громкости звука в рамках протокола AVRCP</span></div>
+<div class="line"><span class="lineno">  411</span>            uint8_t avrcpVolume = (uint8_t) (<a class="code hl_variable" href="#a5756262f4be7a9fae845f4f0bfe30133">currentVolumeInPercents</a> * <a class="code hl_define" href="#ac489a032f92e86bb1315af5eb895fa1e">VOLUME_PERCENT_TO_AVRCP_COEFF</a>);</div>
+<div class="line"><span class="lineno">  412</span>            </div>
+<div class="line"><span class="lineno">  413</span>            <span class="comment">// Обновление текущей громкости звука на смартфоне</span></div>
+<div class="line"><span class="lineno">  414</span>            <a class="code hl_variable" href="#a7ce8a752a492f1e9f0bb58a747264cb5">a2dp_sink</a>.set_volume(avrcpVolume);</div>
+<div class="line"><span class="lineno">  415</span>        }</div>
+<div class="line"><span class="lineno">  416</span>        </div>
+<div class="line"><span class="lineno">  417</span>        <span class="comment">// Выход, чтобы не выполнялась двойная обработка</span></div>
+<div class="line"><span class="lineno">  418</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  419</span>    }</div>
+<div class="line"><span class="lineno">  420</span>    </div>
+<div class="line"><span class="lineno">  421</span>    <span class="comment">// Пояснение. Значения АЦП, приходящие с каналов, к которым подключены</span></div>
+<div class="line"><span class="lineno">  422</span>    <span class="comment">// потенциометры изменяются в большом диапазоне даже в случае, когда</span></div>
+<div class="line"><span class="lineno">  423</span>    <span class="comment">// потенциометр не вращается. Чтобы случайные изменения в значениях АЦП</span></div>
+<div class="line"><span class="lineno">  424</span>    <span class="comment">// не приводили к изменению громкости звука, была добавлена защита.</span></div>
+<div class="line"><span class="lineno">  425</span>    <span class="comment">// Изменение громкости с потенциометра фиксируется только, когда громкость</span></div>
+<div class="line"><span class="lineno">  426</span>    <span class="comment">// изменилась на значение, превышающее DELTA_VOLUME_THRESHOLD_VALUE.</span></div>
+<div class="line"><span class="lineno">  427</span>    </div>
+<div class="line"><span class="lineno">  428</span>    <span class="comment">// Если изменение положения потенциометра превышает пороговое значение</span></div>
+<div class="line"><span class="lineno">  429</span>    <span class="keywordflow">if</span> (abs(deltaPotentiometerPosition) &gt; <a class="code hl_define" href="#a0cbd6757497b7da91b692bd1e7006e9b">DELTA_VOLUME_THRESHOLD_VALUE</a>)</div>
+<div class="line"><span class="lineno">  430</span>    {</div>
+<div class="line"><span class="lineno">  431</span>        <span class="comment">// Обновление последнего положения потенциометра</span></div>
+<div class="line"><span class="lineno">  432</span>        <a class="code hl_variable" href="#aa2fdb5d1152fb70ee3d9773575414107">lastPotentiometerPositionInPercents</a> = adcCountsInPercents;</div>
+<div class="line"><span class="lineno">  433</span>        </div>
+<div class="line"><span class="lineno">  434</span>        <span class="comment">// Текущим источником управления</span></div>
+<div class="line"><span class="lineno">  435</span>        <span class="comment">// громкостью звука становится потенциометр</span></div>
+<div class="line"><span class="lineno">  436</span>        <a class="code hl_variable" href="#a732c48b5886e540e7b29ed2c1f075cce">volumeControlSource</a> = <a class="code hl_enumvalue" href="#a5c4388bb21b82d3dca8b3b462250d899aa6b4db26eb0f50dbe0ae7afa208b3023">VOLUME_CONTROL_SOURCE_POTENTIOMETER</a>;</div>
+<div class="line"><span class="lineno">  437</span> </div>
+<div class="line"><span class="lineno">  438</span>        <span class="comment">// Сохранение времени последнего</span></div>
+<div class="line"><span class="lineno">  439</span>        <span class="comment">// изменения положения потенциометра</span></div>
+<div class="line"><span class="lineno">  440</span>        <a class="code hl_variable" href="#aa5a7329ca0d70ba8292a8dab3258338c">lastPotentiometerChangePositionTime</a> = <a class="code hl_function" href="_user_timer_8c.html#a5bbf9046a3bdf1a8e281d89dcbc2f0c8">UserTimer_GetCounterTime</a>();</div>
+<div class="line"><span class="lineno">  441</span> </div>
+<div class="line"><span class="lineno">  442</span>        <span class="comment">// Обновление текущей громкости звука</span></div>
+<div class="line"><span class="lineno">  443</span>        <a class="code hl_variable" href="#a5756262f4be7a9fae845f4f0bfe30133">currentVolumeInPercents</a> = adcCountsInPercents;</div>
+<div class="line"><span class="lineno">  444</span> </div>
+<div class="line"><span class="lineno">  445</span>        <span class="comment">// Ограничение максимальной громкости</span></div>
+<div class="line"><span class="lineno">  446</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="#a5756262f4be7a9fae845f4f0bfe30133">currentVolumeInPercents</a> &gt; <a class="code hl_define" href="#abb05fa5680a56d04193743a1cc8daffe">MAX_LIMITED_VOLUME_PERCENT</a>)</div>
+<div class="line"><span class="lineno">  447</span>        {</div>
+<div class="line"><span class="lineno">  448</span>            <a class="code hl_variable" href="#a5756262f4be7a9fae845f4f0bfe30133">currentVolumeInPercents</a> = <a class="code hl_define" href="#abb05fa5680a56d04193743a1cc8daffe">MAX_LIMITED_VOLUME_PERCENT</a>;</div>
+<div class="line"><span class="lineno">  449</span>        }</div>
+<div class="line"><span class="lineno">  450</span>        </div>
+<div class="line"><span class="lineno">  451</span>        <span class="comment">// Защита от опасной комбинации громкости и пресета</span></div>
+<div class="line"><span class="lineno">  452</span>        <a class="code hl_function" href="#a07d95c13e7db7d4e45f7653ac64955fb">VolumeProtectionCheck</a>(<a class="code hl_variable" href="#a5756262f4be7a9fae845f4f0bfe30133">currentVolumeInPercents</a>);</div>
+<div class="line"><span class="lineno">  453</span>        </div>
+<div class="line"><span class="lineno">  454</span>        <span class="comment">// Установка громкости звука</span></div>
+<div class="line"><span class="lineno">  455</span>        <a class="code hl_variable" href="#adfa27a9bc2dba6d9722eabe7b42acd3c">volumeStream</a>.SetVolume(<a class="code hl_variable" href="#a5756262f4be7a9fae845f4f0bfe30133">currentVolumeInPercents</a>);</div>
+<div class="line"><span class="lineno">  456</span>        </div>
+<div class="line"><span class="lineno">  457</span>        <span class="comment">// Расчет громкости звука в рамках протокола AVRCP</span></div>
+<div class="line"><span class="lineno">  458</span>        uint8_t avrcpVolume = (uint8_t) (<a class="code hl_variable" href="#a5756262f4be7a9fae845f4f0bfe30133">currentVolumeInPercents</a> * <a class="code hl_define" href="#ac489a032f92e86bb1315af5eb895fa1e">VOLUME_PERCENT_TO_AVRCP_COEFF</a>);</div>
+<div class="line"><span class="lineno">  459</span> </div>
+<div class="line"><span class="lineno">  460</span>        <span class="comment">// Обновление текущей громкости звука</span></div>
+<div class="line"><span class="lineno">  461</span>        <span class="comment">// смартфоне для синхронизации значения</span></div>
+<div class="line"><span class="lineno">  462</span>        <a class="code hl_variable" href="#a7ce8a752a492f1e9f0bb58a747264cb5">a2dp_sink</a>.set_volume(avrcpVolume);</div>
+<div class="line"><span class="lineno">  463</span>        </div>
+<div class="line"><span class="lineno">  464</span><span class="preprocessor">        #ifdef DEBUG_INFO_VOLUME_CONTROL</span></div>
+<div class="line"><span class="lineno">  465</span> </div>
+<div class="line"><span class="lineno">  466</span>            Serial.printf(<span class="stringliteral">&quot;Громкость, установленная потенциометром: %u%%\r\n&quot;</span>, <a class="code hl_variable" href="#a5756262f4be7a9fae845f4f0bfe30133">currentVolumeInPercents</a>);</div>
+<div class="line"><span class="lineno">  467</span> </div>
+<div class="line"><span class="lineno">  468</span><span class="preprocessor">        #endif </span><span class="comment">// DEBUG_INFO_VOLUME_CONTROL</span></div>
+<div class="line"><span class="lineno">  469</span>    }</div>
+<div class="line"><span class="lineno">  470</span>}</div>
+<div class="ttc" id="a_adc_measurements_8c_html_aadb4a6e32df28e815157fd1e9489ed35"><div class="ttname"><a href="_adc_measurements_8c.html#aadb4a6e32df28e815157fd1e9489ed35">AdcMeasurements_GetPotentiometerAdcCountsInPercents</a></div><div class="ttdeci">uint8_t AdcMeasurements_GetPotentiometerAdcCountsInPercents(void)</div><div class="ttdoc">Получение отсчетов АЦП потенциометра в процентах</div><div class="ttdef"><b>Определения</b> <a href="_adc_measurements_8c_source.html#l00286">AdcMeasurements.c:286</a></div></div>
+<div class="ttc" id="a_sound_control_8cpp_html_a07d95c13e7db7d4e45f7653ac64955fb"><div class="ttname"><a href="#a07d95c13e7db7d4e45f7653ac64955fb">VolumeProtectionCheck</a></div><div class="ttdeci">static void VolumeProtectionCheck(uint8_t volumePercent)</div><div class="ttdoc">Защита от опасной комбинации громкости и пресета</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00152">SoundControl.cpp:152</a></div></div>
+<div class="ttc" id="a_sound_control_8cpp_html_a0cbd6757497b7da91b692bd1e7006e9b"><div class="ttname"><a href="#a0cbd6757497b7da91b692bd1e7006e9b">DELTA_VOLUME_THRESHOLD_VALUE</a></div><div class="ttdeci">#define DELTA_VOLUME_THRESHOLD_VALUE</div><div class="ttdoc">Пороговое значение для определения изменения положения потенциометра в процентах</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00021">SoundControl.cpp:21</a></div></div>
+<div class="ttc" id="a_sound_control_8cpp_html_a180511077e60f773b9c989d9474d82a3"><div class="ttname"><a href="#a180511077e60f773b9c989d9474d82a3">VOLUME_ZERO_THRESHOLD</a></div><div class="ttdeci">#define VOLUME_ZERO_THRESHOLD</div><div class="ttdoc">Порог принудительного обнуления громкости (%).</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00033">SoundControl.cpp:33</a></div></div>
+<div class="ttc" id="a_sound_control_8cpp_html_a6a6b0f9f0d06df1809035c0d7f8a2724"><div class="ttname"><a href="#a6a6b0f9f0d06df1809035c0d7f8a2724">VOLUME_TIMEOUT_PERIOD</a></div><div class="ttdeci">#define VOLUME_TIMEOUT_PERIOD</div><div class="ttdoc">Таймаут возврата управления смартфону (3 секунды = 30000 * 100 мкс).</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00020">SoundControl.cpp:20</a></div></div>
+<div class="ttc" id="a_sound_control_8cpp_html_a732c48b5886e540e7b29ed2c1f075cce"><div class="ttname"><a href="#a732c48b5886e540e7b29ed2c1f075cce">volumeControlSource</a></div><div class="ttdeci">static VolumeControlSource volumeControlSource</div><div class="ttdoc">Текущий источник управления громкостью звука</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00058">SoundControl.cpp:58</a></div></div>
+<div class="ttc" id="a_sound_control_8cpp_html_aa2fdb5d1152fb70ee3d9773575414107"><div class="ttname"><a href="#aa2fdb5d1152fb70ee3d9773575414107">lastPotentiometerPositionInPercents</a></div><div class="ttdeci">static uint8_t lastPotentiometerPositionInPercents</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00062">SoundControl.cpp:62</a></div></div>
+<div class="ttc" id="a_sound_control_8cpp_html_aa5a7329ca0d70ba8292a8dab3258338c"><div class="ttname"><a href="#aa5a7329ca0d70ba8292a8dab3258338c">lastPotentiometerChangePositionTime</a></div><div class="ttdeci">static uint32_t lastPotentiometerChangePositionTime</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00059">SoundControl.cpp:59</a></div></div>
+<div class="ttc" id="a_sound_control_8cpp_html_abb05fa5680a56d04193743a1cc8daffe"><div class="ttname"><a href="#abb05fa5680a56d04193743a1cc8daffe">MAX_LIMITED_VOLUME_PERCENT</a></div><div class="ttdeci">#define MAX_LIMITED_VOLUME_PERCENT</div><div class="ttdoc">Абсолютный максимум громкости (%).</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00032">SoundControl.cpp:32</a></div></div>
+<div class="ttc" id="a_user_timer_8c_html_a5bbf9046a3bdf1a8e281d89dcbc2f0c8"><div class="ttname"><a href="_user_timer_8c.html#a5bbf9046a3bdf1a8e281d89dcbc2f0c8">UserTimer_GetCounterTime</a></div><div class="ttdeci">uint32_t UserTimer_GetCounterTime(void)</div><div class="ttdoc">Получение текущего значения счетчика времени работы программы</div><div class="ttdef"><b>Определения</b> <a href="_user_timer_8c_source.html#l00060">UserTimer.c:60</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a963c959a58df9aa6bc67eea40777bcd7" name="a963c959a58df9aa6bc67eea40777bcd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a963c959a58df9aa6bc67eea40777bcd7">&#9670;&#160;</a></span>VolumeChangeCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void VolumeChangeCallback </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>volume</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Коллбэк-функция прерывания по изменению громкости звука со смартфона </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">volume</td><td>- значение громкости в формате AVRCP (0 - 127), установленное со смартфона </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00178">178</a></p>
+<div class="fragment"><div class="line"><span class="lineno">  179</span>{</div>
+<div class="line"><span class="lineno">  180</span>    <span class="comment">// Ограничение максимальной громкости на уровне 90%</span></div>
+<div class="line"><span class="lineno">  181</span>    <span class="keywordflow">if</span> (volume &gt; <a class="code hl_define" href="#a1830cb662b301e8432b2bad8c2d3f69a">MAX_LIMITED_VOLUME_AVRCP</a>)</div>
+<div class="line"><span class="lineno">  182</span>    {</div>
+<div class="line"><span class="lineno">  183</span>        volume = <a class="code hl_define" href="#a1830cb662b301e8432b2bad8c2d3f69a">MAX_LIMITED_VOLUME_AVRCP</a>;</div>
+<div class="line"><span class="lineno">  184</span>    }</div>
+<div class="line"><span class="lineno">  185</span>    </div>
+<div class="line"><span class="lineno">  186</span>    <span class="comment">// Сохранение значения громкости звука,</span></div>
+<div class="line"><span class="lineno">  187</span>    <span class="comment">// установленной со смартфона, в процентах</span></div>
+<div class="line"><span class="lineno">  188</span>    <a class="code hl_variable" href="#a3edd672630bc2fc014090284e17ff966">lastPhoneVolumeInPercents</a> = (uint8_t) (volume / <a class="code hl_define" href="#ac489a032f92e86bb1315af5eb895fa1e">VOLUME_PERCENT_TO_AVRCP_COEFF</a>);</div>
+<div class="line"><span class="lineno">  189</span> </div>
+<div class="line"><span class="lineno">  190</span>    <span class="comment">// Обновление источника управления громкостью звука</span></div>
+<div class="line"><span class="lineno">  191</span>    <a class="code hl_variable" href="#a732c48b5886e540e7b29ed2c1f075cce">volumeControlSource</a> = <a class="code hl_enumvalue" href="#a5c4388bb21b82d3dca8b3b462250d899aa96d6f6b6395412e3f5d97f03b56a63b">VOLUME_CONTROL_SOURCE_PHONE</a>;</div>
+<div class="line"><span class="lineno">  192</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a07d95c13e7db7d4e45f7653ac64955fb" name="a07d95c13e7db7d4e45f7653ac64955fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07d95c13e7db7d4e45f7653ac64955fb">&#9670;&#160;</a></span>VolumeProtectionCheck()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void VolumeProtectionCheck </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>volumePercent</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Защита от опасной комбинации громкости и пресета </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00152">152</a></p>
+<div class="fragment"><div class="line"><span class="lineno">  153</span>{</div>
+<div class="line"><span class="lineno">  154</span>    <span class="comment">// Получение текущего пресета</span></div>
+<div class="line"><span class="lineno">  155</span>    <a class="code hl_enumeration" href="_sound_presets_8h.html#af43db124cc4cfe93b22513d1db603931">EqualizerPreset</a> <a class="code hl_variable" href="_sound_presets_8cpp.html#a41a1c76b2d640e44df529154dbdd65ad">currentPreset</a> = <a class="code hl_function" href="_sound_presets_8cpp.html#a7af27b890ea0fc4f278942d1d4505afa">SoundPresets_GetCurrentPreset</a>();</div>
+<div class="line"><span class="lineno">  156</span>    </div>
+<div class="line"><span class="lineno">  157</span>    <span class="comment">// Если выбран опасный пресет (BASS или ELECTRO)</span></div>
+<div class="line"><span class="lineno">  158</span>    <span class="comment">// и громкость превышает безопасный уровень</span></div>
+<div class="line"><span class="lineno">  159</span>    <span class="keywordflow">if</span> ((<a class="code hl_enumvalue" href="_sound_presets_8h.html#af43db124cc4cfe93b22513d1db603931a41a7fb1607c70470c16d4dc3aa036e4f">EQUALIZER_PRESET_BASS</a> == <a class="code hl_variable" href="_sound_presets_8cpp.html#a41a1c76b2d640e44df529154dbdd65ad">currentPreset</a> || <a class="code hl_enumvalue" href="_sound_presets_8h.html#af43db124cc4cfe93b22513d1db603931addadd5e365bc82bbca0e10d7635b91fd">EQUALIZER_PRESET_ELECTRO</a> == <a class="code hl_variable" href="_sound_presets_8cpp.html#a41a1c76b2d640e44df529154dbdd65ad">currentPreset</a>) &amp;&amp;</div>
+<div class="line"><span class="lineno">  160</span>        (volumePercent &gt; <a class="code hl_define" href="#af1cd9ecca268f0855bb9e6d56ae53426">MAX_SAFE_VOLUME_PERCENT</a>))</div>
+<div class="line"><span class="lineno">  161</span>    {</div>
+<div class="line"><span class="lineno">  162</span><span class="preprocessor">        #ifdef DEBUG_INFO_VOLUME_CONTROL</span></div>
+<div class="line"><span class="lineno">  163</span> </div>
+<div class="line"><span class="lineno">  164</span>            Serial.printf(<span class="stringliteral">&quot;Защита: громкость %u%% превышает безопасный уровень %u%% для пресета %s. Переключение на NORMAL.\r\n&quot;</span>,</div>
+<div class="line"><span class="lineno">  165</span>                          volumePercent, <a class="code hl_define" href="#af1cd9ecca268f0855bb9e6d56ae53426">MAX_SAFE_VOLUME_PERCENT</a>,</div>
+<div class="line"><span class="lineno">  166</span>                          (<a class="code hl_enumvalue" href="_sound_presets_8h.html#af43db124cc4cfe93b22513d1db603931a41a7fb1607c70470c16d4dc3aa036e4f">EQUALIZER_PRESET_BASS</a> == <a class="code hl_variable" href="_sound_presets_8cpp.html#a41a1c76b2d640e44df529154dbdd65ad">currentPreset</a>) ? <span class="stringliteral">&quot;BASS&quot;</span> : <span class="stringliteral">&quot;ELECTRO&quot;</span>);</div>
+<div class="line"><span class="lineno">  167</span> </div>
+<div class="line"><span class="lineno">  168</span><span class="preprocessor">        #endif </span><span class="comment">// DEBUG_INFO_VOLUME_CONTROL</span></div>
+<div class="line"><span class="lineno">  169</span>        </div>
+<div class="line"><span class="lineno">  170</span>        <span class="comment">// Переключение на безопасный пресет</span></div>
+<div class="line"><span class="lineno">  171</span>        <a class="code hl_function" href="_sound_presets_8cpp.html#a006369ce4f52c4c7173e70c38867942c">SoundPresets_SetPreset</a>(<a class="code hl_enumvalue" href="_sound_presets_8h.html#af43db124cc4cfe93b22513d1db603931aa77e38776b3bcf90913ffa84570ecb9f">EQUALIZER_PRESET_NORMAL</a>);</div>
+<div class="line"><span class="lineno">  172</span>    }</div>
+<div class="line"><span class="lineno">  173</span>}</div>
+<div class="ttc" id="a_sound_control_8cpp_html_af1cd9ecca268f0855bb9e6d56ae53426"><div class="ttname"><a href="#af1cd9ecca268f0855bb9e6d56ae53426">MAX_SAFE_VOLUME_PERCENT</a></div><div class="ttdeci">#define MAX_SAFE_VOLUME_PERCENT</div><div class="ttdoc">Максимальная безопасная громкость для агрессивных пресетов (%).</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00031">SoundControl.cpp:31</a></div></div>
+<div class="ttc" id="a_sound_presets_8cpp_html_a006369ce4f52c4c7173e70c38867942c"><div class="ttname"><a href="_sound_presets_8cpp.html#a006369ce4f52c4c7173e70c38867942c">SoundPresets_SetPreset</a></div><div class="ttdeci">void SoundPresets_SetPreset(EqualizerPreset preset)</div><div class="ttdoc">Установка пресета эквалайзера</div><div class="ttdef"><b>Определения</b> <a href="_sound_presets_8cpp_source.html#l00313">SoundPresets.cpp:313</a></div></div>
+<div class="ttc" id="a_sound_presets_8cpp_html_a41a1c76b2d640e44df529154dbdd65ad"><div class="ttname"><a href="_sound_presets_8cpp.html#a41a1c76b2d640e44df529154dbdd65ad">currentPreset</a></div><div class="ttdeci">static EqualizerPreset currentPreset</div><div class="ttdoc">Текущий пресет эквалайзера</div><div class="ttdef"><b>Определения</b> <a href="_sound_presets_8cpp_source.html#l00056">SoundPresets.cpp:56</a></div></div>
+<div class="ttc" id="a_sound_presets_8cpp_html_a7af27b890ea0fc4f278942d1d4505afa"><div class="ttname"><a href="_sound_presets_8cpp.html#a7af27b890ea0fc4f278942d1d4505afa">SoundPresets_GetCurrentPreset</a></div><div class="ttdeci">EqualizerPreset SoundPresets_GetCurrentPreset(void)</div><div class="ttdoc">Получение текущего пресета эквалайзера</div><div class="ttdef"><b>Определения</b> <a href="_sound_presets_8cpp_source.html#l00405">SoundPresets.cpp:405</a></div></div>
+<div class="ttc" id="a_sound_presets_8h_html_af43db124cc4cfe93b22513d1db603931"><div class="ttname"><a href="_sound_presets_8h.html#af43db124cc4cfe93b22513d1db603931">EqualizerPreset</a></div><div class="ttdeci">EqualizerPreset</div><div class="ttdoc">Пресеты эквалайзера</div><div class="ttdef"><b>Определения</b> <a href="_sound_presets_8h_source.html#l00011">SoundPresets.h:12</a></div></div>
+<div class="ttc" id="a_sound_presets_8h_html_af43db124cc4cfe93b22513d1db603931a41a7fb1607c70470c16d4dc3aa036e4f"><div class="ttname"><a href="_sound_presets_8h.html#af43db124cc4cfe93b22513d1db603931a41a7fb1607c70470c16d4dc3aa036e4f">EQUALIZER_PRESET_BASS</a></div><div class="ttdeci">@ EQUALIZER_PRESET_BASS</div><div class="ttdoc">Усиление низких частот</div><div class="ttdef"><b>Определения</b> <a href="_sound_presets_8h_source.html#l00014">SoundPresets.h:14</a></div></div>
+<div class="ttc" id="a_sound_presets_8h_html_af43db124cc4cfe93b22513d1db603931aa77e38776b3bcf90913ffa84570ecb9f"><div class="ttname"><a href="_sound_presets_8h.html#af43db124cc4cfe93b22513d1db603931aa77e38776b3bcf90913ffa84570ecb9f">EQUALIZER_PRESET_NORMAL</a></div><div class="ttdeci">@ EQUALIZER_PRESET_NORMAL</div><div class="ttdoc">Плоская характеристика</div><div class="ttdef"><b>Определения</b> <a href="_sound_presets_8h_source.html#l00013">SoundPresets.h:13</a></div></div>
+<div class="ttc" id="a_sound_presets_8h_html_af43db124cc4cfe93b22513d1db603931addadd5e365bc82bbca0e10d7635b91fd"><div class="ttname"><a href="_sound_presets_8h.html#af43db124cc4cfe93b22513d1db603931addadd5e365bc82bbca0e10d7635b91fd">EQUALIZER_PRESET_ELECTRO</a></div><div class="ttdeci">@ EQUALIZER_PRESET_ELECTRO</div><div class="ttdoc">Электронная музыка</div><div class="ttdef"><b>Определения</b> <a href="_sound_presets_8h_source.html#l00018">SoundPresets.h:18</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Переменные</h2>
+<a id="a7ce8a752a492f1e9f0bb58a747264cb5" name="a7ce8a752a492f1e9f0bb58a747264cb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ce8a752a492f1e9f0bb58a747264cb5">&#9670;&#160;</a></span>a2dp_sink</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BluetoothA2DPSink a2dp_sink</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Класс для реализации протокола A2DP (Bluetooth). </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00069">69</a></p>
+
+</div>
+</div>
+<a id="a5756262f4be7a9fae845f4f0bfe30133" name="a5756262f4be7a9fae845f4f0bfe30133"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5756262f4be7a9fae845f4f0bfe30133">&#9670;&#160;</a></span>currentVolumeInPercents</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t currentVolumeInPercents = 50</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Текущая громкость звука (0 - 100%). </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00061">61</a></p>
+
+</div>
+</div>
+<a id="a4f2666dd37f8cfae1d93fb22225bd29c" name="a4f2666dd37f8cfae1d93fb22225bd29c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f2666dd37f8cfae1d93fb22225bd29c">&#9670;&#160;</a></span>i2s</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">I2SStream i2s</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Класс для I2S1. </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00068">68</a></p>
+
+</div>
+</div>
+<a id="a3edd672630bc2fc014090284e17ff966" name="a3edd672630bc2fc014090284e17ff966"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3edd672630bc2fc014090284e17ff966">&#9670;&#160;</a></span>lastPhoneVolumeInPercents</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t lastPhoneVolumeInPercents = 255</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Последняя громкость звука, установленная на смартфоне (255 - невалидное значение для первого запуска) </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00065">65</a></p>
+
+</div>
+</div>
+<a id="aa5a7329ca0d70ba8292a8dab3258338c" name="aa5a7329ca0d70ba8292a8dab3258338c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5a7329ca0d70ba8292a8dab3258338c">&#9670;&#160;</a></span>lastPotentiometerChangePositionTime</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t lastPotentiometerChangePositionTime = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Время последнего изменения положения ручки потенциометра управления громкостью звука </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00059">59</a></p>
+
+</div>
+</div>
+<a id="aa2fdb5d1152fb70ee3d9773575414107" name="aa2fdb5d1152fb70ee3d9773575414107"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2fdb5d1152fb70ee3d9773575414107">&#9670;&#160;</a></span>lastPotentiometerPositionInPercents</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t lastPotentiometerPositionInPercents = 255</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Последнее положение ручки потенциометра (255 - невалидное значение для первого запуска) управления громкостью звука </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00062">62</a></p>
+
+</div>
+</div>
+<a id="af095452576161fc157eb4f463b05608b" name="af095452576161fc157eb4f463b05608b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af095452576161fc157eb4f463b05608b">&#9670;&#160;</a></span>playbackState</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ae777c4083532155b0f63774284124497">PlaybackState</a> playbackState = <a class="el" href="#ae777c4083532155b0f63774284124497aa07ee6ac7020e5ee88683b8a3faaa7a2">PLAYBACK_PLAYING</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Текущее состояние воспроизведения звука </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00057">57</a></p>
+
+</div>
+</div>
+<a id="a732c48b5886e540e7b29ed2c1f075cce" name="a732c48b5886e540e7b29ed2c1f075cce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a732c48b5886e540e7b29ed2c1f075cce">&#9670;&#160;</a></span>volumeControlSource</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a5c4388bb21b82d3dca8b3b462250d899">VolumeControlSource</a> volumeControlSource = <a class="el" href="#a5c4388bb21b82d3dca8b3b462250d899aa96d6f6b6395412e3f5d97f03b56a63b">VOLUME_CONTROL_SOURCE_PHONE</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Текущий источник управления громкостью звука </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_sound_control_8cpp_source.html">SoundControl.cpp</a> строка <a class="el" href="_sound_control_8cpp_source.html#l00058">58</a></p>
+
+</div>
+</div>
+<a id="adfa27a9bc2dba6d9722eabe7b42acd3c" name="adfa27a9bc2dba6d9722eabe7b42acd3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfa27a9bc2dba6d9722eabe7b42acd3c">&#9670;&#160;</a></span>volumeStream</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_volume_control_stream.html">VolumeControlStream</a> volumeStream(<a class="el" href="#a4f2666dd37f8cfae1d93fb22225bd29c">i2s</a>) </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a4f2666dd37f8cfae1d93fb22225bd29c">i2s</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Класс для управления громкостью звука </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="_sound_control_8cpp.html">SoundControl.cpp</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.15.0 </li>
+  </ul>
+</div>
+</body>
+</html>

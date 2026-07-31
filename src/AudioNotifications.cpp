@@ -32,8 +32,6 @@
 #define BYTES_IN_SAMPLE             2           //!< Количество байт на один сэмпл (16 бит)
 #define BYTES_IN_STEREO_SAMPLE      (BYTES_IN_SAMPLE * AUDIO_CHANNELS_QUANTITY)  //!< Размер стерео-сэмпла в байтах
 
-// static const float pi = 3.14159f;               //!< Число Пи
-
 //! \brief Состояние воспроизведения уведомления
 typedef enum
 {

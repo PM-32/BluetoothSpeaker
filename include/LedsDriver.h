@@ -1,5 +1,5 @@
-#ifndef LEDS_DRIVER_H_
-#define LEDS_DRIVER_H_
+#ifndef INC_LEDS_DRIVER_H_
+#define INC_LEDS_DRIVER_H_
 
 #include <stdint.h>
 
@@ -32,4 +32,4 @@ void LedsDriver_ToggleLed(uint8_t ledPin);
 }
 #endif
 
-#endif // LEDS_DRIVER_H_
+#endif // INC_LEDS_DRIVER_H_

@@ -1,0 +1,410 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.15.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>BluetoothSpeaker: Исходный файл D:/vscode_projects/BluetoothSpeaker/src/AudioNotifications.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">BluetoothSpeaker<span id="projectnumber">&#160;0.0.1</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.15.0 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Поиск',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('_audio_notifications_8cpp_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Загрузка...</div>
+<div class="SRStatus" id="Searching">Поиск...</div>
+<div class="SRStatus" id="NoMatches">Не найдено</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">AudioNotifications.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_audio_notifications_8cpp.html">См. документацию.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;AudioTools.h&gt;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_audio_notifications_8h.html">AudioNotifications.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_sound_control_8h.html">SoundControl.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_user_timer_8h.html">UserTimer.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">// #define DEBUG_INFO_AUDIO_NOTIFICATIONS          // Вывод информации о работе модуля аудио уведомлений</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">// Настройки звукового уведомления</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="_audio_notifications_8cpp.html#a1ffeaa7e01e6fd0db14bf5378e109551">   10</a></span><span class="preprocessor">#define NOTIFICATION_DURATION_MS    300         </span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="_audio_notifications_8cpp.html#ac73a46557679e7e68a51837dbf248aa8">   11</a></span><span class="preprocessor">#define NOTIFICATION_AMPLITUDE      3500        </span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="_audio_notifications_8cpp.html#a0b95002ea7976d04d66698265282bbcf">   12</a></span><span class="preprocessor">#define NOTIFICATION_BUFFER_SIZE    1024        </span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="_audio_notifications_8cpp.html#a4e0744d9b5cdf12a3f57c3b108433392">   14</a></span><span class="preprocessor">#define MS_IN_SECOND_QUANTITY       1000        </span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="_audio_notifications_8cpp.html#a5b5bb43fe56b408be52b85222b8d2007">   15</a></span><span class="preprocessor">#define NOTIFICATION_DURATION_SEC   ((float) NOTIFICATION_DURATION_MS / MS_IN_SECOND_QUANTITY)  </span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="_audio_notifications_8cpp.html#a1bbce2894ba0d79d6e68d0aea4cf4b1a">   18</a></span><span class="preprocessor">#define NOTIFICATION_TOTAL_SAMPLES  ((NOTIFICATION_DURATION_MS * SAMPLE_RATE) / MS_IN_SECOND_QUANTITY)</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment">// Частоты сигналов</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="_audio_notifications_8cpp.html#a4da35ada20662d8288e9899af90cd65e">   21</a></span><span class="preprocessor">#define CONNECT_FREQUENCY           880.0f      </span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="_audio_notifications_8cpp.html#a962bf384b0b7d5f8e6988b12339fccb8">   22</a></span><span class="preprocessor">#define DISCONNECT_FREQUENCY        440.0f      </span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment">// Параметры огибающей (два коротких импульса)</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="_audio_notifications_8cpp.html#ad38f3d7bffbc743ecfb7764f5284a600">   25</a></span><span class="preprocessor">#define FIRST_IMPULSE_START         0.0f        </span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="_audio_notifications_8cpp.html#aae753060e229deabaa3718bbdc516c95">   26</a></span><span class="preprocessor">#define FIRST_IMPULSE_END           0.1f        </span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="_audio_notifications_8cpp.html#af217e2e7d6f75eae1310514e40e0a260">   27</a></span><span class="preprocessor">#define SECOND_IMPULSE_START        0.15f       </span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="_audio_notifications_8cpp.html#a9374c9e02e0af78fbe24d7ef4bb50b08">   28</a></span><span class="preprocessor">#define SECOND_IMPULSE_END          0.25f       </span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="_audio_notifications_8cpp.html#a00198ef000af5fcfb4caf0f6e6f9944b">   30</a></span><span class="preprocessor">#define IMPULSE_MAX_AMPLITUDE       1.0f        </span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="_audio_notifications_8cpp.html#a2f4bc012a4b968315cb30094bd07c8a2">   32</a></span><span class="preprocessor">#define BYTES_IN_SAMPLE             2           </span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="_audio_notifications_8cpp.html#a5ae69b65bec68d22a3f77e7c68eba143">   33</a></span><span class="preprocessor">#define BYTES_IN_STEREO_SAMPLE      (BYTES_IN_SAMPLE * AUDIO_CHANNELS_QUANTITY)  </span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span></div>
+<div class="foldopen" id="foldopen00036" data-start="{" data-end="};">
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="_audio_notifications_8cpp.html#a40ba50dda05b541859a0f11ada095cd0">   36</a></span><span class="keyword">typedef</span> <span class="keyword">enum</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>{</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="_audio_notifications_8cpp.html#a40ba50dda05b541859a0f11ada095cd0a315923042cd246a31ede984b3b80829e">   38</a></span>    <a class="code hl_enumvalue" href="_audio_notifications_8cpp.html#a40ba50dda05b541859a0f11ada095cd0a315923042cd246a31ede984b3b80829e">NOTIFICATION_NOT_PLAYING</a> = 0,               </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="_audio_notifications_8cpp.html#a40ba50dda05b541859a0f11ada095cd0a3ad79f53ced638b674b27781f6a40a1e">   39</a></span>    <a class="code hl_enumvalue" href="_audio_notifications_8cpp.html#a40ba50dda05b541859a0f11ada095cd0a3ad79f53ced638b674b27781f6a40a1e">NOTIFICATION_PLAYING</a>                        </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>} <a class="code hl_enumeration" href="_audio_notifications_8cpp.html#a40ba50dda05b541859a0f11ada095cd0">NotificationPlaybackState</a>;</div>
+</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span></div>
+<div class="foldopen" id="foldopen00043" data-start="{" data-end="};">
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="struct_notification_player.html">   43</a></span><span class="keyword">typedef</span> <span class="keyword">struct</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>{</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="struct_notification_player.html#a7302d1f11993917305f25ff9f88b5238">   45</a></span>    <a class="code hl_enumeration" href="_audio_notifications_8cpp.html#a40ba50dda05b541859a0f11ada095cd0">NotificationPlaybackState</a> <a class="code hl_variable" href="struct_notification_player.html#a7302d1f11993917305f25ff9f88b5238">playbackState</a>;    </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="struct_notification_player.html#ad1af68a1d0427326ba21b57b86188e44">   46</a></span>    <a class="code hl_enumeration" href="_audio_notifications_8h.html#a25a31a4bdc02a0d0adb743e26dd14ba9">NotificationType</a> <a class="code hl_variable" href="struct_notification_player.html#ad1af68a1d0427326ba21b57b86188e44">currentType</a>;               </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="struct_notification_player.html#a3c1680237583db9b4ec2b431dc047d57">   47</a></span>    uint32_t <a class="code hl_variable" href="struct_notification_player.html#a3c1680237583db9b4ec2b431dc047d57">samplesSent</a>;                       </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="struct_notification_player.html#a275dd6dafe5d4455e599ffd15feb06f8">   48</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="struct_notification_player.html#a275dd6dafe5d4455e599ffd15feb06f8">phase</a>;                                </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>} <a class="code hl_struct" href="struct_notification_player.html">NotificationPlayer</a>;</div>
+</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="_audio_notifications_8cpp.html#a1098fe02e13e82ec69474039b3afb29c">   51</a></span><span class="keyword">static</span> <a class="code hl_struct" href="struct_notification_player.html">NotificationPlayer</a> <a class="code hl_variable" href="_audio_notifications_8cpp.html#a1098fe02e13e82ec69474039b3afb29c">player</a>;    </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span></div>
+<div class="foldopen" id="foldopen00058" data-start="{" data-end="}">
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="_audio_notifications_8cpp.html#a12c3a5b83dbdd9025322fd900042a105">   58</a></span><span class="keyword">static</span> <span class="keywordtype">float</span> <a class="code hl_function" href="_audio_notifications_8cpp.html#a12c3a5b83dbdd9025322fd900042a105">CalculateImpulseEnvelope</a>(<span class="keywordtype">float</span> time, <span class="keywordtype">float</span> startTime, <span class="keywordtype">float</span> endTime)</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>{</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="comment">// Если текущее время не попадает в интервал импульса</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordflow">if</span> ((time &lt; startTime) || (time &gt;= endTime))</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    {</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keywordflow">return</span> 0.0f;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    }</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="comment">// Нормированное время внутри импульса (0.0 - 1.0)</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordtype">float</span> normalizedTime = (time - startTime) / (endTime - startTime);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="comment">// Примечание. Огибающая имеет колоколообразную форму: sin(pi * time)^2.</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="comment">// Возведение в квадрат обеспечивает плавное нарастание и затухание,</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="comment">// а также отсутствие резких скачков на границах импульса</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="comment">// Расчет огибающей</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keywordtype">float</span> envelope = sinf(<a class="code hl_define" href="_sound_control_8h.html#a1daf785e3f68d293c7caa1c756d5cb74">pi</a> * normalizedTime);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="comment">// Возведение огибающей в квадрат</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keywordtype">float</span> squareEnvelope = envelope * envelope;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keywordflow">return</span> squareEnvelope;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>}</div>
+</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span></div>
+<div class="foldopen" id="foldopen00086" data-start="{" data-end="}">
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="_audio_notifications_8cpp.html#ae036f08352c129784b20dc011854df8b">   86</a></span><span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="_audio_notifications_8cpp.html#ae036f08352c129784b20dc011854df8b">MonoToStereoConvert</a>(<span class="keyword">const</span> int16_t *monoBuffer, int16_t *stereoBuffer, uint32_t samplesQuantity)</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>{</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keywordflow">for</span> (uint32_t sampleIndex = 0; sampleIndex &lt; samplesQuantity; sampleIndex++)</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    {</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        stereoBuffer[sampleIndex * 2] = monoBuffer[sampleIndex];      <span class="comment">// Левый канал</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        stereoBuffer[sampleIndex * 2 + 1] = monoBuffer[sampleIndex];  <span class="comment">// Правый канал</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    }</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>}</div>
+</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span></div>
+<div class="foldopen" id="foldopen00099" data-start="{" data-end="}">
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="_audio_notifications_8cpp.html#af3be0e5cf57b6245b1aeec73153b65f9">   99</a></span><span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="_audio_notifications_8cpp.html#af3be0e5cf57b6245b1aeec73153b65f9">GenerateTone</a>(int16_t *samplesBuffer, uint32_t samplesQuantity, uint32_t startSample)</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>{</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="comment">// Выбор частоты сигнала в зависимости от типа уведомления</span></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keywordtype">float</span> frequency = (<a class="code hl_variable" href="_audio_notifications_8cpp.html#a1098fe02e13e82ec69474039b3afb29c">player</a>.currentType == <a class="code hl_enumvalue" href="_audio_notifications_8h.html#a25a31a4bdc02a0d0adb743e26dd14ba9ae640cb05684d50894ab156accd785359">NOTIFICATION_CONNECT</a>) ? <a class="code hl_define" href="_audio_notifications_8cpp.html#a4da35ada20662d8288e9899af90cd65e">CONNECT_FREQUENCY</a> : <a class="code hl_define" href="_audio_notifications_8cpp.html#a962bf384b0b7d5f8e6988b12339fccb8">DISCONNECT_FREQUENCY</a>;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keywordflow">for</span> (uint32_t sampleIndex = 0; sampleIndex &lt; samplesQuantity; sampleIndex++)</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    {</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        <span class="comment">// Текущее абсолютное время</span></div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <span class="keywordtype">float</span> currentTime = (float) (startSample + sampleIndex) / <a class="code hl_define" href="_sound_control_8h.html#a4b76a0c2859cfd819a343a780070ee2b">SAMPLE_RATE</a>;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="comment">// Если время вышло за пределы длительности,</span></div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <span class="comment">// то ничего не воспроизводится</span></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        <span class="keywordflow">if</span> (currentTime &gt;= <a class="code hl_define" href="_audio_notifications_8cpp.html#a5b5bb43fe56b408be52b85222b8d2007">NOTIFICATION_DURATION_SEC</a>)</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        {</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>            samplesBuffer[sampleIndex] = 0;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>            </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        }</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        </div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        <span class="comment">// Расчет огибающей из двух импульсов</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        <span class="keywordtype">float</span> envelope = 0.0f;</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        </div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        <span class="comment">// Расчет огибающей первого импульса</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        envelope += <a class="code hl_function" href="_audio_notifications_8cpp.html#a12c3a5b83dbdd9025322fd900042a105">CalculateImpulseEnvelope</a>(currentTime, <a class="code hl_define" href="_audio_notifications_8cpp.html#ad38f3d7bffbc743ecfb7764f5284a600">FIRST_IMPULSE_START</a>, <a class="code hl_define" href="_audio_notifications_8cpp.html#aae753060e229deabaa3718bbdc516c95">FIRST_IMPULSE_END</a>);</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        <span class="comment">// Расчет огибающей второго импульса</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        envelope += <a class="code hl_function" href="_audio_notifications_8cpp.html#a12c3a5b83dbdd9025322fd900042a105">CalculateImpulseEnvelope</a>(currentTime, <a class="code hl_define" href="_audio_notifications_8cpp.html#af217e2e7d6f75eae1310514e40e0a260">SECOND_IMPULSE_START</a>, <a class="code hl_define" href="_audio_notifications_8cpp.html#a9374c9e02e0af78fbe24d7ef4bb50b08">SECOND_IMPULSE_END</a>);</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        <span class="comment">// Ограничение суммарной огибающей</span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        <span class="keywordflow">if</span> (envelope &gt; <a class="code hl_define" href="_audio_notifications_8cpp.html#a00198ef000af5fcfb4caf0f6e6f9944b">IMPULSE_MAX_AMPLITUDE</a>)</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        {</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>            envelope = <a class="code hl_define" href="_audio_notifications_8cpp.html#a00198ef000af5fcfb4caf0f6e6f9944b">IMPULSE_MAX_AMPLITUDE</a>;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        }</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        <span class="comment">// Пояснение. Расчет приращения фазы для текущей частоты.</span></div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        <span class="comment">// deltaPhase = 2 * pi * frequency / NOTIFICATION_SAMPLE_RATE,</span></div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        <span class="comment">// где deltaPhase - приращение частоты фазы;</span></div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        <span class="comment">//     frequency - частота сигнала;</span></div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        <span class="comment">//     NOTIFICATION_SAMPLE_RATE - частота дискретизации.</span></div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        <span class="comment">// При этом (2 * pi) радиан составляют один полный период синусоиды.</span></div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        <span class="comment">// Расчет приращения фазы для текущей частоты</span></div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        <span class="keywordtype">float</span> deltaPhase = <a class="code hl_define" href="_sound_presets_8cpp.html#a48044d72eeda98a83449e542a55b89e5">PHASE_CYCLE</a> * <a class="code hl_define" href="_sound_control_8h.html#a1daf785e3f68d293c7caa1c756d5cb74">pi</a> * frequency / <a class="code hl_define" href="_sound_control_8h.html#a4b76a0c2859cfd819a343a780070ee2b">SAMPLE_RATE</a>;</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        <span class="comment">// Текущая фаза синусоиды</span></div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        <a class="code hl_variable" href="_audio_notifications_8cpp.html#a1098fe02e13e82ec69474039b3afb29c">player</a>.phase += deltaPhase;</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        </div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        <span class="comment">// Нормализация фазы</span></div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="_audio_notifications_8cpp.html#a1098fe02e13e82ec69474039b3afb29c">player</a>.phase &gt; <a class="code hl_define" href="_sound_presets_8cpp.html#a48044d72eeda98a83449e542a55b89e5">PHASE_CYCLE</a> * <a class="code hl_define" href="_sound_control_8h.html#a1daf785e3f68d293c7caa1c756d5cb74">pi</a>)</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        {</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>            <a class="code hl_variable" href="_audio_notifications_8cpp.html#a1098fe02e13e82ec69474039b3afb29c">player</a>.phase -= <a class="code hl_define" href="_sound_presets_8cpp.html#a48044d72eeda98a83449e542a55b89e5">PHASE_CYCLE</a> * <a class="code hl_define" href="_sound_control_8h.html#a1daf785e3f68d293c7caa1c756d5cb74">pi</a>;</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        }</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        </div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>        <span class="comment">// Генерация синусоидального сигнала с огибающей</span></div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        <span class="keywordtype">float</span> sampleValue = <a class="code hl_define" href="_audio_notifications_8cpp.html#ac73a46557679e7e68a51837dbf248aa8">NOTIFICATION_AMPLITUDE</a> * envelope * sinf(<a class="code hl_variable" href="_audio_notifications_8cpp.html#a1098fe02e13e82ec69474039b3afb29c">player</a>.phase);</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        </div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        <span class="comment">// Ограничение громкости для 16-ти битного сэмпла</span></div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        <span class="keywordflow">if</span> (sampleValue &gt; <a class="code hl_define" href="_sound_control_8h.html#a3165aaf8779fa25976edff3a2a43a4f1">MAX_VOLUME_SAMPLE</a>)</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        {</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>            sampleValue = <a class="code hl_define" href="_sound_control_8h.html#a3165aaf8779fa25976edff3a2a43a4f1">MAX_VOLUME_SAMPLE</a>;</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        }</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (sampleValue &lt; <a class="code hl_define" href="_sound_control_8h.html#a04ac904706ec5fee475b684a7fb3384a">MIN_VOLUME_SAMPLE</a>)</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>        {</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>            sampleValue = <a class="code hl_define" href="_sound_control_8h.html#a04ac904706ec5fee475b684a7fb3384a">MIN_VOLUME_SAMPLE</a>;</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>        }</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        </div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        <span class="comment">// Сохранение полученного значения в буфер</span></div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        samplesBuffer[sampleIndex] = (int16_t) sampleValue;</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    }</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>}</div>
+</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span></div>
+<div class="foldopen" id="foldopen00171" data-start="{" data-end="}">
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno"><a class="line" href="_audio_notifications_8cpp.html#a2f90b51ab64edb29bb3e5e4cc72058dd">  171</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="_audio_notifications_8cpp.html#a2f90b51ab64edb29bb3e5e4cc72058dd">AudioNotifications_Init</a>(<span class="keywordtype">void</span>)</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>{</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    <a class="code hl_variable" href="_audio_notifications_8cpp.html#a1098fe02e13e82ec69474039b3afb29c">player</a>.playbackState = <a class="code hl_enumvalue" href="_audio_notifications_8cpp.html#a40ba50dda05b541859a0f11ada095cd0a315923042cd246a31ede984b3b80829e">NOTIFICATION_NOT_PLAYING</a>;    <span class="comment">// Установка состояния - уведомление не воспроизводится</span></div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <a class="code hl_variable" href="_audio_notifications_8cpp.html#a1098fe02e13e82ec69474039b3afb29c">player</a>.currentType = <a class="code hl_enumvalue" href="_audio_notifications_8h.html#a25a31a4bdc02a0d0adb743e26dd14ba9ae640cb05684d50894ab156accd785359">NOTIFICATION_CONNECT</a>;          <span class="comment">// Текущий тип уведомление - подключение</span></div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    <a class="code hl_variable" href="_audio_notifications_8cpp.html#a1098fe02e13e82ec69474039b3afb29c">player</a>.samplesSent = 0;                             <span class="comment">// Отправленное количество сэмплов</span></div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    <a class="code hl_variable" href="_audio_notifications_8cpp.html#a1098fe02e13e82ec69474039b3afb29c">player</a>.phase = 0;                                   <span class="comment">// Текущая фаза синусоиды</span></div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    </div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><span class="preprocessor">    #ifdef DEBUG_INFO_AUDIO_NOTIFICATIONS</span></div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span> </div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        Serial.println(<span class="stringliteral">&quot;Модуль звуковых уведомлений инициализирован&quot;</span>);</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span><span class="preprocessor">    #endif </span><span class="comment">// DEBUG_INFO_AUDIO_NOTIFICATIONS</span></div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>}</div>
+</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span></div>
+<div class="foldopen" id="foldopen00187" data-start="{" data-end="}">
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno"><a class="line" href="_audio_notifications_8cpp.html#a56eb897b5ee19effaf7cc327a7f91d83">  187</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="_audio_notifications_8cpp.html#a56eb897b5ee19effaf7cc327a7f91d83">AudioNotifications_Play</a>(<a class="code hl_enumeration" href="_audio_notifications_8h.html#a25a31a4bdc02a0d0adb743e26dd14ba9">NotificationType</a> notificationType)</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>{</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    <span class="comment">// Выход, если уведомление уже воспроизводится</span></div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    <span class="keywordflow">if</span> (<a class="code hl_enumvalue" href="_audio_notifications_8cpp.html#a40ba50dda05b541859a0f11ada095cd0a3ad79f53ced638b674b27781f6a40a1e">NOTIFICATION_PLAYING</a> == <a class="code hl_variable" href="_audio_notifications_8cpp.html#a1098fe02e13e82ec69474039b3afb29c">player</a>.playbackState)</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    {</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    }</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    </div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    <a class="code hl_variable" href="_audio_notifications_8cpp.html#a1098fe02e13e82ec69474039b3afb29c">player</a>.currentType = notificationType;          <span class="comment">// Установка типа уведомления</span></div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    <a class="code hl_variable" href="_audio_notifications_8cpp.html#a1098fe02e13e82ec69474039b3afb29c">player</a>.playbackState = <a class="code hl_enumvalue" href="_audio_notifications_8cpp.html#a40ba50dda05b541859a0f11ada095cd0a3ad79f53ced638b674b27781f6a40a1e">NOTIFICATION_PLAYING</a>;    <span class="comment">// Установка состояния - уведомление воспроизводится</span></div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    <a class="code hl_variable" href="_audio_notifications_8cpp.html#a1098fe02e13e82ec69474039b3afb29c">player</a>.samplesSent = 0;                         <span class="comment">// Количество отправленных сэмплов</span></div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    <a class="code hl_variable" href="_audio_notifications_8cpp.html#a1098fe02e13e82ec69474039b3afb29c">player</a>.phase = 0;                               <span class="comment">// Текущая фаза синусоиды</span></div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    </div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span><span class="preprocessor">    #ifdef DEBUG_INFO_AUDIO_NOTIFICATIONS</span></div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span> </div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>        <span class="keywordtype">float</span> frequency = (notificationType == <a class="code hl_enumvalue" href="_audio_notifications_8h.html#a25a31a4bdc02a0d0adb743e26dd14ba9ae640cb05684d50894ab156accd785359">NOTIFICATION_CONNECT</a>) ? <a class="code hl_define" href="_audio_notifications_8cpp.html#a4da35ada20662d8288e9899af90cd65e">CONNECT_FREQUENCY</a> : <a class="code hl_define" href="_audio_notifications_8cpp.html#a962bf384b0b7d5f8e6988b12339fccb8">DISCONNECT_FREQUENCY</a>;</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span> </div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>        Serial.printf(<span class="stringliteral">&quot;Начато воспроизведение (%s, %.0f Гц)\r\n&quot;</span>,</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>                      notificationType == <a class="code hl_enumvalue" href="_audio_notifications_8h.html#a25a31a4bdc02a0d0adb743e26dd14ba9ae640cb05684d50894ab156accd785359">NOTIFICATION_CONNECT</a> ? <span class="stringliteral">&quot;подключение&quot;</span> : <span class="stringliteral">&quot;отключение&quot;</span>, frequency);</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span> </div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span><span class="preprocessor">    #endif </span><span class="comment">// DEBUG_INFO_AUDIO_NOTIFICATIONS</span></div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>}</div>
+</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span></div>
+<div class="foldopen" id="foldopen00211" data-start="{" data-end="}">
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno"><a class="line" href="_audio_notifications_8cpp.html#a658890b679c3adf2c25200ff0f91bce1">  211</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="_audio_notifications_8cpp.html#a658890b679c3adf2c25200ff0f91bce1">AudioNotifications_Update</a>(<span class="keywordtype">void</span>)</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>{</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    <span class="comment">// Выход, если воспроизведение не активно</span></div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    <span class="keywordflow">if</span> (<a class="code hl_enumvalue" href="_audio_notifications_8cpp.html#a40ba50dda05b541859a0f11ada095cd0a3ad79f53ced638b674b27781f6a40a1e">NOTIFICATION_PLAYING</a> != <a class="code hl_variable" href="_audio_notifications_8cpp.html#a1098fe02e13e82ec69474039b3afb29c">player</a>.playbackState)</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    {</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    }</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>    </div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>    <span class="comment">// Определение количества сэмплов, которое осталось отправить</span></div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    uint32_t remainingSamples = <a class="code hl_define" href="_audio_notifications_8cpp.html#a1bbce2894ba0d79d6e68d0aea4cf4b1a">NOTIFICATION_TOTAL_SAMPLES</a> - <a class="code hl_variable" href="_audio_notifications_8cpp.html#a1098fe02e13e82ec69474039b3afb29c">player</a>.samplesSent;</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    </div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    <span class="comment">// Определение размера буфера данных для генерации</span></div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    uint32_t samplesBufferSize = <a class="code hl_define" href="_audio_notifications_8cpp.html#a0b95002ea7976d04d66698265282bbcf">NOTIFICATION_BUFFER_SIZE</a>;</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    </div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    <span class="comment">// Если осталось передать меньше данных,</span></div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>    <span class="comment">// чем размер буфера, то происходит уменьшение буфера</span></div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    <span class="keywordflow">if</span> (samplesBufferSize &gt; remainingSamples)</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    {</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>        samplesBufferSize = remainingSamples;</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>    }</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    </div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    <span class="comment">// Буфер для генерации сэмплов (моно)</span></div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    int16_t monoBuffer[<a class="code hl_define" href="_audio_notifications_8cpp.html#a0b95002ea7976d04d66698265282bbcf">NOTIFICATION_BUFFER_SIZE</a>];</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    </div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    <span class="comment">// Генерация звука (сэмплов)</span></div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    <a class="code hl_function" href="_audio_notifications_8cpp.html#af3be0e5cf57b6245b1aeec73153b65f9">GenerateTone</a>(monoBuffer, samplesBufferSize, <a class="code hl_variable" href="_audio_notifications_8cpp.html#a1098fe02e13e82ec69474039b3afb29c">player</a>.samplesSent);</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    </div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    <span class="comment">// Буфер для стерео звука</span></div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>    int16_t stereoBuffer[<a class="code hl_define" href="_audio_notifications_8cpp.html#a0b95002ea7976d04d66698265282bbcf">NOTIFICATION_BUFFER_SIZE</a> * <a class="code hl_define" href="_sound_control_8h.html#ae5ba6ee8485bbf083b025320318c1713">AUDIO_CHANNELS_QUANTITY</a>];</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span> </div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    <span class="comment">// Преобразование звука из моно в стерео</span></div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    <a class="code hl_function" href="_audio_notifications_8cpp.html#ae036f08352c129784b20dc011854df8b">MonoToStereoConvert</a>(monoBuffer, stereoBuffer, samplesBufferSize);</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    </div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    <span class="comment">// Получение адреса объекта I2SStream</span></div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    I2SStream *<a class="code hl_variable" href="_sound_control_8cpp.html#a4f2666dd37f8cfae1d93fb22225bd29c">i2s</a> = <a class="code hl_function" href="_sound_control_8cpp.html#a8fe57d0cc45aff515b649f15c0922d9c">SoundControl_GetI2SStreamPointer</a>();</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span> </div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>    <span class="comment">// Если указатель существует</span></div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    <span class="keywordflow">if</span> (NULL != <a class="code hl_variable" href="_sound_control_8cpp.html#a4f2666dd37f8cfae1d93fb22225bd29c">i2s</a>)</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>    {</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>        <span class="comment">// Вывод звука через I2S</span></div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>        <a class="code hl_variable" href="_sound_control_8cpp.html#a4f2666dd37f8cfae1d93fb22225bd29c">i2s</a>-&gt;write((uint8_t *) stereoBuffer, samplesBufferSize * <a class="code hl_define" href="_audio_notifications_8cpp.html#a5ae69b65bec68d22a3f77e7c68eba143">BYTES_IN_STEREO_SAMPLE</a>);</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>    }</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    </div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>    <span class="comment">// Инкремент количества отправленных сэмплов</span></div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>    <a class="code hl_variable" href="_audio_notifications_8cpp.html#a1098fe02e13e82ec69474039b3afb29c">player</a>.samplesSent += samplesBufferSize;</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>    </div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>    <span class="comment">// Если все сэмплы отправлены</span></div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="_audio_notifications_8cpp.html#a1098fe02e13e82ec69474039b3afb29c">player</a>.samplesSent &gt;= <a class="code hl_define" href="_audio_notifications_8cpp.html#a1bbce2894ba0d79d6e68d0aea4cf4b1a">NOTIFICATION_TOTAL_SAMPLES</a>)</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>    {</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>        <span class="comment">// Установка состояния - уведомление не воспроизводится</span></div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>        <a class="code hl_variable" href="_audio_notifications_8cpp.html#a1098fe02e13e82ec69474039b3afb29c">player</a>.playbackState = <a class="code hl_enumvalue" href="_audio_notifications_8cpp.html#a40ba50dda05b541859a0f11ada095cd0a315923042cd246a31ede984b3b80829e">NOTIFICATION_NOT_PLAYING</a>;</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>        </div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span><span class="preprocessor">        #ifdef DEBUG_INFO_AUDIO_NOTIFICATIONS</span></div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span> </div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>            Serial.println(<span class="stringliteral">&quot;Воспроизведение завершено&quot;</span>);</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span> </div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span><span class="preprocessor">        #endif </span><span class="comment">// DEBUG_INFO_AUDIO_NOTIFICATIONS</span></div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    }</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>}</div>
+</div>
+<div class="ttc" id="a_audio_notifications_8cpp_html_a00198ef000af5fcfb4caf0f6e6f9944b"><div class="ttname"><a href="_audio_notifications_8cpp.html#a00198ef000af5fcfb4caf0f6e6f9944b">IMPULSE_MAX_AMPLITUDE</a></div><div class="ttdeci">#define IMPULSE_MAX_AMPLITUDE</div><div class="ttdoc">Максимальная амплитуда огибающей</div><div class="ttdef"><b>Определения</b> <a href="#l00030">AudioNotifications.cpp:30</a></div></div>
+<div class="ttc" id="a_audio_notifications_8cpp_html_a0b95002ea7976d04d66698265282bbcf"><div class="ttname"><a href="_audio_notifications_8cpp.html#a0b95002ea7976d04d66698265282bbcf">NOTIFICATION_BUFFER_SIZE</a></div><div class="ttdeci">#define NOTIFICATION_BUFFER_SIZE</div><div class="ttdoc">Размер буфера для отправки в I2S (количество сэмплов).</div><div class="ttdef"><b>Определения</b> <a href="#l00012">AudioNotifications.cpp:12</a></div></div>
+<div class="ttc" id="a_audio_notifications_8cpp_html_a1098fe02e13e82ec69474039b3afb29c"><div class="ttname"><a href="_audio_notifications_8cpp.html#a1098fe02e13e82ec69474039b3afb29c">player</a></div><div class="ttdeci">static NotificationPlayer player</div><div class="ttdoc">Состояние модуля</div><div class="ttdef"><b>Определения</b> <a href="#l00051">AudioNotifications.cpp:51</a></div></div>
+<div class="ttc" id="a_audio_notifications_8cpp_html_a12c3a5b83dbdd9025322fd900042a105"><div class="ttname"><a href="_audio_notifications_8cpp.html#a12c3a5b83dbdd9025322fd900042a105">CalculateImpulseEnvelope</a></div><div class="ttdeci">static float CalculateImpulseEnvelope(float time, float startTime, float endTime)</div><div class="ttdoc">Расчет огибающей импульса</div><div class="ttdef"><b>Определения</b> <a href="#l00058">AudioNotifications.cpp:58</a></div></div>
+<div class="ttc" id="a_audio_notifications_8cpp_html_a1bbce2894ba0d79d6e68d0aea4cf4b1a"><div class="ttname"><a href="_audio_notifications_8cpp.html#a1bbce2894ba0d79d6e68d0aea4cf4b1a">NOTIFICATION_TOTAL_SAMPLES</a></div><div class="ttdeci">#define NOTIFICATION_TOTAL_SAMPLES</div><div class="ttdoc">Общее количество сэмплов для воспроизведения уведомления</div><div class="ttdef"><b>Определения</b> <a href="#l00018">AudioNotifications.cpp:18</a></div></div>
+<div class="ttc" id="a_audio_notifications_8cpp_html_a2f90b51ab64edb29bb3e5e4cc72058dd"><div class="ttname"><a href="_audio_notifications_8cpp.html#a2f90b51ab64edb29bb3e5e4cc72058dd">AudioNotifications_Init</a></div><div class="ttdeci">void AudioNotifications_Init(void)</div><div class="ttdoc">Инициализация звуковых уведомлений</div><div class="ttdef"><b>Определения</b> <a href="#l00171">AudioNotifications.cpp:171</a></div></div>
+<div class="ttc" id="a_audio_notifications_8cpp_html_a40ba50dda05b541859a0f11ada095cd0"><div class="ttname"><a href="_audio_notifications_8cpp.html#a40ba50dda05b541859a0f11ada095cd0">NotificationPlaybackState</a></div><div class="ttdeci">NotificationPlaybackState</div><div class="ttdoc">Состояние воспроизведения уведомления</div><div class="ttdef"><b>Определения</b> <a href="#l00036">AudioNotifications.cpp:37</a></div></div>
+<div class="ttc" id="a_audio_notifications_8cpp_html_a40ba50dda05b541859a0f11ada095cd0a315923042cd246a31ede984b3b80829e"><div class="ttname"><a href="_audio_notifications_8cpp.html#a40ba50dda05b541859a0f11ada095cd0a315923042cd246a31ede984b3b80829e">NOTIFICATION_NOT_PLAYING</a></div><div class="ttdeci">@ NOTIFICATION_NOT_PLAYING</div><div class="ttdoc">Уведомление не воспроизводится</div><div class="ttdef"><b>Определения</b> <a href="#l00038">AudioNotifications.cpp:38</a></div></div>
+<div class="ttc" id="a_audio_notifications_8cpp_html_a40ba50dda05b541859a0f11ada095cd0a3ad79f53ced638b674b27781f6a40a1e"><div class="ttname"><a href="_audio_notifications_8cpp.html#a40ba50dda05b541859a0f11ada095cd0a3ad79f53ced638b674b27781f6a40a1e">NOTIFICATION_PLAYING</a></div><div class="ttdeci">@ NOTIFICATION_PLAYING</div><div class="ttdoc">Уведомление воспроизводится</div><div class="ttdef"><b>Определения</b> <a href="#l00039">AudioNotifications.cpp:39</a></div></div>
+<div class="ttc" id="a_audio_notifications_8cpp_html_a4da35ada20662d8288e9899af90cd65e"><div class="ttname"><a href="_audio_notifications_8cpp.html#a4da35ada20662d8288e9899af90cd65e">CONNECT_FREQUENCY</a></div><div class="ttdeci">#define CONNECT_FREQUENCY</div><div class="ttdoc">Частота сигнала при подключении (Гц).</div><div class="ttdef"><b>Определения</b> <a href="#l00021">AudioNotifications.cpp:21</a></div></div>
+<div class="ttc" id="a_audio_notifications_8cpp_html_a56eb897b5ee19effaf7cc327a7f91d83"><div class="ttname"><a href="_audio_notifications_8cpp.html#a56eb897b5ee19effaf7cc327a7f91d83">AudioNotifications_Play</a></div><div class="ttdeci">void AudioNotifications_Play(NotificationType notificationType)</div><div class="ttdoc">Воспроизведение звукового уведомления</div><div class="ttdef"><b>Определения</b> <a href="#l00187">AudioNotifications.cpp:187</a></div></div>
+<div class="ttc" id="a_audio_notifications_8cpp_html_a5ae69b65bec68d22a3f77e7c68eba143"><div class="ttname"><a href="_audio_notifications_8cpp.html#a5ae69b65bec68d22a3f77e7c68eba143">BYTES_IN_STEREO_SAMPLE</a></div><div class="ttdeci">#define BYTES_IN_STEREO_SAMPLE</div><div class="ttdoc">Размер стерео-сэмпла в байтах</div><div class="ttdef"><b>Определения</b> <a href="#l00033">AudioNotifications.cpp:33</a></div></div>
+<div class="ttc" id="a_audio_notifications_8cpp_html_a5b5bb43fe56b408be52b85222b8d2007"><div class="ttname"><a href="_audio_notifications_8cpp.html#a5b5bb43fe56b408be52b85222b8d2007">NOTIFICATION_DURATION_SEC</a></div><div class="ttdeci">#define NOTIFICATION_DURATION_SEC</div><div class="ttdoc">Продолжительность уведомления в секундах</div><div class="ttdef"><b>Определения</b> <a href="#l00015">AudioNotifications.cpp:15</a></div></div>
+<div class="ttc" id="a_audio_notifications_8cpp_html_a658890b679c3adf2c25200ff0f91bce1"><div class="ttname"><a href="_audio_notifications_8cpp.html#a658890b679c3adf2c25200ff0f91bce1">AudioNotifications_Update</a></div><div class="ttdeci">void AudioNotifications_Update(void)</div><div class="ttdoc">Обновление состояния воспроизведения</div><div class="ttdef"><b>Определения</b> <a href="#l00211">AudioNotifications.cpp:211</a></div></div>
+<div class="ttc" id="a_audio_notifications_8cpp_html_a9374c9e02e0af78fbe24d7ef4bb50b08"><div class="ttname"><a href="_audio_notifications_8cpp.html#a9374c9e02e0af78fbe24d7ef4bb50b08">SECOND_IMPULSE_END</a></div><div class="ttdeci">#define SECOND_IMPULSE_END</div><div class="ttdoc">Конец второго импульса (с).</div><div class="ttdef"><b>Определения</b> <a href="#l00028">AudioNotifications.cpp:28</a></div></div>
+<div class="ttc" id="a_audio_notifications_8cpp_html_a962bf384b0b7d5f8e6988b12339fccb8"><div class="ttname"><a href="_audio_notifications_8cpp.html#a962bf384b0b7d5f8e6988b12339fccb8">DISCONNECT_FREQUENCY</a></div><div class="ttdeci">#define DISCONNECT_FREQUENCY</div><div class="ttdoc">Частота сигнала при отключении (Гц).</div><div class="ttdef"><b>Определения</b> <a href="#l00022">AudioNotifications.cpp:22</a></div></div>
+<div class="ttc" id="a_audio_notifications_8cpp_html_aae753060e229deabaa3718bbdc516c95"><div class="ttname"><a href="_audio_notifications_8cpp.html#aae753060e229deabaa3718bbdc516c95">FIRST_IMPULSE_END</a></div><div class="ttdeci">#define FIRST_IMPULSE_END</div><div class="ttdoc">Конец первого импульса (с).</div><div class="ttdef"><b>Определения</b> <a href="#l00026">AudioNotifications.cpp:26</a></div></div>
+<div class="ttc" id="a_audio_notifications_8cpp_html_ac73a46557679e7e68a51837dbf248aa8"><div class="ttname"><a href="_audio_notifications_8cpp.html#ac73a46557679e7e68a51837dbf248aa8">NOTIFICATION_AMPLITUDE</a></div><div class="ttdeci">#define NOTIFICATION_AMPLITUDE</div><div class="ttdoc">Амплитуда сигнала (0-32767).</div><div class="ttdef"><b>Определения</b> <a href="#l00011">AudioNotifications.cpp:11</a></div></div>
+<div class="ttc" id="a_audio_notifications_8cpp_html_ad38f3d7bffbc743ecfb7764f5284a600"><div class="ttname"><a href="_audio_notifications_8cpp.html#ad38f3d7bffbc743ecfb7764f5284a600">FIRST_IMPULSE_START</a></div><div class="ttdeci">#define FIRST_IMPULSE_START</div><div class="ttdoc">Начало первого импульса (с).</div><div class="ttdef"><b>Определения</b> <a href="#l00025">AudioNotifications.cpp:25</a></div></div>
+<div class="ttc" id="a_audio_notifications_8cpp_html_ae036f08352c129784b20dc011854df8b"><div class="ttname"><a href="_audio_notifications_8cpp.html#ae036f08352c129784b20dc011854df8b">MonoToStereoConvert</a></div><div class="ttdeci">static void MonoToStereoConvert(const int16_t *monoBuffer, int16_t *stereoBuffer, uint32_t samplesQuantity)</div><div class="ttdoc">Преобразование моно-буфера в стерео (дублирование каналов).</div><div class="ttdef"><b>Определения</b> <a href="#l00086">AudioNotifications.cpp:86</a></div></div>
+<div class="ttc" id="a_audio_notifications_8cpp_html_af217e2e7d6f75eae1310514e40e0a260"><div class="ttname"><a href="_audio_notifications_8cpp.html#af217e2e7d6f75eae1310514e40e0a260">SECOND_IMPULSE_START</a></div><div class="ttdeci">#define SECOND_IMPULSE_START</div><div class="ttdoc">Начало второго импульса (с).</div><div class="ttdef"><b>Определения</b> <a href="#l00027">AudioNotifications.cpp:27</a></div></div>
+<div class="ttc" id="a_audio_notifications_8cpp_html_af3be0e5cf57b6245b1aeec73153b65f9"><div class="ttname"><a href="_audio_notifications_8cpp.html#af3be0e5cf57b6245b1aeec73153b65f9">GenerateTone</a></div><div class="ttdeci">static void GenerateTone(int16_t *samplesBuffer, uint32_t samplesQuantity, uint32_t startSample)</div><div class="ttdoc">Генерация звукового сигнала с двумя короткими импульсами</div><div class="ttdef"><b>Определения</b> <a href="#l00099">AudioNotifications.cpp:99</a></div></div>
+<div class="ttc" id="a_audio_notifications_8h_html"><div class="ttname"><a href="_audio_notifications_8h.html">AudioNotifications.h</a></div></div>
+<div class="ttc" id="a_audio_notifications_8h_html_a25a31a4bdc02a0d0adb743e26dd14ba9"><div class="ttname"><a href="_audio_notifications_8h.html#a25a31a4bdc02a0d0adb743e26dd14ba9">NotificationType</a></div><div class="ttdeci">NotificationType</div><div class="ttdoc">Типы звуковых уведомлений</div><div class="ttdef"><b>Определения</b> <a href="_audio_notifications_8h_source.html#l00009">AudioNotifications.h:10</a></div></div>
+<div class="ttc" id="a_audio_notifications_8h_html_a25a31a4bdc02a0d0adb743e26dd14ba9ae640cb05684d50894ab156accd785359"><div class="ttname"><a href="_audio_notifications_8h.html#a25a31a4bdc02a0d0adb743e26dd14ba9ae640cb05684d50894ab156accd785359">NOTIFICATION_CONNECT</a></div><div class="ttdeci">@ NOTIFICATION_CONNECT</div><div class="ttdoc">Подключение Bluetooth.</div><div class="ttdef"><b>Определения</b> <a href="_audio_notifications_8h_source.html#l00011">AudioNotifications.h:11</a></div></div>
+<div class="ttc" id="a_sound_control_8cpp_html_a4f2666dd37f8cfae1d93fb22225bd29c"><div class="ttname"><a href="_sound_control_8cpp.html#a4f2666dd37f8cfae1d93fb22225bd29c">i2s</a></div><div class="ttdeci">I2SStream i2s</div><div class="ttdoc">Класс для I2S1.</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00068">SoundControl.cpp:68</a></div></div>
+<div class="ttc" id="a_sound_control_8cpp_html_a8fe57d0cc45aff515b649f15c0922d9c"><div class="ttname"><a href="_sound_control_8cpp.html#a8fe57d0cc45aff515b649f15c0922d9c">SoundControl_GetI2SStreamPointer</a></div><div class="ttdeci">I2SStream * SoundControl_GetI2SStreamPointer(void)</div><div class="ttdoc">Получение указателя на объект I2SStream.</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00535">SoundControl.cpp:535</a></div></div>
+<div class="ttc" id="a_sound_control_8h_html"><div class="ttname"><a href="_sound_control_8h.html">SoundControl.h</a></div></div>
+<div class="ttc" id="a_sound_control_8h_html_a04ac904706ec5fee475b684a7fb3384a"><div class="ttname"><a href="_sound_control_8h.html#a04ac904706ec5fee475b684a7fb3384a">MIN_VOLUME_SAMPLE</a></div><div class="ttdeci">#define MIN_VOLUME_SAMPLE</div><div class="ttdoc">Абсолютный минимум для 16-ти битного сэмпла (отрицательная полуволна).</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8h_source.html#l00010">SoundControl.h:10</a></div></div>
+<div class="ttc" id="a_sound_control_8h_html_a1daf785e3f68d293c7caa1c756d5cb74"><div class="ttname"><a href="_sound_control_8h.html#a1daf785e3f68d293c7caa1c756d5cb74">pi</a></div><div class="ttdeci">#define pi</div><div class="ttdoc">Число Пи</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8h_source.html#l00014">SoundControl.h:14</a></div></div>
+<div class="ttc" id="a_sound_control_8h_html_a3165aaf8779fa25976edff3a2a43a4f1"><div class="ttname"><a href="_sound_control_8h.html#a3165aaf8779fa25976edff3a2a43a4f1">MAX_VOLUME_SAMPLE</a></div><div class="ttdeci">#define MAX_VOLUME_SAMPLE</div><div class="ttdoc">Абсолютный максимум для 16-ти битного сэмпла (положительная полуволна).</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8h_source.html#l00009">SoundControl.h:9</a></div></div>
+<div class="ttc" id="a_sound_control_8h_html_a4b76a0c2859cfd819a343a780070ee2b"><div class="ttname"><a href="_sound_control_8h.html#a4b76a0c2859cfd819a343a780070ee2b">SAMPLE_RATE</a></div><div class="ttdeci">#define SAMPLE_RATE</div><div class="ttdoc">Частота дискретизации (Гц).</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8h_source.html#l00012">SoundControl.h:12</a></div></div>
+<div class="ttc" id="a_sound_control_8h_html_ae5ba6ee8485bbf083b025320318c1713"><div class="ttname"><a href="_sound_control_8h.html#ae5ba6ee8485bbf083b025320318c1713">AUDIO_CHANNELS_QUANTITY</a></div><div class="ttdeci">#define AUDIO_CHANNELS_QUANTITY</div><div class="ttdoc">Количество каналов (2 канала: правый и левый).</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8h_source.html#l00011">SoundControl.h:11</a></div></div>
+<div class="ttc" id="a_sound_presets_8cpp_html_a48044d72eeda98a83449e542a55b89e5"><div class="ttname"><a href="_sound_presets_8cpp.html#a48044d72eeda98a83449e542a55b89e5">PHASE_CYCLE</a></div><div class="ttdeci">#define PHASE_CYCLE</div><div class="ttdoc">Полный цикл фазы (2 * pi радиан).</div><div class="ttdef"><b>Определения</b> <a href="_sound_presets_8cpp_source.html#l00023">SoundPresets.cpp:23</a></div></div>
+<div class="ttc" id="a_user_timer_8h_html"><div class="ttname"><a href="_user_timer_8h.html">UserTimer.h</a></div></div>
+<div class="ttc" id="astruct_notification_player_html"><div class="ttname"><a href="struct_notification_player.html">NotificationPlayer</a></div><div class="ttdoc">Структура для хранения состояния модуля</div><div class="ttdef"><b>Определения</b> <a href="#l00043">AudioNotifications.cpp:44</a></div></div>
+<div class="ttc" id="astruct_notification_player_html_a275dd6dafe5d4455e599ffd15feb06f8"><div class="ttname"><a href="struct_notification_player.html#a275dd6dafe5d4455e599ffd15feb06f8">NotificationPlayer::phase</a></div><div class="ttdeci">float phase</div><div class="ttdoc">Текущая фаза синусоиды</div><div class="ttdef"><b>Определения</b> <a href="#l00048">AudioNotifications.cpp:48</a></div></div>
+<div class="ttc" id="astruct_notification_player_html_a3c1680237583db9b4ec2b431dc047d57"><div class="ttname"><a href="struct_notification_player.html#a3c1680237583db9b4ec2b431dc047d57">NotificationPlayer::samplesSent</a></div><div class="ttdeci">uint32_t samplesSent</div><div class="ttdoc">Отправленное количество сэмплов</div><div class="ttdef"><b>Определения</b> <a href="#l00047">AudioNotifications.cpp:47</a></div></div>
+<div class="ttc" id="astruct_notification_player_html_a7302d1f11993917305f25ff9f88b5238"><div class="ttname"><a href="struct_notification_player.html#a7302d1f11993917305f25ff9f88b5238">NotificationPlayer::playbackState</a></div><div class="ttdeci">NotificationPlaybackState playbackState</div><div class="ttdoc">Состояние воспроизведения</div><div class="ttdef"><b>Определения</b> <a href="#l00045">AudioNotifications.cpp:45</a></div></div>
+<div class="ttc" id="astruct_notification_player_html_ad1af68a1d0427326ba21b57b86188e44"><div class="ttname"><a href="struct_notification_player.html#ad1af68a1d0427326ba21b57b86188e44">NotificationPlayer::currentType</a></div><div class="ttdeci">NotificationType currentType</div><div class="ttdoc">Текущий тип уведомления</div><div class="ttdef"><b>Определения</b> <a href="#l00046">AudioNotifications.cpp:46</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="_audio_notifications_8cpp.html">AudioNotifications.cpp</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.15.0 </li>
+  </ul>
+</div>
+</body>
+</html>

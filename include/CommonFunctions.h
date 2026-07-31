@@ -1,5 +1,5 @@
-#ifndef COMMON_FUNCTIONS_H_
-#define COMMON_FUNCTIONS_H_
+#ifndef INC_COMMON_FUNCTIONS_H_
+#define INC_COMMON_FUNCTIONS_H_
 
 #include <stdint.h>
 
@@ -31,4 +31,4 @@ void CommonFunctions_GpioToggleState(uint8_t gpioPin);
 }
 #endif
 
-#endif // COMMON_FUNCTIONS_H_
+#endif // INC_COMMON_FUNCTIONS_H_

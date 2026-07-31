@@ -1,10 +1,10 @@
-#ifndef SOUND_CONTROL_H_
-#define SOUND_CONTROL_H_
+#ifndef INC_SOUND_CONTROL_H_
+#define INC_SOUND_CONTROL_H_
 
 #include <AudioTools.h>
 #include <BluetoothA2DPSink.h>
 
-#define SPEAKER_NAME                "MyMusic"       //!< Название колонки при подключении Bluetooth
+#define SPEAKER_NAME                "BT SpeakerPM"  //!< Название колонки при подключении Bluetooth
 
 #define MAX_VOLUME_SAMPLE           32767.0f        //!< Абсолютный максимум для 16-ти битного сэмпла (положительная полуволна)
 #define MIN_VOLUME_SAMPLE           -32768.0f       //!< Абсолютный минимум для 16-ти битного сэмпла (отрицательная полуволна)
@@ -31,4 +31,4 @@ BluetoothA2DPSink * SoundControl_GetA2DPSinkPointer(void);
 //! \return Указатель на объект I2SStream
 I2SStream * SoundControl_GetI2SStreamPointer(void);
 
-#endif // SOUND_CONTROL_H_
+#endif // INC_SOUND_CONTROL_H_

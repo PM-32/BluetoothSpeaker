@@ -1,0 +1,597 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.15.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>BluetoothSpeaker: Файл D:/vscode_projects/BluetoothSpeaker/include/ButtonsDriver.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">BluetoothSpeaker<span id="projectnumber">&#160;0.0.1</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.15.0 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Поиск',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('_buttons_driver_8h.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Загрузка...</div>
+<div class="SRStatus" id="Searching">Поиск...</div>
+<div class="SRStatus" id="NoMatches">Не найдено</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Файл ButtonsDriver.h</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Граф включаемых заголовочных файлов для ButtonsDriver.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="_buttons_driver_8h__incl.png" border="0" usemap="#a_d_1_2vscode__projects_2_bluetooth_speaker_2include_2_buttons_driver_8h" loading="lazy" alt=""/></div>
+</div>
+</div><div class="textblock"><div class="dynheader">
+Граф файлов, в которые включается этот файл:</div>
+<div class="dyncontent">
+<div class="center"><img src="_buttons_driver_8h__dep__incl.png" border="0" usemap="#a_d_1_2vscode__projects_2_bluetooth_speaker_2include_2_buttons_driver_8hdep" loading="lazy" alt=""/></div>
+</div>
+</div>
+<p><a href="_buttons_driver_8h_source.html">См. исходные тексты.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+Макросы</h2></td></tr>
+<tr class="memitem:a37d4514aaf66c8ececf5d4f540abd785" id="r_a37d4514aaf66c8ececf5d4f540abd785"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a37d4514aaf66c8ececf5d4f540abd785">BUTTON_SOUND_CONTROL_PIN</a>&#160;&#160;&#160;32</td></tr>
+<tr class="memdesc:a37d4514aaf66c8ececf5d4f540abd785"><td class="mdescLeft">&#160;</td><td class="mdescRight">Номер пина кнопки управления звуком  <br /></td></tr>
+<tr class="memitem:acd4c28b09f01d6e17e10a26320908a5b" id="r_acd4c28b09f01d6e17e10a26320908a5b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acd4c28b09f01d6e17e10a26320908a5b">BUTTON_BLUETOOTH_CONNECTION_CONTROL_PIN</a>&#160;&#160;&#160;33</td></tr>
+<tr class="memdesc:acd4c28b09f01d6e17e10a26320908a5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Номер пина кнопки управления Bluetooth-подключением  <br /></td></tr>
+<tr class="memitem:a5109ddf1b624ce8aa0d1a730bf565c58" id="r_a5109ddf1b624ce8aa0d1a730bf565c58"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5109ddf1b624ce8aa0d1a730bf565c58">BUTTON_SOUND_PRESET_CONTROL_PIN</a>&#160;&#160;&#160;5</td></tr>
+<tr class="memdesc:a5109ddf1b624ce8aa0d1a730bf565c58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Номер пина кнопки управления пресетами звука  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Перечисления</h2></td></tr>
+<tr class="memitem:a2200c9a3564da59c1160338587ecb034" id="r_a2200c9a3564da59c1160338587ecb034"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2200c9a3564da59c1160338587ecb034">Buttons</a> { <a class="el" href="#a2200c9a3564da59c1160338587ecb034a61c2f967da3a4ed5a1fa48ed2150e17a">BUTTON_SOUND_CONTROL</a> = 0
+, <a class="el" href="#a2200c9a3564da59c1160338587ecb034a62a9e7867da3d1facec1ae8a3fa694b8">BUTTON_BLUETOOTH_CONNECTION_CONTROL</a>
+, <a class="el" href="#a2200c9a3564da59c1160338587ecb034a543b5a1a9bbf23a110258ce70b29c413">BUTTON_SOUND_PRESET_CONTROL</a>
+, <a class="el" href="#a2200c9a3564da59c1160338587ecb034a2692a4d6c88f863a5e8509a05d7bd936">BUTTONS_QUANTITY</a>
+ }</td></tr>
+<tr class="memdesc:a2200c9a3564da59c1160338587ecb034"><td class="mdescLeft">&#160;</td><td class="mdescRight">Номера кнопок  <a href="#a2200c9a3564da59c1160338587ecb034">Подробнее...</a><br /></td></tr>
+<tr class="memitem:a826153fccdea44b82db88b6deb7a6970" id="r_a826153fccdea44b82db88b6deb7a6970"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a826153fccdea44b82db88b6deb7a6970">ButtonPresses</a> { <a class="el" href="#a826153fccdea44b82db88b6deb7a6970abbec85722accc9d67d8dc4cfd1a65e22">ONE_PRESS</a> = 1
+, <a class="el" href="#a826153fccdea44b82db88b6deb7a6970a5c1aade001f5ddfe3eeb219c7494bc6b">TWO_PRESS</a>
+, <a class="el" href="#a826153fccdea44b82db88b6deb7a6970afcdac2cb880e83b854f606729e7f97a1">THREE_PRESS</a>
+ }</td></tr>
+<tr class="memdesc:a826153fccdea44b82db88b6deb7a6970"><td class="mdescLeft">&#160;</td><td class="mdescRight">Количество нажатий на кнопку  <a href="#a826153fccdea44b82db88b6deb7a6970">Подробнее...</a><br /></td></tr>
+<tr class="memitem:a24bf277feb9cb47b2b44f52744f19fc1" id="r_a24bf277feb9cb47b2b44f52744f19fc1"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a24bf277feb9cb47b2b44f52744f19fc1">ButtonPressSeriesStatus</a> { <a class="el" href="#a24bf277feb9cb47b2b44f52744f19fc1a6b2b1a8a4dc5f9f4d6cb332f8c186a7b">BUTTON_PRESS_SERIES_NONE</a> = 0
+, <a class="el" href="#a24bf277feb9cb47b2b44f52744f19fc1a92f54477c3d9396b9512b767b0a44d97">BUTTON_PRESS_SERIES_FINISHED</a>
+ }</td></tr>
+<tr class="memdesc:a24bf277feb9cb47b2b44f52744f19fc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Статус завершения серии нажатий на кнопку  <a href="#a24bf277feb9cb47b2b44f52744f19fc1">Подробнее...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Функции</h2></td></tr>
+<tr class="memitem:a154ded5bd9312268d07a4d0ece19da10" id="r_a154ded5bd9312268d07a4d0ece19da10"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a154ded5bd9312268d07a4d0ece19da10">ButtonsDriver_Init</a> (void)</td></tr>
+<tr class="memdesc:a154ded5bd9312268d07a4d0ece19da10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Инициализация кнопок  <br /></td></tr>
+<tr class="memitem:ae53e22e5c55078526436f418674854a2" id="r_ae53e22e5c55078526436f418674854a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae53e22e5c55078526436f418674854a2">ButtonsDriver_AntibounceFilter</a> (void)</td></tr>
+<tr class="memdesc:ae53e22e5c55078526436f418674854a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Фильтр антидребезга кнопок  <br /></td></tr>
+<tr class="memitem:a5d7a6b5f780ba2eef21568bde7dc9d71" id="r_a5d7a6b5f780ba2eef21568bde7dc9d71"><td class="memItemLeft" align="right" valign="top">uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5d7a6b5f780ba2eef21568bde7dc9d71">ButtonsDriver_GetButtonsPressCountPointer</a> (void)</td></tr>
+<tr class="memdesc:a5d7a6b5f780ba2eef21568bde7dc9d71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получение адреса массива с количеством устойчивых нажатий на кнопки  <br /></td></tr>
+<tr class="memitem:aaac2e03283d592427ceb3940dd465c40" id="r_aaac2e03283d592427ceb3940dd465c40"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a24bf277feb9cb47b2b44f52744f19fc1">ButtonPressSeriesStatus</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaac2e03283d592427ceb3940dd465c40">ButtonsDriver_GetButtonsPressSeriesStatusPointer</a> (void)</td></tr>
+<tr class="memdesc:aaac2e03283d592427ceb3940dd465c40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получение адреса массива со статусами завершения серий нажатий на кнопки  <br /></td></tr>
+</table>
+<a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Макросы</h2>
+<a id="acd4c28b09f01d6e17e10a26320908a5b" name="acd4c28b09f01d6e17e10a26320908a5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd4c28b09f01d6e17e10a26320908a5b">&#9670;&#160;</a></span>BUTTON_BLUETOOTH_CONNECTION_CONTROL_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BUTTON_BLUETOOTH_CONNECTION_CONTROL_PIN&#160;&#160;&#160;33</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Номер пина кнопки управления Bluetooth-подключением </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_buttons_driver_8h_source.html">ButtonsDriver.h</a> строка <a class="el" href="_buttons_driver_8h_source.html#l00011">11</a></p>
+
+</div>
+</div>
+<a id="a37d4514aaf66c8ececf5d4f540abd785" name="a37d4514aaf66c8ececf5d4f540abd785"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37d4514aaf66c8ececf5d4f540abd785">&#9670;&#160;</a></span>BUTTON_SOUND_CONTROL_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BUTTON_SOUND_CONTROL_PIN&#160;&#160;&#160;32</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Номер пина кнопки управления звуком </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_buttons_driver_8h_source.html">ButtonsDriver.h</a> строка <a class="el" href="_buttons_driver_8h_source.html#l00010">10</a></p>
+
+</div>
+</div>
+<a id="a5109ddf1b624ce8aa0d1a730bf565c58" name="a5109ddf1b624ce8aa0d1a730bf565c58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5109ddf1b624ce8aa0d1a730bf565c58">&#9670;&#160;</a></span>BUTTON_SOUND_PRESET_CONTROL_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BUTTON_SOUND_PRESET_CONTROL_PIN&#160;&#160;&#160;5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Номер пина кнопки управления пресетами звука </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_buttons_driver_8h_source.html">ButtonsDriver.h</a> строка <a class="el" href="_buttons_driver_8h_source.html#l00012">12</a></p>
+
+</div>
+</div>
+<a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Перечисления</h2>
+<a id="a826153fccdea44b82db88b6deb7a6970" name="a826153fccdea44b82db88b6deb7a6970"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a826153fccdea44b82db88b6deb7a6970">&#9670;&#160;</a></span>ButtonPresses</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#a826153fccdea44b82db88b6deb7a6970">ButtonPresses</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Количество нажатий на кнопку </p>
+<table class="fieldtable">
+<tr><th colspan="2">Элементы перечислений</th></tr><tr><td class="fieldname"><a id="a826153fccdea44b82db88b6deb7a6970abbec85722accc9d67d8dc4cfd1a65e22" name="a826153fccdea44b82db88b6deb7a6970abbec85722accc9d67d8dc4cfd1a65e22"></a>ONE_PRESS&#160;</td><td class="fielddoc"><p>Одно нажатие на кнопку </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a826153fccdea44b82db88b6deb7a6970a5c1aade001f5ddfe3eeb219c7494bc6b" name="a826153fccdea44b82db88b6deb7a6970a5c1aade001f5ddfe3eeb219c7494bc6b"></a>TWO_PRESS&#160;</td><td class="fielddoc"><p>Два нажатия на кнопку </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a826153fccdea44b82db88b6deb7a6970afcdac2cb880e83b854f606729e7f97a1" name="a826153fccdea44b82db88b6deb7a6970afcdac2cb880e83b854f606729e7f97a1"></a>THREE_PRESS&#160;</td><td class="fielddoc"><p>Три нажатия на кнопку </p>
+</td></tr>
+</table>
+
+<p class="definition">См. определение в файле <a class="el" href="_buttons_driver_8h_source.html">ButtonsDriver.h</a> строка <a class="el" href="_buttons_driver_8h_source.html#l00024">24</a></p>
+<div class="fragment"><div class="line"><span class="lineno">   25</span>{</div>
+<div class="line"><span class="lineno">   26</span>    <a class="code hl_enumvalue" href="#a826153fccdea44b82db88b6deb7a6970abbec85722accc9d67d8dc4cfd1a65e22">ONE_PRESS</a> = 1,                              </div>
+<div class="line"><span class="lineno">   27</span>    <a class="code hl_enumvalue" href="#a826153fccdea44b82db88b6deb7a6970a5c1aade001f5ddfe3eeb219c7494bc6b">TWO_PRESS</a>,                                  </div>
+<div class="line"><span class="lineno">   28</span>    <a class="code hl_enumvalue" href="#a826153fccdea44b82db88b6deb7a6970afcdac2cb880e83b854f606729e7f97a1">THREE_PRESS</a>                                 </div>
+<div class="line"><span class="lineno">   29</span>} <a class="code hl_enumeration" href="#a826153fccdea44b82db88b6deb7a6970">ButtonPresses</a>;</div>
+<div class="ttc" id="a_buttons_driver_8h_html_a826153fccdea44b82db88b6deb7a6970"><div class="ttname"><a href="#a826153fccdea44b82db88b6deb7a6970">ButtonPresses</a></div><div class="ttdeci">ButtonPresses</div><div class="ttdoc">Количество нажатий на кнопку</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8h_source.html#l00024">ButtonsDriver.h:25</a></div></div>
+<div class="ttc" id="a_buttons_driver_8h_html_a826153fccdea44b82db88b6deb7a6970a5c1aade001f5ddfe3eeb219c7494bc6b"><div class="ttname"><a href="#a826153fccdea44b82db88b6deb7a6970a5c1aade001f5ddfe3eeb219c7494bc6b">TWO_PRESS</a></div><div class="ttdeci">@ TWO_PRESS</div><div class="ttdoc">Два нажатия на кнопку</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8h_source.html#l00027">ButtonsDriver.h:27</a></div></div>
+<div class="ttc" id="a_buttons_driver_8h_html_a826153fccdea44b82db88b6deb7a6970abbec85722accc9d67d8dc4cfd1a65e22"><div class="ttname"><a href="#a826153fccdea44b82db88b6deb7a6970abbec85722accc9d67d8dc4cfd1a65e22">ONE_PRESS</a></div><div class="ttdeci">@ ONE_PRESS</div><div class="ttdoc">Одно нажатие на кнопку</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8h_source.html#l00026">ButtonsDriver.h:26</a></div></div>
+<div class="ttc" id="a_buttons_driver_8h_html_a826153fccdea44b82db88b6deb7a6970afcdac2cb880e83b854f606729e7f97a1"><div class="ttname"><a href="#a826153fccdea44b82db88b6deb7a6970afcdac2cb880e83b854f606729e7f97a1">THREE_PRESS</a></div><div class="ttdeci">@ THREE_PRESS</div><div class="ttdoc">Три нажатия на кнопку</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8h_source.html#l00028">ButtonsDriver.h:28</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a24bf277feb9cb47b2b44f52744f19fc1" name="a24bf277feb9cb47b2b44f52744f19fc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24bf277feb9cb47b2b44f52744f19fc1">&#9670;&#160;</a></span>ButtonPressSeriesStatus</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#a24bf277feb9cb47b2b44f52744f19fc1">ButtonPressSeriesStatus</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Статус завершения серии нажатий на кнопку </p>
+<table class="fieldtable">
+<tr><th colspan="2">Элементы перечислений</th></tr><tr><td class="fieldname"><a id="a24bf277feb9cb47b2b44f52744f19fc1a6b2b1a8a4dc5f9f4d6cb332f8c186a7b" name="a24bf277feb9cb47b2b44f52744f19fc1a6b2b1a8a4dc5f9f4d6cb332f8c186a7b"></a>BUTTON_PRESS_SERIES_NONE&#160;</td><td class="fielddoc"><p>Серия нажатий на кнопку не завершена </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a24bf277feb9cb47b2b44f52744f19fc1a92f54477c3d9396b9512b767b0a44d97" name="a24bf277feb9cb47b2b44f52744f19fc1a92f54477c3d9396b9512b767b0a44d97"></a>BUTTON_PRESS_SERIES_FINISHED&#160;</td><td class="fielddoc"><p>Серия нажатий на кнопку завершена по таймауту </p>
+</td></tr>
+</table>
+
+<p class="definition">См. определение в файле <a class="el" href="_buttons_driver_8h_source.html">ButtonsDriver.h</a> строка <a class="el" href="_buttons_driver_8h_source.html#l00032">32</a></p>
+<div class="fragment"><div class="line"><span class="lineno">   33</span>{</div>
+<div class="line"><span class="lineno">   34</span>    <a class="code hl_enumvalue" href="#a24bf277feb9cb47b2b44f52744f19fc1a6b2b1a8a4dc5f9f4d6cb332f8c186a7b">BUTTON_PRESS_SERIES_NONE</a> = 0,               </div>
+<div class="line"><span class="lineno">   35</span>    <a class="code hl_enumvalue" href="#a24bf277feb9cb47b2b44f52744f19fc1a92f54477c3d9396b9512b767b0a44d97">BUTTON_PRESS_SERIES_FINISHED</a>                </div>
+<div class="line"><span class="lineno">   36</span>} <a class="code hl_enumeration" href="#a24bf277feb9cb47b2b44f52744f19fc1">ButtonPressSeriesStatus</a>;</div>
+<div class="ttc" id="a_buttons_driver_8h_html_a24bf277feb9cb47b2b44f52744f19fc1"><div class="ttname"><a href="#a24bf277feb9cb47b2b44f52744f19fc1">ButtonPressSeriesStatus</a></div><div class="ttdeci">ButtonPressSeriesStatus</div><div class="ttdoc">Статус завершения серии нажатий на кнопку</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8h_source.html#l00032">ButtonsDriver.h:33</a></div></div>
+<div class="ttc" id="a_buttons_driver_8h_html_a24bf277feb9cb47b2b44f52744f19fc1a6b2b1a8a4dc5f9f4d6cb332f8c186a7b"><div class="ttname"><a href="#a24bf277feb9cb47b2b44f52744f19fc1a6b2b1a8a4dc5f9f4d6cb332f8c186a7b">BUTTON_PRESS_SERIES_NONE</a></div><div class="ttdeci">@ BUTTON_PRESS_SERIES_NONE</div><div class="ttdoc">Серия нажатий на кнопку не завершена</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8h_source.html#l00034">ButtonsDriver.h:34</a></div></div>
+<div class="ttc" id="a_buttons_driver_8h_html_a24bf277feb9cb47b2b44f52744f19fc1a92f54477c3d9396b9512b767b0a44d97"><div class="ttname"><a href="#a24bf277feb9cb47b2b44f52744f19fc1a92f54477c3d9396b9512b767b0a44d97">BUTTON_PRESS_SERIES_FINISHED</a></div><div class="ttdeci">@ BUTTON_PRESS_SERIES_FINISHED</div><div class="ttdoc">Серия нажатий на кнопку завершена по таймауту</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8h_source.html#l00035">ButtonsDriver.h:35</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a2200c9a3564da59c1160338587ecb034" name="a2200c9a3564da59c1160338587ecb034"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2200c9a3564da59c1160338587ecb034">&#9670;&#160;</a></span>Buttons</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#a2200c9a3564da59c1160338587ecb034">Buttons</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Номера кнопок </p>
+<table class="fieldtable">
+<tr><th colspan="2">Элементы перечислений</th></tr><tr><td class="fieldname"><a id="a2200c9a3564da59c1160338587ecb034a61c2f967da3a4ed5a1fa48ed2150e17a" name="a2200c9a3564da59c1160338587ecb034a61c2f967da3a4ed5a1fa48ed2150e17a"></a>BUTTON_SOUND_CONTROL&#160;</td><td class="fielddoc"><p>Кнопка управления звуком </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a2200c9a3564da59c1160338587ecb034a62a9e7867da3d1facec1ae8a3fa694b8" name="a2200c9a3564da59c1160338587ecb034a62a9e7867da3d1facec1ae8a3fa694b8"></a>BUTTON_BLUETOOTH_CONNECTION_CONTROL&#160;</td><td class="fielddoc"><p>Кнопка управления Bluetooth-подключением </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a2200c9a3564da59c1160338587ecb034a543b5a1a9bbf23a110258ce70b29c413" name="a2200c9a3564da59c1160338587ecb034a543b5a1a9bbf23a110258ce70b29c413"></a>BUTTON_SOUND_PRESET_CONTROL&#160;</td><td class="fielddoc"><p>Кнопка управления пресетами звука </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a2200c9a3564da59c1160338587ecb034a2692a4d6c88f863a5e8509a05d7bd936" name="a2200c9a3564da59c1160338587ecb034a2692a4d6c88f863a5e8509a05d7bd936"></a>BUTTONS_QUANTITY&#160;</td><td class="fielddoc"><p>Общее количество кнопок </p>
+</td></tr>
+</table>
+
+<p class="definition">См. определение в файле <a class="el" href="_buttons_driver_8h_source.html">ButtonsDriver.h</a> строка <a class="el" href="_buttons_driver_8h_source.html#l00015">15</a></p>
+<div class="fragment"><div class="line"><span class="lineno">   16</span>{</div>
+<div class="line"><span class="lineno">   17</span>    <a class="code hl_enumvalue" href="#a2200c9a3564da59c1160338587ecb034a61c2f967da3a4ed5a1fa48ed2150e17a">BUTTON_SOUND_CONTROL</a> = 0,                   </div>
+<div class="line"><span class="lineno">   18</span>    <a class="code hl_enumvalue" href="#a2200c9a3564da59c1160338587ecb034a62a9e7867da3d1facec1ae8a3fa694b8">BUTTON_BLUETOOTH_CONNECTION_CONTROL</a>,        </div>
+<div class="line"><span class="lineno">   19</span>    <a class="code hl_enumvalue" href="#a2200c9a3564da59c1160338587ecb034a543b5a1a9bbf23a110258ce70b29c413">BUTTON_SOUND_PRESET_CONTROL</a>,                </div>
+<div class="line"><span class="lineno">   20</span>    <a class="code hl_enumvalue" href="#a2200c9a3564da59c1160338587ecb034a2692a4d6c88f863a5e8509a05d7bd936">BUTTONS_QUANTITY</a>                            </div>
+<div class="line"><span class="lineno">   21</span>} <a class="code hl_enumeration" href="#a2200c9a3564da59c1160338587ecb034">Buttons</a>;</div>
+<div class="ttc" id="a_buttons_driver_8h_html_a2200c9a3564da59c1160338587ecb034"><div class="ttname"><a href="#a2200c9a3564da59c1160338587ecb034">Buttons</a></div><div class="ttdeci">Buttons</div><div class="ttdoc">Номера кнопок</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8h_source.html#l00015">ButtonsDriver.h:16</a></div></div>
+<div class="ttc" id="a_buttons_driver_8h_html_a2200c9a3564da59c1160338587ecb034a2692a4d6c88f863a5e8509a05d7bd936"><div class="ttname"><a href="#a2200c9a3564da59c1160338587ecb034a2692a4d6c88f863a5e8509a05d7bd936">BUTTONS_QUANTITY</a></div><div class="ttdeci">@ BUTTONS_QUANTITY</div><div class="ttdoc">Общее количество кнопок</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8h_source.html#l00020">ButtonsDriver.h:20</a></div></div>
+<div class="ttc" id="a_buttons_driver_8h_html_a2200c9a3564da59c1160338587ecb034a543b5a1a9bbf23a110258ce70b29c413"><div class="ttname"><a href="#a2200c9a3564da59c1160338587ecb034a543b5a1a9bbf23a110258ce70b29c413">BUTTON_SOUND_PRESET_CONTROL</a></div><div class="ttdeci">@ BUTTON_SOUND_PRESET_CONTROL</div><div class="ttdoc">Кнопка управления пресетами звука</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8h_source.html#l00019">ButtonsDriver.h:19</a></div></div>
+<div class="ttc" id="a_buttons_driver_8h_html_a2200c9a3564da59c1160338587ecb034a61c2f967da3a4ed5a1fa48ed2150e17a"><div class="ttname"><a href="#a2200c9a3564da59c1160338587ecb034a61c2f967da3a4ed5a1fa48ed2150e17a">BUTTON_SOUND_CONTROL</a></div><div class="ttdeci">@ BUTTON_SOUND_CONTROL</div><div class="ttdoc">Кнопка управления звуком</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8h_source.html#l00017">ButtonsDriver.h:17</a></div></div>
+<div class="ttc" id="a_buttons_driver_8h_html_a2200c9a3564da59c1160338587ecb034a62a9e7867da3d1facec1ae8a3fa694b8"><div class="ttname"><a href="#a2200c9a3564da59c1160338587ecb034a62a9e7867da3d1facec1ae8a3fa694b8">BUTTON_BLUETOOTH_CONNECTION_CONTROL</a></div><div class="ttdeci">@ BUTTON_BLUETOOTH_CONNECTION_CONTROL</div><div class="ttdoc">Кнопка управления Bluetooth-подключением</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8h_source.html#l00018">ButtonsDriver.h:18</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Функции</h2>
+<a id="ae53e22e5c55078526436f418674854a2" name="ae53e22e5c55078526436f418674854a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae53e22e5c55078526436f418674854a2">&#9670;&#160;</a></span>ButtonsDriver_AntibounceFilter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ButtonsDriver_AntibounceFilter </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Фильтр антидребезга кнопок </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_buttons_driver_8c_source.html">ButtonsDriver.c</a> строка <a class="el" href="_buttons_driver_8c_source.html#l00048">48</a></p>
+<div class="fragment"><div class="line"><span class="lineno">   49</span>{</div>
+<div class="line"><span class="lineno">   50</span>    <span class="comment">// Массив пинов кнопок</span></div>
+<div class="line"><span class="lineno">   51</span>    <span class="keyword">static</span> uint8_t buttonsPinArray[<a class="code hl_enumvalue" href="#a2200c9a3564da59c1160338587ecb034a2692a4d6c88f863a5e8509a05d7bd936">BUTTONS_QUANTITY</a>] = { <a class="code hl_define" href="#a37d4514aaf66c8ececf5d4f540abd785">BUTTON_SOUND_CONTROL_PIN</a>, \</div>
+<div class="line"><span class="lineno">   52</span>                                                         <a class="code hl_define" href="#acd4c28b09f01d6e17e10a26320908a5b">BUTTON_BLUETOOTH_CONNECTION_CONTROL_PIN</a>, \</div>
+<div class="line"><span class="lineno">   53</span>                                                         <a class="code hl_define" href="#a5109ddf1b624ce8aa0d1a730bf565c58">BUTTON_SOUND_PRESET_CONTROL_PIN</a> };</div>
+<div class="line"><span class="lineno">   54</span> </div>
+<div class="line"><span class="lineno">   55</span>    <span class="comment">// Массив с предельными количествами фиксируемых нажатий на кнопки</span></div>
+<div class="line"><span class="lineno">   56</span>    <span class="keyword">static</span> uint8_t maxButtonsPress[<a class="code hl_enumvalue" href="#a2200c9a3564da59c1160338587ecb034a2692a4d6c88f863a5e8509a05d7bd936">BUTTONS_QUANTITY</a>] = { <a class="code hl_enumvalue" href="#a826153fccdea44b82db88b6deb7a6970afcdac2cb880e83b854f606729e7f97a1">THREE_PRESS</a>, <a class="code hl_enumvalue" href="#a826153fccdea44b82db88b6deb7a6970a5c1aade001f5ddfe3eeb219c7494bc6b">TWO_PRESS</a>, <a class="code hl_enumvalue" href="#a826153fccdea44b82db88b6deb7a6970afcdac2cb880e83b854f606729e7f97a1">THREE_PRESS</a> };</div>
+<div class="line"><span class="lineno">   57</span> </div>
+<div class="line"><span class="lineno">   58</span>    <span class="comment">// Текущая стадия работы фильтра антидребезга</span></div>
+<div class="line"><span class="lineno">   59</span>    <span class="comment">// кнопки для определения многократных нажатий</span></div>
+<div class="line"><span class="lineno">   60</span>    <span class="keyword">static</span> <span class="keyword">volatile</span> <a class="code hl_enumeration" href="_buttons_driver_8c.html#ae256569d3667ef8940bbff0a739fa137">SeveralPressFilterStage</a> severalPressFilterStage[<a class="code hl_enumvalue" href="#a2200c9a3564da59c1160338587ecb034a2692a4d6c88f863a5e8509a05d7bd936">BUTTONS_QUANTITY</a>];</div>
+<div class="line"><span class="lineno">   61</span> </div>
+<div class="line"><span class="lineno">   62</span>    <span class="comment">// Статус определения нового нажатия на кнопку</span></div>
+<div class="line"><span class="lineno">   63</span>    <span class="keyword">static</span> <span class="keyword">volatile</span> <a class="code hl_enumeration" href="_buttons_driver_8c.html#a4acd95a883e12a37599407d0123c46d8">NewPressDetectedStatus</a> newPressDetectedStatus[<a class="code hl_enumvalue" href="#a2200c9a3564da59c1160338587ecb034a2692a4d6c88f863a5e8509a05d7bd936">BUTTONS_QUANTITY</a>];</div>
+<div class="line"><span class="lineno">   64</span> </div>
+<div class="line"><span class="lineno">   65</span>    <span class="comment">// Время, когда был запущен таймер для отсчета</span></div>
+<div class="line"><span class="lineno">   66</span>    <span class="comment">// таймаута следующего нажатия на кнопку</span></div>
+<div class="line"><span class="lineno">   67</span>    <span class="keyword">static</span> <span class="keyword">volatile</span> uint32_t waitingForNextPressStartTime[<a class="code hl_enumvalue" href="#a2200c9a3564da59c1160338587ecb034a2692a4d6c88f863a5e8509a05d7bd936">BUTTONS_QUANTITY</a>];</div>
+<div class="line"><span class="lineno">   68</span> </div>
+<div class="line"><span class="lineno">   69</span>    <span class="comment">// Счетчик времени, когда кнопка была нажата</span></div>
+<div class="line"><span class="lineno">   70</span>    <span class="keyword">static</span> <span class="keyword">volatile</span> uint16_t counterButtonPressed[<a class="code hl_enumvalue" href="#a2200c9a3564da59c1160338587ecb034a2692a4d6c88f863a5e8509a05d7bd936">BUTTONS_QUANTITY</a>];</div>
+<div class="line"><span class="lineno">   71</span> </div>
+<div class="line"><span class="lineno">   72</span>    <span class="comment">// Счетчик времени, когда кнопка была не нажата</span></div>
+<div class="line"><span class="lineno">   73</span>    <span class="keyword">static</span> <span class="keyword">volatile</span> uint16_t counterButtonNotPressed[<a class="code hl_enumvalue" href="#a2200c9a3564da59c1160338587ecb034a2692a4d6c88f863a5e8509a05d7bd936">BUTTONS_QUANTITY</a>];</div>
+<div class="line"><span class="lineno">   74</span> </div>
+<div class="line"><span class="lineno">   75</span>    <span class="comment">// Количество зафиксированных устойчивых нажатий на кнопку в момент</span></div>
+<div class="line"><span class="lineno">   76</span>    <span class="comment">// запуска таймера для отсчета таймаута следующего нажатия на кнопку</span></div>
+<div class="line"><span class="lineno">   77</span>    <span class="keyword">static</span> <span class="keyword">volatile</span> uint8_t waitingStartPress[<a class="code hl_enumvalue" href="#a2200c9a3564da59c1160338587ecb034a2692a4d6c88f863a5e8509a05d7bd936">BUTTONS_QUANTITY</a>];</div>
+<div class="line"><span class="lineno">   78</span> </div>
+<div class="line"><span class="lineno">   79</span>    <span class="keywordflow">for</span> (uint8_t buttonIndex = 0; buttonIndex &lt; <a class="code hl_enumvalue" href="#a2200c9a3564da59c1160338587ecb034a2692a4d6c88f863a5e8509a05d7bd936">BUTTONS_QUANTITY</a>; buttonIndex++)</div>
+<div class="line"><span class="lineno">   80</span>    {</div>
+<div class="line"><span class="lineno">   81</span>        <span class="comment">// Чтение текущего состояния кнопки</span></div>
+<div class="line"><span class="lineno">   82</span>        <a class="code hl_enumeration" href="_common_functions_8h.html#a481bba4ee500a381c7ae5b767e641bdc">PinState</a> currentButtonState = <a class="code hl_function" href="_common_functions_8c.html#a4e7997453a6838325e2e9df11f2d253f">CommonFunctions_GpioGetState</a>(buttonsPinArray[buttonIndex]);</div>
+<div class="line"><span class="lineno">   83</span> </div>
+<div class="line"><span class="lineno">   84</span>        <span class="comment">// Если запущен таймер ожидания следующего нажатия на кнопку</span></div>
+<div class="line"><span class="lineno">   85</span>        <span class="keywordflow">if</span> (<a class="code hl_enumvalue" href="_buttons_driver_8c.html#ae256569d3667ef8940bbff0a739fa137a1f05b5d99d72b0b35ab3f1986c5f3f97">WAITING_FOR_NEXT_PRESS</a> == severalPressFilterStage[buttonIndex])</div>
+<div class="line"><span class="lineno">   86</span>        {</div>
+<div class="line"><span class="lineno">   87</span>            <span class="comment">// Если достигнут таймаут ожидания следующего нажатия на кнопку</span></div>
+<div class="line"><span class="lineno">   88</span>            <span class="keywordflow">if</span> (<a class="code hl_define" href="_buttons_driver_8c.html#af421696139705c16316f8d40cd0924f0">NEXT_BUTTON_PRESS_TIMEOUT</a> &lt;= (<a class="code hl_function" href="_user_timer_8c.html#a5bbf9046a3bdf1a8e281d89dcbc2f0c8">UserTimer_GetCounterTime</a>() - waitingForNextPressStartTime[buttonIndex]))</div>
+<div class="line"><span class="lineno">   89</span>            {</div>
+<div class="line"><span class="lineno">   90</span>                <span class="comment">// Если было хотя бы одно нажатие</span></div>
+<div class="line"><span class="lineno">   91</span>                <span class="keywordflow">if</span> (<a class="code hl_variable" href="_buttons_driver_8c.html#a14ce3affd3d2b649fb605960e9ea220f">buttonsPressCount</a>[buttonIndex] &gt; 0)</div>
+<div class="line"><span class="lineno">   92</span>                {</div>
+<div class="line"><span class="lineno">   93</span>                    <span class="comment">// Установка статуса - серия нажатий на кнопку завершена</span></div>
+<div class="line"><span class="lineno">   94</span>                    <a class="code hl_variable" href="_buttons_driver_8c.html#a4fb58f85aadce8cb0973af31b712d882">buttonsPressSeriesStatus</a>[buttonIndex] = <a class="code hl_enumvalue" href="#a24bf277feb9cb47b2b44f52744f19fc1a92f54477c3d9396b9512b767b0a44d97">BUTTON_PRESS_SERIES_FINISHED</a>;</div>
+<div class="line"><span class="lineno">   95</span>                }</div>
+<div class="line"><span class="lineno">   96</span>                </div>
+<div class="line"><span class="lineno">   97</span>                <span class="comment">// Сброс времени, когда был запущен таймер</span></div>
+<div class="line"><span class="lineno">   98</span>                <span class="comment">// для отсчета таймаута следующего нажатия на кнопку</span></div>
+<div class="line"><span class="lineno">   99</span>                waitingForNextPressStartTime[buttonIndex] = 0;</div>
+<div class="line"><span class="lineno">  100</span> </div>
+<div class="line"><span class="lineno">  101</span>                <span class="comment">// Сброс стадии работы фильтра антидребезга</span></div>
+<div class="line"><span class="lineno">  102</span>                <span class="comment">// кнопки для определения многократных нажатий</span></div>
+<div class="line"><span class="lineno">  103</span>                severalPressFilterStage[buttonIndex] = <a class="code hl_enumvalue" href="_buttons_driver_8c.html#ae256569d3667ef8940bbff0a739fa137ac522054ef9a2784b9018e91a38aee6e7">START_SEVERAL_PRESS_FILTER</a>;</div>
+<div class="line"><span class="lineno">  104</span>            }</div>
+<div class="line"><span class="lineno">  105</span>        }</div>
+<div class="line"><span class="lineno">  106</span> </div>
+<div class="line"><span class="lineno">  107</span>        <span class="comment">// Если кнопка нажата</span></div>
+<div class="line"><span class="lineno">  108</span>        <span class="keywordflow">if</span> (<a class="code hl_enumvalue" href="_common_functions_8h.html#a481bba4ee500a381c7ae5b767e641bdca9564715ffe1fcccfdaf9221d5d5cebe7">PIN_RESET</a> == currentButtonState)</div>
+<div class="line"><span class="lineno">  109</span>        {</div>
+<div class="line"><span class="lineno">  110</span>            <span class="comment">// Увеличение счетчика времени,</span></div>
+<div class="line"><span class="lineno">  111</span>            <span class="comment">// когда кнопка была нажата</span></div>
+<div class="line"><span class="lineno">  112</span>            counterButtonPressed[buttonIndex]++;</div>
+<div class="line"><span class="lineno">  113</span> </div>
+<div class="line"><span class="lineno">  114</span>            <span class="comment">// Сброс счетчика времени,</span></div>
+<div class="line"><span class="lineno">  115</span>            <span class="comment">// когда кнопка была не нажата</span></div>
+<div class="line"><span class="lineno">  116</span>            counterButtonNotPressed[buttonIndex] = 0;</div>
+<div class="line"><span class="lineno">  117</span> </div>
+<div class="line"><span class="lineno">  118</span>            <span class="comment">// Если кнопка была нажата в течение</span></div>
+<div class="line"><span class="lineno">  119</span>            <span class="comment">// времени работы фильтра антидребезга</span></div>
+<div class="line"><span class="lineno">  120</span>            <span class="keywordflow">if</span> (<a class="code hl_define" href="_buttons_driver_8c.html#a94eee9b1b83b36dc7917a4c6d86c435b">ANTIBOUNCE_FILTER_IN_TICKS</a> &lt;= counterButtonPressed[buttonIndex])</div>
+<div class="line"><span class="lineno">  121</span>            {</div>
+<div class="line"><span class="lineno">  122</span>                <span class="comment">// Если запущен таймер ожидания следующего нажатия на кнопку</span></div>
+<div class="line"><span class="lineno">  123</span>                <span class="keywordflow">if</span> (<a class="code hl_enumvalue" href="_buttons_driver_8c.html#ae256569d3667ef8940bbff0a739fa137a1f05b5d99d72b0b35ab3f1986c5f3f97">WAITING_FOR_NEXT_PRESS</a> == severalPressFilterStage[buttonIndex])</div>
+<div class="line"><span class="lineno">  124</span>                {</div>
+<div class="line"><span class="lineno">  125</span>                    <span class="comment">// Ограничение максимального количества фиксируемых нажатий на кнопку</span></div>
+<div class="line"><span class="lineno">  126</span>                    <span class="keywordflow">if</span> (<a class="code hl_variable" href="_buttons_driver_8c.html#a14ce3affd3d2b649fb605960e9ea220f">buttonsPressCount</a>[buttonIndex] &lt; maxButtonsPress[buttonIndex])</div>
+<div class="line"><span class="lineno">  127</span>                    {</div>
+<div class="line"><span class="lineno">  128</span>                        <span class="comment">// Увеличение счетчика нажатий</span></div>
+<div class="line"><span class="lineno">  129</span>                        <a class="code hl_variable" href="_buttons_driver_8c.html#a14ce3affd3d2b649fb605960e9ea220f">buttonsPressCount</a>[buttonIndex] = waitingStartPress[buttonIndex] + 1;</div>
+<div class="line"><span class="lineno">  130</span>                    }</div>
+<div class="line"><span class="lineno">  131</span> </div>
+<div class="line"><span class="lineno">  132</span>                    <span class="comment">// Установка статуса - новое нажатие на кнопку зафиксировано</span></div>
+<div class="line"><span class="lineno">  133</span>                    newPressDetectedStatus[buttonIndex] = <a class="code hl_enumvalue" href="_buttons_driver_8c.html#a4acd95a883e12a37599407d0123c46d8a142bd27e0562167e52e558194a207db9">NEW_PRESS_DETECTED</a>;</div>
+<div class="line"><span class="lineno">  134</span>                    </div>
+<div class="line"><span class="lineno">  135</span>                    <span class="comment">// Сброс статуса завершения серии нажатий на кнопку</span></div>
+<div class="line"><span class="lineno">  136</span>                    <a class="code hl_variable" href="_buttons_driver_8c.html#a4fb58f85aadce8cb0973af31b712d882">buttonsPressSeriesStatus</a>[buttonIndex] = <a class="code hl_enumvalue" href="#a24bf277feb9cb47b2b44f52744f19fc1a6b2b1a8a4dc5f9f4d6cb332f8c186a7b">BUTTON_PRESS_SERIES_NONE</a>;</div>
+<div class="line"><span class="lineno">  137</span>                }</div>
+<div class="line"><span class="lineno">  138</span>                <span class="keywordflow">else</span> <span class="comment">// Если не запущен таймер ожидания следующего нажатия на кнопку</span></div>
+<div class="line"><span class="lineno">  139</span>                {</div>
+<div class="line"><span class="lineno">  140</span>                    <span class="comment">// Если не было зафиксировано новое нажатие на кнопку</span></div>
+<div class="line"><span class="lineno">  141</span>                    <span class="keywordflow">if</span> (<a class="code hl_enumvalue" href="_buttons_driver_8c.html#a4acd95a883e12a37599407d0123c46d8a142bd27e0562167e52e558194a207db9">NEW_PRESS_DETECTED</a> != newPressDetectedStatus[buttonIndex])</div>
+<div class="line"><span class="lineno">  142</span>                    {</div>
+<div class="line"><span class="lineno">  143</span>                        <span class="comment">// Зафиксировано первое устойчивое нажатие на кнопку</span></div>
+<div class="line"><span class="lineno">  144</span>                        <a class="code hl_variable" href="_buttons_driver_8c.html#a14ce3affd3d2b649fb605960e9ea220f">buttonsPressCount</a>[buttonIndex] = 1;</div>
+<div class="line"><span class="lineno">  145</span>                        </div>
+<div class="line"><span class="lineno">  146</span>                        <span class="comment">// Сброс статуса завершения серии нажатий на кнопку</span></div>
+<div class="line"><span class="lineno">  147</span>                        <a class="code hl_variable" href="_buttons_driver_8c.html#a4fb58f85aadce8cb0973af31b712d882">buttonsPressSeriesStatus</a>[buttonIndex] = <a class="code hl_enumvalue" href="#a24bf277feb9cb47b2b44f52744f19fc1a6b2b1a8a4dc5f9f4d6cb332f8c186a7b">BUTTON_PRESS_SERIES_NONE</a>;</div>
+<div class="line"><span class="lineno">  148</span>                    }</div>
+<div class="line"><span class="lineno">  149</span> </div>
+<div class="line"><span class="lineno">  150</span>                    <span class="comment">// Если фильтр антидребезга кнопки для определения</span></div>
+<div class="line"><span class="lineno">  151</span>                    <span class="comment">// многократного нажатия находится в стадии сброса</span></div>
+<div class="line"><span class="lineno">  152</span>                    <span class="keywordflow">if</span> (<a class="code hl_enumvalue" href="_buttons_driver_8c.html#ae256569d3667ef8940bbff0a739fa137ac522054ef9a2784b9018e91a38aee6e7">START_SEVERAL_PRESS_FILTER</a> == severalPressFilterStage[buttonIndex])</div>
+<div class="line"><span class="lineno">  153</span>                    {</div>
+<div class="line"><span class="lineno">  154</span>                        <span class="comment">// Установка стадии - зафиксировано первое устойчивое нажатие на кнопку</span></div>
+<div class="line"><span class="lineno">  155</span>                        severalPressFilterStage[buttonIndex] = <a class="code hl_enumvalue" href="_buttons_driver_8c.html#ae256569d3667ef8940bbff0a739fa137aee5f59ae5079672dfee9a523b51bbd68">FIRST_PRESS_DETECTED</a>;</div>
+<div class="line"><span class="lineno">  156</span>                    }</div>
+<div class="line"><span class="lineno">  157</span>                }</div>
+<div class="line"><span class="lineno">  158</span>            }</div>
+<div class="line"><span class="lineno">  159</span>        }</div>
+<div class="line"><span class="lineno">  160</span>        <span class="keywordflow">else</span> <span class="comment">// Если кнопка не нажата</span></div>
+<div class="line"><span class="lineno">  161</span>        {</div>
+<div class="line"><span class="lineno">  162</span>            <span class="comment">// Увеличение счетчика времени,</span></div>
+<div class="line"><span class="lineno">  163</span>            <span class="comment">// когда кнопка была не нажата</span></div>
+<div class="line"><span class="lineno">  164</span>            counterButtonNotPressed[buttonIndex]++;</div>
+<div class="line"><span class="lineno">  165</span> </div>
+<div class="line"><span class="lineno">  166</span>            <span class="comment">// Сброс счетчика времени,</span></div>
+<div class="line"><span class="lineno">  167</span>            <span class="comment">// когда кнопка была нажата</span></div>
+<div class="line"><span class="lineno">  168</span>            counterButtonPressed[buttonIndex] = 0;</div>
+<div class="line"><span class="lineno">  169</span> </div>
+<div class="line"><span class="lineno">  170</span>            <span class="comment">// Если кнопка была не нажата в течение</span></div>
+<div class="line"><span class="lineno">  171</span>            <span class="comment">// времени работы фильтра антидребезга</span></div>
+<div class="line"><span class="lineno">  172</span>            <span class="keywordflow">if</span> (<a class="code hl_define" href="_buttons_driver_8c.html#a94eee9b1b83b36dc7917a4c6d86c435b">ANTIBOUNCE_FILTER_IN_TICKS</a> &lt;= counterButtonNotPressed[buttonIndex])</div>
+<div class="line"><span class="lineno">  173</span>            {</div>
+<div class="line"><span class="lineno">  174</span>                <span class="comment">// Если зафиксировано первое устойчивое нажатие на</span></div>
+<div class="line"><span class="lineno">  175</span>                <span class="comment">// кнопку или зафиксировано новое нажатие на кнопку</span></div>
+<div class="line"><span class="lineno">  176</span>                <span class="keywordflow">if</span> ((<a class="code hl_enumvalue" href="_buttons_driver_8c.html#ae256569d3667ef8940bbff0a739fa137aee5f59ae5079672dfee9a523b51bbd68">FIRST_PRESS_DETECTED</a> == severalPressFilterStage[buttonIndex]) ||</div>
+<div class="line"><span class="lineno">  177</span>                    (<a class="code hl_enumvalue" href="_buttons_driver_8c.html#a4acd95a883e12a37599407d0123c46d8a142bd27e0562167e52e558194a207db9">NEW_PRESS_DETECTED</a> == newPressDetectedStatus[buttonIndex]))</div>
+<div class="line"><span class="lineno">  178</span>                {</div>
+<div class="line"><span class="lineno">  179</span>                    <span class="comment">// Установка стадии - ожидание следующего нажатия на кнопку</span></div>
+<div class="line"><span class="lineno">  180</span>                    <span class="comment">// (запуск таймера для отсчета таймаута следующего нажатия на кнопку)</span></div>
+<div class="line"><span class="lineno">  181</span>                    severalPressFilterStage[buttonIndex] = <a class="code hl_enumvalue" href="_buttons_driver_8c.html#ae256569d3667ef8940bbff0a739fa137a1f05b5d99d72b0b35ab3f1986c5f3f97">WAITING_FOR_NEXT_PRESS</a>;</div>
+<div class="line"><span class="lineno">  182</span> </div>
+<div class="line"><span class="lineno">  183</span>                    <span class="comment">// Сохранение времени, когда был запущен таймер</span></div>
+<div class="line"><span class="lineno">  184</span>                    <span class="comment">// для отсчета таймаута следующего нажатия на кнопку</span></div>
+<div class="line"><span class="lineno">  185</span>                    waitingForNextPressStartTime[buttonIndex] = <a class="code hl_function" href="_user_timer_8c.html#a5bbf9046a3bdf1a8e281d89dcbc2f0c8">UserTimer_GetCounterTime</a>();</div>
+<div class="line"><span class="lineno">  186</span> </div>
+<div class="line"><span class="lineno">  187</span>                    <span class="comment">// Сохранение количества нажатий на кнопку в момент запуска</span></div>
+<div class="line"><span class="lineno">  188</span>                    <span class="comment">// таймера для отсчета таймаута следующего нажатия на кнопку</span></div>
+<div class="line"><span class="lineno">  189</span>                    waitingStartPress[buttonIndex] = <a class="code hl_variable" href="_buttons_driver_8c.html#a14ce3affd3d2b649fb605960e9ea220f">buttonsPressCount</a>[buttonIndex];</div>
+<div class="line"><span class="lineno">  190</span> </div>
+<div class="line"><span class="lineno">  191</span>                    <span class="comment">// Сброс статуса определения нового нажатия на кнопку</span></div>
+<div class="line"><span class="lineno">  192</span>                    newPressDetectedStatus[buttonIndex] = <a class="code hl_enumvalue" href="_buttons_driver_8c.html#a4acd95a883e12a37599407d0123c46d8a6090101d1025772cc028e3dce381d845">NEW_PRESS_NOT_DETECTED</a>;</div>
+<div class="line"><span class="lineno">  193</span>                }</div>
+<div class="line"><span class="lineno">  194</span>            }</div>
+<div class="line"><span class="lineno">  195</span>        }</div>
+<div class="line"><span class="lineno">  196</span>    }</div>
+<div class="line"><span class="lineno">  197</span>}</div>
+<div class="ttc" id="a_buttons_driver_8c_html_a14ce3affd3d2b649fb605960e9ea220f"><div class="ttname"><a href="_buttons_driver_8c.html#a14ce3affd3d2b649fb605960e9ea220f">buttonsPressCount</a></div><div class="ttdeci">static volatile uint8_t buttonsPressCount[BUTTONS_QUANTITY]</div><div class="ttdoc">Массив с количеством устойчивых нажатий на кнопки</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8c_source.html#l00029">ButtonsDriver.c:29</a></div></div>
+<div class="ttc" id="a_buttons_driver_8c_html_a4acd95a883e12a37599407d0123c46d8"><div class="ttname"><a href="_buttons_driver_8c.html#a4acd95a883e12a37599407d0123c46d8">NewPressDetectedStatus</a></div><div class="ttdeci">NewPressDetectedStatus</div><div class="ttdoc">Статус определения нового нажатия на кнопку</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8c_source.html#l00023">ButtonsDriver.c:24</a></div></div>
+<div class="ttc" id="a_buttons_driver_8c_html_a4acd95a883e12a37599407d0123c46d8a142bd27e0562167e52e558194a207db9"><div class="ttname"><a href="_buttons_driver_8c.html#a4acd95a883e12a37599407d0123c46d8a142bd27e0562167e52e558194a207db9">NEW_PRESS_DETECTED</a></div><div class="ttdeci">@ NEW_PRESS_DETECTED</div><div class="ttdoc">Новое нажатие зафиксировано</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8c_source.html#l00026">ButtonsDriver.c:26</a></div></div>
+<div class="ttc" id="a_buttons_driver_8c_html_a4acd95a883e12a37599407d0123c46d8a6090101d1025772cc028e3dce381d845"><div class="ttname"><a href="_buttons_driver_8c.html#a4acd95a883e12a37599407d0123c46d8a6090101d1025772cc028e3dce381d845">NEW_PRESS_NOT_DETECTED</a></div><div class="ttdeci">@ NEW_PRESS_NOT_DETECTED</div><div class="ttdoc">Новое нажатие не зафиксировано</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8c_source.html#l00025">ButtonsDriver.c:25</a></div></div>
+<div class="ttc" id="a_buttons_driver_8c_html_a4fb58f85aadce8cb0973af31b712d882"><div class="ttname"><a href="_buttons_driver_8c.html#a4fb58f85aadce8cb0973af31b712d882">buttonsPressSeriesStatus</a></div><div class="ttdeci">static volatile ButtonPressSeriesStatus buttonsPressSeriesStatus[BUTTONS_QUANTITY]</div><div class="ttdoc">Массив со статусами завершения серий нажатий</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8c_source.html#l00030">ButtonsDriver.c:30</a></div></div>
+<div class="ttc" id="a_buttons_driver_8c_html_a94eee9b1b83b36dc7917a4c6d86c435b"><div class="ttname"><a href="_buttons_driver_8c.html#a94eee9b1b83b36dc7917a4c6d86c435b">ANTIBOUNCE_FILTER_IN_TICKS</a></div><div class="ttdeci">#define ANTIBOUNCE_FILTER_IN_TICKS</div><div class="ttdoc">Время работы фильтра антидребезга кнопки в количестве периодов таймера 0 (20 мс).</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8c_source.html#l00010">ButtonsDriver.c:10</a></div></div>
+<div class="ttc" id="a_buttons_driver_8c_html_ae256569d3667ef8940bbff0a739fa137"><div class="ttname"><a href="_buttons_driver_8c.html#ae256569d3667ef8940bbff0a739fa137">SeveralPressFilterStage</a></div><div class="ttdeci">SeveralPressFilterStage</div><div class="ttdoc">Стадии работы фильтра антидребезга кнопки для определения многократных нажатий</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8c_source.html#l00015">ButtonsDriver.c:16</a></div></div>
+<div class="ttc" id="a_buttons_driver_8c_html_ae256569d3667ef8940bbff0a739fa137a1f05b5d99d72b0b35ab3f1986c5f3f97"><div class="ttname"><a href="_buttons_driver_8c.html#ae256569d3667ef8940bbff0a739fa137a1f05b5d99d72b0b35ab3f1986c5f3f97">WAITING_FOR_NEXT_PRESS</a></div><div class="ttdeci">@ WAITING_FOR_NEXT_PRESS</div><div class="ttdoc">Ожидание следующего нажатия на кнопку</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8c_source.html#l00019">ButtonsDriver.c:19</a></div></div>
+<div class="ttc" id="a_buttons_driver_8c_html_ae256569d3667ef8940bbff0a739fa137ac522054ef9a2784b9018e91a38aee6e7"><div class="ttname"><a href="_buttons_driver_8c.html#ae256569d3667ef8940bbff0a739fa137ac522054ef9a2784b9018e91a38aee6e7">START_SEVERAL_PRESS_FILTER</a></div><div class="ttdeci">@ START_SEVERAL_PRESS_FILTER</div><div class="ttdoc">Начальная стадия (состояние сброса).</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8c_source.html#l00017">ButtonsDriver.c:17</a></div></div>
+<div class="ttc" id="a_buttons_driver_8c_html_ae256569d3667ef8940bbff0a739fa137aee5f59ae5079672dfee9a523b51bbd68"><div class="ttname"><a href="_buttons_driver_8c.html#ae256569d3667ef8940bbff0a739fa137aee5f59ae5079672dfee9a523b51bbd68">FIRST_PRESS_DETECTED</a></div><div class="ttdeci">@ FIRST_PRESS_DETECTED</div><div class="ttdoc">Зафиксировано первое устойчивое нажатие на кнопку</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8c_source.html#l00018">ButtonsDriver.c:18</a></div></div>
+<div class="ttc" id="a_buttons_driver_8c_html_af421696139705c16316f8d40cd0924f0"><div class="ttname"><a href="_buttons_driver_8c.html#af421696139705c16316f8d40cd0924f0">NEXT_BUTTON_PRESS_TIMEOUT</a></div><div class="ttdeci">#define NEXT_BUTTON_PRESS_TIMEOUT</div><div class="ttdoc">Таймаут ожидания следующего нажатия на кнопку в количестве периодов таймера 0 (500 мс).</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8c_source.html#l00011">ButtonsDriver.c:11</a></div></div>
+<div class="ttc" id="a_buttons_driver_8h_html_a37d4514aaf66c8ececf5d4f540abd785"><div class="ttname"><a href="#a37d4514aaf66c8ececf5d4f540abd785">BUTTON_SOUND_CONTROL_PIN</a></div><div class="ttdeci">#define BUTTON_SOUND_CONTROL_PIN</div><div class="ttdoc">Номер пина кнопки управления звуком</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8h_source.html#l00010">ButtonsDriver.h:10</a></div></div>
+<div class="ttc" id="a_buttons_driver_8h_html_a5109ddf1b624ce8aa0d1a730bf565c58"><div class="ttname"><a href="#a5109ddf1b624ce8aa0d1a730bf565c58">BUTTON_SOUND_PRESET_CONTROL_PIN</a></div><div class="ttdeci">#define BUTTON_SOUND_PRESET_CONTROL_PIN</div><div class="ttdoc">Номер пина кнопки управления пресетами звука</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8h_source.html#l00012">ButtonsDriver.h:12</a></div></div>
+<div class="ttc" id="a_buttons_driver_8h_html_acd4c28b09f01d6e17e10a26320908a5b"><div class="ttname"><a href="#acd4c28b09f01d6e17e10a26320908a5b">BUTTON_BLUETOOTH_CONNECTION_CONTROL_PIN</a></div><div class="ttdeci">#define BUTTON_BLUETOOTH_CONNECTION_CONTROL_PIN</div><div class="ttdoc">Номер пина кнопки управления Bluetooth-подключением</div><div class="ttdef"><b>Определения</b> <a href="_buttons_driver_8h_source.html#l00011">ButtonsDriver.h:11</a></div></div>
+<div class="ttc" id="a_common_functions_8c_html_a4e7997453a6838325e2e9df11f2d253f"><div class="ttname"><a href="_common_functions_8c.html#a4e7997453a6838325e2e9df11f2d253f">CommonFunctions_GpioGetState</a></div><div class="ttdeci">PinState CommonFunctions_GpioGetState(uint8_t gpioPin)</div><div class="ttdoc">Чтение состояния пина</div><div class="ttdef"><b>Определения</b> <a href="_common_functions_8c_source.html#l00018">CommonFunctions.c:18</a></div></div>
+<div class="ttc" id="a_common_functions_8h_html_a481bba4ee500a381c7ae5b767e641bdc"><div class="ttname"><a href="_common_functions_8h.html#a481bba4ee500a381c7ae5b767e641bdc">PinState</a></div><div class="ttdeci">PinState</div><div class="ttdoc">Состояние пина</div><div class="ttdef"><b>Определения</b> <a href="_common_functions_8h_source.html#l00011">CommonFunctions.h:12</a></div></div>
+<div class="ttc" id="a_common_functions_8h_html_a481bba4ee500a381c7ae5b767e641bdca9564715ffe1fcccfdaf9221d5d5cebe7"><div class="ttname"><a href="_common_functions_8h.html#a481bba4ee500a381c7ae5b767e641bdca9564715ffe1fcccfdaf9221d5d5cebe7">PIN_RESET</a></div><div class="ttdeci">@ PIN_RESET</div><div class="ttdoc">Пин в состоянии лог. &quot;0&quot;.</div><div class="ttdef"><b>Определения</b> <a href="_common_functions_8h_source.html#l00013">CommonFunctions.h:13</a></div></div>
+<div class="ttc" id="a_user_timer_8c_html_a5bbf9046a3bdf1a8e281d89dcbc2f0c8"><div class="ttname"><a href="_user_timer_8c.html#a5bbf9046a3bdf1a8e281d89dcbc2f0c8">UserTimer_GetCounterTime</a></div><div class="ttdeci">uint32_t UserTimer_GetCounterTime(void)</div><div class="ttdoc">Получение текущего значения счетчика времени работы программы</div><div class="ttdef"><b>Определения</b> <a href="_user_timer_8c_source.html#l00060">UserTimer.c:60</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a5d7a6b5f780ba2eef21568bde7dc9d71" name="a5d7a6b5f780ba2eef21568bde7dc9d71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d7a6b5f780ba2eef21568bde7dc9d71">&#9670;&#160;</a></span>ButtonsDriver_GetButtonsPressCountPointer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t * ButtonsDriver_GetButtonsPressCountPointer </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Получение адреса массива с количеством устойчивых нажатий на кнопки </p>
+<dl class="section return"><dt>Возвращает</dt><dd>Адрес массива с количеством устойчивых нажатий на кнопки </dd></dl>
+
+<p class="definition">См. определение в файле <a class="el" href="_buttons_driver_8c_source.html">ButtonsDriver.c</a> строка <a class="el" href="_buttons_driver_8c_source.html#l00201">201</a></p>
+<div class="fragment"><div class="line"><span class="lineno">  202</span>{</div>
+<div class="line"><span class="lineno">  203</span>    <span class="keywordflow">return</span> (uint8_t *) <a class="code hl_variable" href="_buttons_driver_8c.html#a14ce3affd3d2b649fb605960e9ea220f">buttonsPressCount</a>;</div>
+<div class="line"><span class="lineno">  204</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aaac2e03283d592427ceb3940dd465c40" name="aaac2e03283d592427ceb3940dd465c40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaac2e03283d592427ceb3940dd465c40">&#9670;&#160;</a></span>ButtonsDriver_GetButtonsPressSeriesStatusPointer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a24bf277feb9cb47b2b44f52744f19fc1">ButtonPressSeriesStatus</a> * ButtonsDriver_GetButtonsPressSeriesStatusPointer </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Получение адреса массива со статусами завершения серий нажатий на кнопки </p>
+<dl class="section return"><dt>Возвращает</dt><dd>Адрес массива со статусами завершения серий нажатий на кнопки </dd></dl>
+
+<p class="definition">См. определение в файле <a class="el" href="_buttons_driver_8c_source.html">ButtonsDriver.c</a> строка <a class="el" href="_buttons_driver_8c_source.html#l00208">208</a></p>
+<div class="fragment"><div class="line"><span class="lineno">  209</span>{</div>
+<div class="line"><span class="lineno">  210</span>    <span class="keywordflow">return</span> (<a class="code hl_enumeration" href="#a24bf277feb9cb47b2b44f52744f19fc1">ButtonPressSeriesStatus</a> *) <a class="code hl_variable" href="_buttons_driver_8c.html#a4fb58f85aadce8cb0973af31b712d882">buttonsPressSeriesStatus</a>;</div>
+<div class="line"><span class="lineno">  211</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a154ded5bd9312268d07a4d0ece19da10" name="a154ded5bd9312268d07a4d0ece19da10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a154ded5bd9312268d07a4d0ece19da10">&#9670;&#160;</a></span>ButtonsDriver_Init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ButtonsDriver_Init </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Инициализация кнопок </p>
+
+<p class="definition">См. определение в файле <a class="el" href="_buttons_driver_8c_source.html">ButtonsDriver.c</a> строка <a class="el" href="_buttons_driver_8c_source.html#l00033">33</a></p>
+<div class="fragment"><div class="line"><span class="lineno">   34</span>{</div>
+<div class="line"><span class="lineno">   35</span>    <span class="comment">// Настройка пина кнопки управления звуком</span></div>
+<div class="line"><span class="lineno">   36</span>    <span class="comment">// (подтяжка к +3.3V)</span></div>
+<div class="line"><span class="lineno">   37</span>    pinMode(<a class="code hl_define" href="#a37d4514aaf66c8ececf5d4f540abd785">BUTTON_SOUND_CONTROL_PIN</a>, INPUT_PULLUP);</div>
+<div class="line"><span class="lineno">   38</span> </div>
+<div class="line"><span class="lineno">   39</span>    <span class="comment">// Настройка пина кнопки для инициализации Bluetooth</span></div>
+<div class="line"><span class="lineno">   40</span>    <span class="comment">// (подтяжка к +3.3V)</span></div>
+<div class="line"><span class="lineno">   41</span>    pinMode(<a class="code hl_define" href="#acd4c28b09f01d6e17e10a26320908a5b">BUTTON_BLUETOOTH_CONNECTION_CONTROL_PIN</a>, INPUT_PULLUP);</div>
+<div class="line"><span class="lineno">   42</span> </div>
+<div class="line"><span class="lineno">   43</span>    <span class="comment">// Настройка пина кнопки управления пресетами звука</span></div>
+<div class="line"><span class="lineno">   44</span>    pinMode(<a class="code hl_define" href="#a5109ddf1b624ce8aa0d1a730bf565c58">BUTTON_SOUND_PRESET_CONTROL_PIN</a>, INPUT_PULLUP);</div>
+<div class="line"><span class="lineno">   45</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a href="_buttons_driver_8h.html">ButtonsDriver.h</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.15.0 </li>
+  </ul>
+</div>
+</body>
+</html>

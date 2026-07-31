@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.15.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>BluetoothSpeaker: Исходный файл D:/vscode_projects/BluetoothSpeaker/include/SoundControl.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">BluetoothSpeaker<span id="projectnumber">&#160;0.0.1</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.15.0 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Поиск',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('_sound_control_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Загрузка...</div>
+<div class="SRStatus" id="Searching">Поиск...</div>
+<div class="SRStatus" id="NoMatches">Не найдено</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">SoundControl.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_sound_control_8h.html">См. документацию.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef INC_SOUND_CONTROL_H_</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define INC_SOUND_CONTROL_H_</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;AudioTools.h&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;BluetoothA2DPSink.h&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="_sound_control_8h.html#a4c7c4b7e9a58180197cbea44d819bef0">    7</a></span><span class="preprocessor">#define SPEAKER_NAME                &quot;BT SpeakerPM&quot;  </span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="_sound_control_8h.html#a3165aaf8779fa25976edff3a2a43a4f1">    9</a></span><span class="preprocessor">#define MAX_VOLUME_SAMPLE           32767.0f        </span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="_sound_control_8h.html#a04ac904706ec5fee475b684a7fb3384a">   10</a></span><span class="preprocessor">#define MIN_VOLUME_SAMPLE           -32768.0f       </span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="_sound_control_8h.html#ae5ba6ee8485bbf083b025320318c1713">   11</a></span><span class="preprocessor">#define AUDIO_CHANNELS_QUANTITY     2               </span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="_sound_control_8h.html#a4b76a0c2859cfd819a343a780070ee2b">   12</a></span><span class="preprocessor">#define SAMPLE_RATE                 44100           </span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="_sound_control_8h.html#a1daf785e3f68d293c7caa1c756d5cb74">   14</a></span><span class="preprocessor">#define pi                          3.14159265f     </span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="_sound_control_8h.html#a48044d72eeda98a83449e542a55b89e5">   15</a></span><span class="preprocessor">#define PHASE_CYCLE                 2.0f            </span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keywordtype">void</span> <a class="code hl_function" href="_sound_control_8h.html#a889c8529a72dffb65dee385882ecec5d">SoundControl_Init</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keywordtype">void</span> <a class="code hl_function" href="_sound_control_8h.html#a7f250c5896250380b9c4fe80187c3841">SoundControl_Playback</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keywordtype">void</span> <a class="code hl_function" href="_sound_control_8h.html#a6a9ac1701ae5e71b313bb847f02aac33">SoundControl_Volume</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>BluetoothA2DPSink * <a class="code hl_function" href="_sound_control_8h.html#a969298621babf491d03310759b1973a2">SoundControl_GetA2DPSinkPointer</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>I2SStream * <a class="code hl_function" href="_sound_control_8h.html#a8fe57d0cc45aff515b649f15c0922d9c">SoundControl_GetI2SStreamPointer</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#endif </span><span class="comment">// INC_SOUND_CONTROL_H_</span></div>
+<div class="ttc" id="a_sound_control_8h_html_a6a9ac1701ae5e71b313bb847f02aac33"><div class="ttname"><a href="_sound_control_8h.html#a6a9ac1701ae5e71b313bb847f02aac33">SoundControl_Volume</a></div><div class="ttdeci">void SoundControl_Volume(void)</div><div class="ttdoc">Регулировка громкости (потенциометр + синхронизация со смартфоном).</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00310">SoundControl.cpp:310</a></div></div>
+<div class="ttc" id="a_sound_control_8h_html_a7f250c5896250380b9c4fe80187c3841"><div class="ttname"><a href="_sound_control_8h.html#a7f250c5896250380b9c4fe80187c3841">SoundControl_Playback</a></div><div class="ttdeci">void SoundControl_Playback(void)</div><div class="ttdoc">Управление воспроизведением звука (кнопки).</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00473">SoundControl.cpp:473</a></div></div>
+<div class="ttc" id="a_sound_control_8h_html_a889c8529a72dffb65dee385882ecec5d"><div class="ttname"><a href="_sound_control_8h.html#a889c8529a72dffb65dee385882ecec5d">SoundControl_Init</a></div><div class="ttdeci">void SoundControl_Init(void)</div><div class="ttdoc">Инициализация I2S1 и протокола A2DP.</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00195">SoundControl.cpp:195</a></div></div>
+<div class="ttc" id="a_sound_control_8h_html_a8fe57d0cc45aff515b649f15c0922d9c"><div class="ttname"><a href="_sound_control_8h.html#a8fe57d0cc45aff515b649f15c0922d9c">SoundControl_GetI2SStreamPointer</a></div><div class="ttdeci">I2SStream * SoundControl_GetI2SStreamPointer(void)</div><div class="ttdoc">Получение указателя на объект I2SStream.</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00535">SoundControl.cpp:535</a></div></div>
+<div class="ttc" id="a_sound_control_8h_html_a969298621babf491d03310759b1973a2"><div class="ttname"><a href="_sound_control_8h.html#a969298621babf491d03310759b1973a2">SoundControl_GetA2DPSinkPointer</a></div><div class="ttdeci">BluetoothA2DPSink * SoundControl_GetA2DPSinkPointer(void)</div><div class="ttdoc">Получение указателя на объект BluetoothA2DPSink.</div><div class="ttdef"><b>Определения</b> <a href="_sound_control_8cpp_source.html#l00528">SoundControl.cpp:528</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a href="_sound_control_8h.html">SoundControl.h</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.15.0 </li>
+  </ul>
+</div>
+</body>
+</html>
