@@ -24,6 +24,8 @@
 #define POTENTIOMETER_VOLUME_CONTROL_C0             1.0252f     //!< Калибровочный коэффициент C0 для потенциометра управления громкостью звука
 #define POTENTIOMETER_VOLUME_CONTROL_C1             11.5537f    //!< Калибровочный коэффициент C1 для потенциометра управления громкостью звука        
 
+#define CALIBRATION_POINTS_QUANTITY                 (sizeof(calibrationTable) / sizeof(calibrationTable[0]))    //!< Количество калибровочных точек 
+
 //! \brief Каналы АЦП
 typedef enum
 {
@@ -31,6 +33,38 @@ typedef enum
     ADC_BATTERY_CHANNEL_INDEX,              //!< Индекс канала АЦП, которому подключена батарея
     ADC_CHANNELS_QUANTITY                   //!< Количество каналов АЦП
 } AdcChannels;
+
+//! \brief Калибровочная точка для коррекции напряжения батареи
+typedef struct
+{
+    float adcVoltage;     //!< Напряжение, рассчитанное через АЦП
+    float realVoltage;    //!< Напряжение, измеренное мультиметром
+} CalibrationPoint;
+
+//! \brief Калибровочная таблица для коррекции напряжения батареи
+//! \details Таблица содержит пары значений: напряжение, рассчитанное через АЦП,
+//!          и реальное напряжение, измеренное мультиметром
+static const CalibrationPoint calibrationTable[] =
+{
+    {8.198, 8.268},
+    {8.073, 8.197},
+    {7.949, 8.112},
+    {7.751, 7.967},
+    {7.672, 7.923},
+    {7.525, 7.826},
+    {7.322, 7.685},
+    {7.214, 7.599},
+    {7.108, 7.503},
+    {6.972, 7.411},
+    {6.729, 7.198},
+    {6.559, 7.048},
+    {6.392, 6.901},
+    {6.255, 6.771},
+    {6.106, 6.622},
+    {5.957, 6.489},
+    {5.770, 6.298},
+    {5.549, 6.057}
+};
 
 static uint8_t adcPins[] = { POTENTIOMETER_VOLUME_CONTROL_PIN, BATTERY_VOLTAGE_PIN };   //!< Номера пинов АЦП
 static uint8_t potentiometerAdcCountsInPercents = 0;        //!< Отсчеты АЦП потенциометра в процентах
@@ -60,6 +94,66 @@ void AdcMeasurements_Init(void)
 
     // Установка диапазона измерений 0 - 3.3V для пина измерения заряда батареи
     analogSetPinAttenuation(BATTERY_VOLTAGE_PIN, ADC_11db);
+}
+
+//! \brief Калибровка напряжения батареи по таблице
+//! \param[in] rawVoltage - напряжение, рассчитанное через АЦП
+//! \return Калиброванное напряжение батареи
+static float CalibrateBatteryVoltage(float rawVoltage)
+{
+    // Если напряжение выше первой точки таблицы - экстраполяция вверх
+    if (rawVoltage >= calibrationTable[0].adcVoltage)
+    {
+        // Вычисление коэффициента наклона по двум первым точкам
+        float slope = (calibrationTable[1].realVoltage - calibrationTable[0].realVoltage) /
+                      (calibrationTable[1].adcVoltage - calibrationTable[0].adcVoltage);
+        
+        // Экстраполяция напряжения
+        float calibratedVoltage = calibrationTable[0].realVoltage +
+                                  slope * (rawVoltage - calibrationTable[0].adcVoltage);
+        
+        return calibratedVoltage;
+    }
+    
+    // Если напряжение ниже последней точки таблицы - экстраполяция вниз
+    if (rawVoltage <= calibrationTable[CALIBRATION_POINTS_QUANTITY - 1].adcVoltage)
+    {
+        // Вычисление коэффициента наклона по двум последним точкам
+        float slope = (calibrationTable[CALIBRATION_POINTS_QUANTITY - 1].realVoltage -
+                       calibrationTable[CALIBRATION_POINTS_QUANTITY - 2].realVoltage) /
+                      (calibrationTable[CALIBRATION_POINTS_QUANTITY - 1].adcVoltage -
+                       calibrationTable[CALIBRATION_POINTS_QUANTITY - 2].adcVoltage);
+        
+        // Экстраполяция напряжения
+        float calibratedVoltage = calibrationTable[CALIBRATION_POINTS_QUANTITY - 1].realVoltage +
+                                  slope * (rawVoltage - calibrationTable[CALIBRATION_POINTS_QUANTITY - 1].adcVoltage);
+        
+        return calibratedVoltage;
+    }
+
+    // Поиск интервала для интерполяции
+    for (uint8_t pointIndex = 0; pointIndex < (CALIBRATION_POINTS_QUANTITY - 1); pointIndex++)
+    {
+        // Если текущее напряжение попадает в интервал между calibrationTable[pointIndex + 1] и calibrationTable[pointIndex]
+        if ((rawVoltage >= calibrationTable[pointIndex + 1].adcVoltage) &&
+            (rawVoltage < calibrationTable[pointIndex].adcVoltage))
+        {
+            // Вычисление коэффициента интерполяции
+            float interpolationCoefficient = (rawVoltage - calibrationTable[pointIndex + 1].adcVoltage) /
+                                             (calibrationTable[pointIndex].adcVoltage - calibrationTable[pointIndex + 1].adcVoltage);
+
+            // Вычисление разницы напряжений
+            float voltageDifference = calibrationTable[pointIndex].realVoltage - calibrationTable[pointIndex + 1].realVoltage;
+
+            // Линейная интерполяция напряжения
+            float calibratedVoltage = calibrationTable[pointIndex + 1].realVoltage +
+                                      interpolationCoefficient * voltageDifference;
+            
+            return calibratedVoltage;
+        }
+    }
+
+    return rawVoltage;
 }
 
 //! \brief Фильтр скользящего среднего для канала АЦП
@@ -159,8 +253,11 @@ static void AdcMeasurements_MovingAverageFilter(void)
             }
             else if (ADC_BATTERY_CHANNEL_INDEX == indexChannel)     // Канал АЦП для батареи
             {
-                // Вычисление усредненного напряжения батареи
-                batteryVoltage = (float) ((meanAdcValue * ADC_COUNTS_TO_VOLTAGE_COEFF) * INVERSE_RESISTIVE_DIVIDER_COEFF);
+                // Фактическое измеренное напряжение батареи
+                float rawBatteryVoltage = (float)(meanAdcValue * ADC_COUNTS_TO_VOLTAGE_COEFF * INVERSE_RESISTIVE_DIVIDER_COEFF);
+
+                // Откалиброванное напряжение батареи
+                batteryVoltage = CalibrateBatteryVoltage(rawBatteryVoltage);
             }
         }
     }

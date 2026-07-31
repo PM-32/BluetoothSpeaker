@@ -4,13 +4,13 @@
 #include "BatteryChargeIndication.h"
 #include "UserTimer.h"
 
-#define DEBUG_INFO_BATTERY_VOLTAGE                          // Вывод информации о напряжении батареи
+// #define DEBUG_INFO_BATTERY_VOLTAGE                          // Вывод информации о напряжении батареи
 #define MONITORING_MESSAGE_PERIOD               50000       // Период вывода сообщений в терминал в количестве периодов таймера 0 (100 мкс * 50000 = 5 с) 
 
 #define BATTERY_CHARGE_LED_PIN                  2           //!< Пин к которому подключен RGB-светодиод WS2812 для индикации заряда батареи
 
 #define LED_STRIP_LEDS_QUANTITY                 1           //!< Количество светодиодов
-#define DEFAULT_BRIGHTNESS                      10          //!< Яркость светодиода по умолчанию (0-255)
+#define DEFAULT_BRIGHTNESS                      5           //!< Яркость светодиода по умолчанию (0-255)
 #define COLOR_SWITCH_PERIOD_MS                  1000        //!< Период переключения цветов светодиода в мс
 #define TIMER_PERIOD_MS                         0.1f        //!< Период таймера в мс (100 мкс = 0.1 мс)
 #define COLOR_SWITCH_PERIOD_TICKS               ((uint32_t) (COLOR_SWITCH_PERIOD_MS / TIMER_PERIOD_MS))     //!< Период переключения цвета светодиода в тиках таймера
@@ -19,9 +19,9 @@
 #define COLOR_CHANGE_INTERVAL_IN_PERCENTS       20          //!< Интервал заряда батареи в процентах, в течение которого светодиод загорается одним цветом 
 #define COLOR_CHANGE_HYSTERESIS_IN_PERCENTS     5.0f        //!< Зона нечувствительности для переключения цветов (в процентах)
 
-#define BATTERY_MAX_VOLTAGE                     8.4f        //!< Максимальное напряжение батареи (В)
-#define BATTERY_MIN_VOLTAGE                     5.0f        //!< Минимальное напряжение батареи (В)
-#define BATTERY_LAST_15_PROCENTS_VOLTAGE        7.1f        //!< Напряжение батареи, при котором оставшийся заряд составляет 15% (В)
+#define BATTERY_MAX_VOLTAGE                     8.25f       //!< Максимальное напряжение батареи (В)
+#define BATTERY_MIN_VOLTAGE                     5.80f       //!< Минимальное напряжение батареи (В)
+#define BATTERY_LAST_15_PROCENTS_VOLTAGE        7.20f       //!< Напряжение батареи, при котором оставшийся заряд составляет 15% (В)
 #define BATTERY_LAST_15_PROCENTS                15.0f       //!< Обозначение для точки, в которой заряд батареи составляет 15%
 #define VOLTAGE_IN_PERCENTS_MAX                 100.0f      //!< Максимальное значение напяржения батареи в процентах
 #define VOLTAGE_IN_PERCENTS_MIN                 0.0f        //!< Минимальное значение напяржения батареи в процентах

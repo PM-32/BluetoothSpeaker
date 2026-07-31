@@ -27,7 +27,7 @@
 //! \brief Статус включения усилителя
 typedef enum
 {
-    AMPLIFIER_OFF = 0,      //!< Усилиетль выключен
+    AMPLIFIER_OFF = 0,      //!< Усилитель выключен
     AMPLIFIER_ALREADY_ON    //!< Усилитель уже включен
 } AmplifierStatus;
 
