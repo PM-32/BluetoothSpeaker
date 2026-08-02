@@ -12,13 +12,18 @@
 #include "UserTimer.h"
 #include "WatchDog.h"
 
+// #define DEBUG_ON                   // Вывод отладочной информации в терминал
 // #define DEBUG_INFO_FREQUENCY       // Вывод информации о частотах CPU и шины APB
 
 //! \brief Инициализация
 void setup()
 {
-    // Запуск UART для вывода отладочной информации
-    Serial.begin(9600);
+    #ifdef DEBUG_ON
+
+        // Запуск UART для вывода отладочной информации
+        Serial.begin(9600);
+
+    #endif // DEBUG_ON
 
     #ifdef DEBUG_INFO_FREQUENCY
 
@@ -97,6 +102,10 @@ void loop()
     // Обновление состояния воспроизведения
     AudioNotifications_Update();
 
-    // Задержка для вывода отладочной информации в терминал
-    UserTimer_Delay(100);
+    #ifdef DEBUG_ON
+
+        // Задержка для вывода отладочной информации в терминал
+        UserTimer_Delay(100);
+
+    #endif // DEBUG_ON
 }
