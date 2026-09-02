@@ -1,7 +1,7 @@
 # BluetoothSpeaker
 
 (RU)
-Краткое описание проекта:
+Краткое описание проекта.
 
 Портативная Bluetooth-колонка, построенная на базе микроконтроллера ESP32.
 Устройство предназначено для беспроводного воспроизведения звука
@@ -17,7 +17,7 @@
 Больше информации о проекте можно найти в файле "Description.pdf".
 
 (EN)
-Project Description:
+Project Description.
 
 A portable Bluetooth speaker based on the ESP32 microcontroller.
 The device is designed for wireless audio playback from devices using
