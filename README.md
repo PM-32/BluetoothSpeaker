@@ -33,3 +33,5 @@ The project uses the following libraries:
 
 Additionally:
 More information about the project can be found in the "Description.pdf" file.
+
+<img width="2738" height="2010" alt="BT_SpeakerPM" src="https://github.com/user-attachments/assets/8d87fa55-7f46-4255-ae4b-138fa6a3d442" />
